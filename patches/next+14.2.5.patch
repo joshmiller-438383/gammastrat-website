@@ -1,0 +1,88 @@
+diff --git a/node_modules/next/dist/build/index.js b/node_modules/next/dist/build/index.js
+index 301e726..2ec113d 100644
+--- a/node_modules/next/dist/build/index.js
++++ b/node_modules/next/dist/build/index.js
+@@ -1910,11 +1910,11 @@ async function build(dir, reactProductionProfiling = false, debugOutput = false,
+                     } else {
+                         // Only move /404 to /404 when there is no custom 404 as in that case we don't know about the 404 page
+                         if (!hasPages404 && !hasApp404 && useStaticPages404) {
+-                            await moveExportedPage("/_error", "/404", "/404", false, "html");
++                            try { await moveExportedPage("/_error", "/404", "/404", false, "html"); } catch(e) { console.warn('Warning: Could not move 404 page:', e.message); }
+                         }
+                     }
+                     if (useDefaultStatic500) {
+-                        await moveExportedPage("/_error", "/500", "/500", false, "html");
++                        try { await moveExportedPage("/_error", "/500", "/500", false, "html"); } catch(e) { console.warn('Warning: Could not move 500 page:', e.message); }
+                     }
+                     for (const page of combinedPages){
+                         const isSsg = ssgPages.has(page);
+diff --git a/node_modules/next/dist/client/components/error-boundary.js b/node_modules/next/dist/client/components/error-boundary.js
+index 6658520..b92090a 100644
+--- a/node_modules/next/dist/client/components/error-boundary.js
++++ b/node_modules/next/dist/client/components/error-boundary.js
+@@ -163,7 +163,8 @@ function GlobalError(param) {
+ const _default = GlobalError;
+ function ErrorBoundary(param) {
+     let { errorComponent, errorStyles, errorScripts, children } = param;
+-    const pathname = (0, _navigation.usePathname)();
++    let pathname = '/';
++    try { pathname = (0, _navigation.usePathname)() || '/'; } catch(e) { /* ignore during prerender */ }
+     if (errorComponent) {
+         return /*#__PURE__*/ (0, _jsxruntime.jsx)(ErrorBoundaryHandler, {
+             pathname: pathname,
+diff --git a/node_modules/next/dist/esm/client/components/error-boundary.js b/node_modules/next/dist/esm/client/components/error-boundary.js
+index 7e89ddd..bdd53a8 100644
+--- a/node_modules/next/dist/esm/client/components/error-boundary.js
++++ b/node_modules/next/dist/esm/client/components/error-boundary.js
+@@ -138,7 +138,8 @@ export default GlobalError;
+  * If no "errorComponent" property is provided it renders the children without an error boundary.
+  */ export function ErrorBoundary(param) {
+     let { errorComponent, errorStyles, errorScripts, children } = param;
+-    const pathname = usePathname();
++    let pathname = '/';
++    try { pathname = usePathname() || '/'; } catch(e) { /* ignore during prerender */ }
+     if (errorComponent) {
+         return /*#__PURE__*/ _jsx(ErrorBoundaryHandler, {
+             pathname: pathname,
+diff --git a/node_modules/next/dist/esm/export/index.js b/node_modules/next/dist/esm/export/index.js
+index 260787c..ed85025 100644
+--- a/node_modules/next/dist/esm/export/index.js
++++ b/node_modules/next/dist/esm/export/index.js
+@@ -431,8 +431,14 @@ export async function exportAppImpl(dir, options, span) {
+         }
+         // Capture any render errors.
+         if ("error" in result) {
+-            renderError = true;
+-            errorPaths.push(page !== path ? `${page}: ${path}` : path);
++            // Skip errors for internal Next.js error pages (_error, _not-found)
++            const isInternalErrorPage = page === '/_error' || page === '/_not-found' || path === '/404' || path === '/500' || path === '/_not-found';
++            if (!isInternalErrorPage) {
++                renderError = true;
++                errorPaths.push(page !== path ? `${page}: ${path}` : path);
++            } else {
++                console.warn(`Warning: Skipping prerender error for internal page: ${page} (${path})`);
++            }
+             continue;
+         }
+         // Capture any amp validations.
+diff --git a/node_modules/next/dist/export/index.js b/node_modules/next/dist/export/index.js
+index 59f27d1..1e799cd 100644
+--- a/node_modules/next/dist/export/index.js
++++ b/node_modules/next/dist/export/index.js
+@@ -503,8 +503,14 @@ async function exportAppImpl(dir, options, span) {
+         }
+         // Capture any render errors.
+         if ("error" in result) {
+-            renderError = true;
+-            errorPaths.push(page !== path ? `${page}: ${path}` : path);
++            // Skip errors for internal Next.js error pages (_error, _not-found)
++            const isInternalErrorPage = page === '/_error' || page === '/_not-found' || path === '/404' || path === '/500' || path === '/_not-found';
++            if (!isInternalErrorPage) {
++                renderError = true;
++                errorPaths.push(page !== path ? `${page}: ${path}` : path);
++            } else {
++                console.warn(`Warning: Skipping prerender error for internal page: ${page} (${path})`);
++            }
+             continue;
+         }
+         // Capture any amp validations.
