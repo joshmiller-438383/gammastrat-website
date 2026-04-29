@@ -2,9 +2,60 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-export default function Navbar() {
+interface NavDropdownItem {
+  label: string
+  href: string
+}
+
+interface NavLinkItem {
+  label: string
+  href: string
+  dropdown?: NavDropdownItem[]
+}
+
+interface NavbarProps {
+  loginText?: string
+  loginUrl?: string
+  ctaText?: string
+  ctaUrl?: string
+  navLinks?: NavLinkItem[]
+}
+
+const defaultNavLinks: NavLinkItem[] = [
+  {
+    label: 'Solutions',
+    href: '#',
+    dropdown: [
+      { label: 'Market Analytics', href: '#' },
+      { label: 'Trade Signals', href: '#' },
+      { label: 'Risk Management', href: '#' },
+      { label: 'Portfolio Tools', href: '#' },
+    ],
+  },
+  { label: 'About', href: '/#about' },
+  { label: 'Pricing', href: '/plans' },
+  {
+    label: 'Support',
+    href: '#',
+    dropdown: [
+      { label: 'Documentation', href: '#' },
+      { label: 'Academy', href: '#' },
+      { label: 'Community', href: '#' },
+      { label: 'Contact', href: '/#contact' },
+    ],
+  },
+]
+
+export default function Navbar({
+  loginText = 'Log in',
+  loginUrl = '#',
+  ctaText = 'Start free trial →',
+  ctaUrl = '/plans',
+  navLinks,
+}: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const links = navLinks && navLinks.length > 0 ? navLinks : defaultNavLinks
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -28,22 +79,29 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
-          <NavDropdown label="Solutions" items={['Market Analytics', 'Trade Signals', 'Risk Management', 'Portfolio Tools']} />
-          <NavLink href="/#about">About</NavLink>
-          <NavLink href="/plans">Pricing</NavLink>
-          <NavDropdown label="Support" items={['Documentation', 'Academy', 'Community', 'Contact']} />
+          {links.map((link, i) =>
+            link.dropdown && link.dropdown.length > 0 ? (
+              <NavDropdown
+                key={i}
+                label={link.label}
+                items={link.dropdown}
+              />
+            ) : (
+              <NavLink key={i} href={link.href}>{link.label}</NavLink>
+            )
+          )}
         </div>
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="#" className="text-sm text-white/70 hover:text-white transition-colors px-3 py-2">
-            Log in
+          <Link href={loginUrl} className="text-sm text-white/70 hover:text-white transition-colors px-3 py-2">
+            {loginText}
           </Link>
           <Link
-            href="/plans"
+            href={ctaUrl}
             className="text-sm font-semibold bg-[#C9A227] hover:bg-[#E8C547] text-[#0D0F12] px-4 py-2 rounded-md transition-all duration-200 flex items-center gap-1.5"
           >
-            Start free trial →
+            {ctaText}
           </Link>
         </div>
 
@@ -61,15 +119,15 @@ export default function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden bg-[#0D0F12] border-t border-white/5 px-6 py-4 space-y-3">
-          <MobileLink href="/#solutions" onClick={() => setMobileOpen(false)}>Solutions</MobileLink>
-          <MobileLink href="/#about" onClick={() => setMobileOpen(false)}>About</MobileLink>
-          <MobileLink href="/plans" onClick={() => setMobileOpen(false)}>Pricing</MobileLink>
-          <MobileLink href="/#support" onClick={() => setMobileOpen(false)}>Support</MobileLink>
-          <MobileLink href="/#contact" onClick={() => setMobileOpen(false)}>Contact</MobileLink>
+          {links.map((link, i) => (
+            <MobileLink key={i} href={link.href} onClick={() => setMobileOpen(false)}>
+              {link.label}
+            </MobileLink>
+          ))}
           <div className="pt-3 border-t border-white/5 flex flex-col gap-2">
-            <Link href="#" className="text-sm text-white/70 text-center py-2">Log in</Link>
-            <Link href="/plans" className="text-sm font-semibold bg-[#C9A227] text-[#0D0F12] px-4 py-2.5 rounded-md text-center">
-              Start free trial →
+            <Link href={loginUrl} className="text-sm text-white/70 text-center py-2">{loginText}</Link>
+            <Link href={ctaUrl} className="text-sm font-semibold bg-[#C9A227] text-[#0D0F12] px-4 py-2.5 rounded-md text-center">
+              {ctaText}
             </Link>
           </div>
         </div>
@@ -86,7 +144,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
   )
 }
 
-function NavDropdown({ label, items }: { label: string; items: string[] }) {
+function NavDropdown({ label, items }: { label: string; items: NavDropdownItem[] }) {
   const [open, setOpen] = useState(false)
   return (
     <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
@@ -99,8 +157,8 @@ function NavDropdown({ label, items }: { label: string; items: string[] }) {
       {open && (
         <div className="absolute top-full left-0 mt-1 w-52 bg-[#141720] border border-white/10 rounded-lg shadow-2xl py-1 z-50">
           {items.map(item => (
-            <a key={item} href="#" className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors">
-              {item}
+            <a key={item.label} href={item.href} className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors">
+              {item.label}
             </a>
           ))}
         </div>

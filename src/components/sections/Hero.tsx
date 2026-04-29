@@ -1,7 +1,39 @@
 'use client'
 import Link from 'next/link'
 
-export default function Hero() {
+interface SanityImage {
+  asset?: { url: string }
+  hotspot?: unknown
+  crop?: unknown
+}
+
+interface HeroProps {
+  badge?: string
+  headline?: string
+  description?: string
+  trustLine?: string
+  ctaPrimaryText?: string
+  ctaPrimaryUrl?: string
+  ctaSecondaryText?: string
+  ctaSecondaryUrl?: string
+  heroImage?: SanityImage
+}
+
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&q=80'
+
+export default function Hero({
+  badge = 'Trusted by 2.5M+ traders',
+  headline = 'See What the Options Market Is Pricing Before Price Moves',
+  description = 'Institutional-grade options intelligence revealing gamma positioning, volatility mispricings, and probability edge across SPX, QQQ, and the most liquid names.',
+  trustLine = 'Built by a Wall Street hedge fund founder. Validated by quantitative research.',
+  ctaPrimaryText = 'Start Subscription',
+  ctaPrimaryUrl = '/plans',
+  ctaSecondaryText = 'View Sample Reports',
+  ctaSecondaryUrl = '#reports',
+  heroImage,
+}: HeroProps) {
+  const imageSrc = heroImage?.asset?.url || DEFAULT_IMAGE
+
   return (
     <section className="relative bg-[#0D0F12]">
       {/* Background gradient */}
@@ -9,38 +41,48 @@ export default function Hero() {
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#C9A227]/3 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-20">
-        {/* Top row: text left, image right */}
-          <div className="flex flex-col lg:flex-row items-start lg:items-center gap-10">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-10">
           {/* Left: Text */}
           <div className="flex-1 max-w-xl">
-            <p className="text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">
-              Trusted by 2.5M+ traders
-            </p>
+            {badge && (
+              <p className="text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">
+                {badge}
+              </p>
+            )}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
-              Data-driven options.<br />
-              <span className="text-white">Smarter trades.</span>
+              {headline}
             </h1>
-            <p className="text-base text-white/60 leading-relaxed mb-8 max-w-md">
-              Powering confident decisions with AI analytics for active options traders and investors.
-            </p>
-
+            {description && (
+              <p className="text-base text-white/60 leading-relaxed mb-4 max-w-md">
+                {description}
+              </p>
+            )}
+            {trustLine && (
+              <p className="text-xs text-white/35 italic mb-8 max-w-md">
+                {trustLine}
+              </p>
+            )}
             <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href="#demo"
-                className="flex items-center gap-2 text-sm text-white/70 border border-white/20 hover:border-white/40 px-4 py-2.5 rounded-md transition-all"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Demo
-              </Link>
-              <Link
-                href="/plans"
-                className="flex items-center gap-2 text-sm font-semibold bg-[#2DD4BF] hover:bg-[#22b8a6] text-[#0D0F12] px-5 py-2.5 rounded-md transition-all duration-200"
-              >
-                Start free trial
-              </Link>
+              {ctaSecondaryText && (
+                <Link
+                  href={ctaSecondaryUrl || '#'}
+                  className="flex items-center gap-2 text-sm text-white/70 border border-white/20 hover:border-white/40 px-4 py-2.5 rounded-md transition-all"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {ctaSecondaryText}
+                </Link>
+              )}
+              {ctaPrimaryText && (
+                <Link
+                  href={ctaPrimaryUrl || '/plans'}
+                  className="flex items-center gap-2 text-sm font-semibold bg-[#2DD4BF] hover:bg-[#22b8a6] text-[#0D0F12] px-5 py-2.5 rounded-md transition-all duration-200"
+                >
+                  {ctaPrimaryText}
+                </Link>
+              )}
             </div>
           </div>
 
@@ -48,7 +90,7 @@ export default function Hero() {
           <div className="flex-1 w-full lg:max-w-2xl">
             <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-[#141720] aspect-video">
               <img
-                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&q=80"
+                src={imageSrc}
                 alt="Trading analytics dashboard"
                 className="w-full h-full object-cover opacity-80"
               />

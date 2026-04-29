@@ -13,6 +13,9 @@ interface PostItem {
 
 interface BlogPreviewProps {
   items?: PostItem[]
+  headline?: string
+  subheadline?: string
+  ctaText?: string
 }
 
 const defaultPosts: PostItem[] = [
@@ -26,7 +29,12 @@ const postImages: Record<string, string> = {
   'Education': 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80',
 }
 
-export default function BlogPreview({ items }: BlogPreviewProps) {
+export default function BlogPreview({
+  items,
+  headline = 'Trade smarter. Stay ahead.',
+  subheadline = 'The latest market news, innovations, methodologies, and resources.',
+  ctaText = 'View all posts',
+}: BlogPreviewProps) {
   const posts = items && items.length > 0 ? items.slice(0, 2) : defaultPosts
 
   return (
@@ -36,16 +44,16 @@ export default function BlogPreview({ items }: BlogPreviewProps) {
           {/* Left text */}
           <div className="lg:w-72 flex-shrink-0">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-snug">
-              Trade smarter. Stay ahead.
+              {headline}
             </h2>
             <p className="text-white/50 text-sm leading-relaxed mb-6">
-              The latest market news, innovations, methodologies, and resources.
+              {subheadline}
             </p>
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 text-sm font-semibold border border-[#2DD4BF]/40 text-[#2DD4BF] hover:bg-[#2DD4BF]/10 px-4 py-2.5 rounded-md transition-all"
             >
-              View all posts
+              {ctaText}
             </Link>
           </div>
           {/* Cards */}
