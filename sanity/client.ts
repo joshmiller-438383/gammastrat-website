@@ -23,6 +23,21 @@ export const queries = {
   faqs: `*[_type == "faq"] | order(order asc)`,
   posts: `*[_type == "post"] | order(publishedAt desc)`,
   siteSettings: `*[_type == "siteSettings"][0]`,
+  plansPage: `*[_type == "plansPage"][0]{
+    heroBadge, heroHeadline, heroAccentWord, heroSubheadline, heroCtaText,
+    pricingCards[]{
+      planId, name, subtitle, price, period, description, badge, highlight,
+      features, ctaText, microCopy
+    },
+    tableHeadline, tableBadge,
+    tableRows[]{ _key, feature, freeValue, basicValue, gammaValue },
+    positioningBadge, positioningHeadline, positioningHeadline2, positioningBody,
+    positioningBullets,
+    positioningStats[]{ _key, label, value, sub },
+    decisionCard1Badge, decisionCard1Headline, decisionCard1Body,
+    decisionCard2Badge, decisionCard2Headline, decisionCard2Body,
+    trialBadge, trialHeadline, trialBody, trialCancelText, trialCtaText,
+  }`,
   homepage: `*[_type == "homepage"][0]{
     heroBadge, heroHeadline, heroAccentWords, heroDescription, heroTrustLine,
     heroCtaPrimaryText, heroCtaPrimaryUrl, heroCtaSecondaryText, heroCtaSecondaryUrl,

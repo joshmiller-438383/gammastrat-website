@@ -1,0 +1,276 @@
+export default {
+  name: 'plansPage',
+  title: 'Plans Page',
+  type: 'document',
+  __experimental_actions: ['update', 'publish'],
+  groups: [
+    { name: 'hero',        title: '🦸 Hero Section' },
+    { name: 'cards',       title: '💳 Pricing Cards' },
+    { name: 'table',       title: '📊 Comparison Table' },
+    { name: 'positioning', title: '🧠 Positioning Section' },
+    { name: 'decision',    title: '🤔 Decision Helper' },
+    { name: 'trial',       title: '🔥 Trial Section' },
+  ],
+  fields: [
+
+    // ─── HERO ────────────────────────────────────────────────────────────────
+    {
+      name: 'heroBadge',
+      title: 'Hero — Badge Text',
+      type: 'string',
+      initialValue: 'Plans & Pricing',
+      group: 'hero',
+    },
+    {
+      name: 'heroHeadline',
+      title: 'Hero — Headline',
+      type: 'string',
+      initialValue: 'Choose Your Level of Edge',
+      group: 'hero',
+    },
+    {
+      name: 'heroAccentWord',
+      title: 'Hero — Accent Word (gold highlight)',
+      type: 'string',
+      description: 'Single word from the headline to highlight in gold (e.g. "Edge")',
+      initialValue: 'Edge',
+      group: 'hero',
+    },
+    {
+      name: 'heroSubheadline',
+      title: 'Hero — Subheadline',
+      type: 'text',
+      rows: 2,
+      initialValue: 'From core market insight to full positioning and volatility frameworks — access the reports that reveal what the market is really doing.',
+      group: 'hero',
+    },
+    {
+      name: 'heroCtaText',
+      title: 'Hero — CTA Button Text',
+      type: 'string',
+      initialValue: 'Start Your 7-Day Edge Trial',
+      group: 'hero',
+    },
+
+    // ─── PRICING CARDS ───────────────────────────────────────────────────────
+    {
+      name: 'pricingCards',
+      title: 'Pricing Cards',
+      type: 'array',
+      description: 'Three pricing cards in order: Free, Basic, Gamma. Do not change the order.',
+      group: 'cards',
+      of: [
+        {
+          type: 'object',
+          name: 'pricingCard',
+          title: 'Pricing Card',
+          groups: [
+            { name: 'info', title: 'Plan Info' },
+            { name: 'features', title: 'Features' },
+            { name: 'cta', title: 'CTA & Micro Copy' },
+          ],
+          fields: [
+            { name: 'planId',    title: 'Plan ID (do not change)',  type: 'string', description: 'Internal ID: free, basic, or gamma' },
+            { name: 'name',      title: 'Plan Name',                type: 'string' },
+            { name: 'subtitle',  title: 'Subtitle',                 type: 'string' },
+            { name: 'price',     title: 'Price (e.g. "$84")',        type: 'string' },
+            { name: 'period',    title: 'Period (e.g. "/mo")',       type: 'string', description: 'Leave blank for free plan' },
+            { name: 'description', title: 'Description',            type: 'text', rows: 3 },
+            { name: 'badge',     title: 'Badge Text (optional)',     type: 'string', description: 'e.g. "Most Popular" — leave blank for no badge' },
+            { name: 'highlight', title: 'Highlight this card (gold border + glow)', type: 'boolean', initialValue: false },
+            {
+              name: 'features',
+              title: 'Feature List',
+              type: 'array',
+              of: [{ type: 'string' }],
+              description: 'Each line is one feature. Use "Everything in Basic, plus:" as a section header.',
+            },
+            { name: 'ctaText',   title: 'CTA Button Text',          type: 'string' },
+            { name: 'microCopy', title: 'Micro Copy (below button)', type: 'string', description: 'Small text under the CTA — leave blank to hide' },
+          ],
+          preview: {
+            select: { title: 'name', subtitle: 'price' },
+          },
+        },
+      ],
+    },
+
+    // ─── COMPARISON TABLE ────────────────────────────────────────────────────
+    {
+      name: 'tableHeadline',
+      title: 'Table — Section Headline',
+      type: 'string',
+      initialValue: 'Compare Access',
+      group: 'table',
+    },
+    {
+      name: 'tableBadge',
+      title: 'Table — Badge Label',
+      type: 'string',
+      initialValue: 'Compare Plans',
+      group: 'table',
+    },
+    {
+      name: 'tableRows',
+      title: 'Table — Rows',
+      type: 'array',
+      description: 'Each row is one feature comparison. Values: true = checkmark, false = ✗, any other text = shown as-is (e.g. "Limited")',
+      group: 'table',
+      of: [
+        {
+          type: 'object',
+          name: 'tableRow',
+          title: 'Table Row',
+          fields: [
+            { name: 'feature',   title: 'Feature Name',   type: 'string' },
+            { name: 'freeValue',  title: 'Free column',   type: 'string', description: 'true / false / Limited (or any text)' },
+            { name: 'basicValue', title: 'Basic column',  type: 'string', description: 'true / false / Limited (or any text)' },
+            { name: 'gammaValue', title: 'Gamma column',  type: 'string', description: 'true / false / Limited (or any text)' },
+          ],
+          preview: { select: { title: 'feature' } },
+        },
+      ],
+    },
+
+    // ─── POSITIONING SECTION ─────────────────────────────────────────────────
+    {
+      name: 'positioningBadge',
+      title: 'Positioning — Badge',
+      type: 'string',
+      initialValue: 'Why GammaStrat?',
+      group: 'positioning',
+    },
+    {
+      name: 'positioningHeadline',
+      title: 'Positioning — Headline (line 1)',
+      type: 'string',
+      initialValue: 'Most traders focus on price.',
+      group: 'positioning',
+    },
+    {
+      name: 'positioningHeadline2',
+      title: 'Positioning — Headline (line 2, gold)',
+      type: 'string',
+      initialValue: 'Professionals focus on positioning.',
+      group: 'positioning',
+    },
+    {
+      name: 'positioningBody',
+      title: 'Positioning — Body Copy',
+      type: 'text',
+      rows: 2,
+      initialValue: 'GammaStrat reveals what price alone cannot show you — so you can stop reacting to the market and start trading with it.',
+      group: 'positioning',
+    },
+    {
+      name: 'positioningBullets',
+      title: 'Positioning — Bullet Points',
+      type: 'array',
+      of: [{ type: 'string' }],
+      initialValue: ['Where dealers are positioned', 'Where volatility is mispriced', 'Where probabilities are in your favor'],
+      group: 'positioning',
+    },
+    {
+      name: 'positioningStats',
+      title: 'Positioning — Stat Blocks (4 cards)',
+      type: 'array',
+      group: 'positioning',
+      of: [
+        {
+          type: 'object',
+          name: 'statBlock',
+          fields: [
+            { name: 'label', title: 'Label',    type: 'string' },
+            { name: 'value', title: 'Value',    type: 'string' },
+            { name: 'sub',   title: 'Sub-text', type: 'string' },
+          ],
+          preview: { select: { title: 'label', subtitle: 'value' } },
+        },
+      ],
+    },
+
+    // ─── DECISION HELPER ─────────────────────────────────────────────────────
+    {
+      name: 'decisionCard1Badge',
+      title: 'Decision — Card 1 Badge',
+      type: 'string',
+      initialValue: 'Not Sure Where to Start?',
+      group: 'decision',
+    },
+    {
+      name: 'decisionCard1Headline',
+      title: 'Decision — Card 1 Headline',
+      type: 'string',
+      initialValue: 'Start with Basic.',
+      group: 'decision',
+    },
+    {
+      name: 'decisionCard1Body',
+      title: 'Decision — Card 1 Body',
+      type: 'text',
+      rows: 2,
+      initialValue: 'It gives you the full daily view of positioning and volatility — the foundation for understanding how the market is actually moving.',
+      group: 'decision',
+    },
+    {
+      name: 'decisionCard2Badge',
+      title: 'Decision — Card 2 Badge',
+      type: 'string',
+      initialValue: 'Ready for Full Edge?',
+      group: 'decision',
+    },
+    {
+      name: 'decisionCard2Headline',
+      title: 'Decision — Card 2 Headline',
+      type: 'string',
+      initialValue: 'Upgrade to Gamma.',
+      group: 'decision',
+    },
+    {
+      name: 'decisionCard2Body',
+      title: 'Decision — Card 2 Body',
+      type: 'text',
+      rows: 2,
+      initialValue: 'When you\'re ready for tradeable setups and full signal alignment — Gamma gives you the complete system.',
+      group: 'decision',
+    },
+
+    // ─── TRIAL SECTION ───────────────────────────────────────────────────────
+    {
+      name: 'trialBadge',
+      title: 'Trial — Badge',
+      type: 'string',
+      initialValue: 'Risk-Free',
+      group: 'trial',
+    },
+    {
+      name: 'trialHeadline',
+      title: 'Trial — Headline',
+      type: 'string',
+      initialValue: '7-Day Edge Trial',
+      group: 'trial',
+    },
+    {
+      name: 'trialBody',
+      title: 'Trial — Body Copy',
+      type: 'text',
+      rows: 2,
+      initialValue: 'Experience GammaStrat risk-free. See exactly how institutional options intelligence changes how you read and trade the market.',
+      group: 'trial',
+    },
+    {
+      name: 'trialCancelText',
+      title: 'Trial — Cancel Text',
+      type: 'string',
+      initialValue: 'Cancel anytime.',
+      group: 'trial',
+    },
+    {
+      name: 'trialCtaText',
+      title: 'Trial — CTA Button Text',
+      type: 'string',
+      initialValue: 'Start Your 7-Day Edge Trial',
+      group: 'trial',
+    },
+  ],
+}
