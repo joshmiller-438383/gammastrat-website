@@ -32,7 +32,7 @@ export default function HeroPanel({
   ctaPrimaryUrl = '/subscribe',
   ctaSecondaryText = 'View Sample Report',
   ctaSecondaryUrl = '/reports',
-  imageUrl = 'https://cdn.sanity.io/images/fa41e7wa/production/bc8b808a6b343555786e04f40c878b4950f9b4f1-890x340.png',
+  imageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-hero-visual-5wRzAepj5DhW7kS6y88QbT.png',
 }: HeroPanelProps) {
   return (
     <section className="gs-panel overflow-hidden">

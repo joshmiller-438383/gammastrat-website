@@ -25,7 +25,7 @@ export default function SolutionDashboardPanel({
   body = 'GammaStrat translates complex options data into clear, actionable intelligence so you can stop guessing and start executing with conviction.',
   ctaText,
   ctaUrl,
-  imageUrl = 'https://cdn.sanity.io/images/fa41e7wa/production/b984aaea6f2c781cdfc4c548d7e03151f7d5d1f2-890x340.png',
+  imageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-solution-visual-SPiRWkpn7pbR88JrjfGaWr.png',
 }: SolutionDashboardPanelProps) {
   return (
     <section className="gs-panel overflow-hidden">

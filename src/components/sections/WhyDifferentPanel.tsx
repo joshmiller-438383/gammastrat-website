@@ -31,7 +31,7 @@ export default function WhyDifferentPanel({
   headline = 'We Focus On What Moves Markets.',
   accentWords = ['Moves Markets.'],
   drivers = DEFAULT_DRIVERS,
-  imageUrl = 'https://cdn.sanity.io/images/fa41e7wa/production/2ff011d2d64e218535464b4f9193ef53729ce259-645x344.png',
+  imageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-why-visual-kKV343vLFmabCJyxXRyCQs.png',
 }: WhyDifferentPanelProps) {
   return (
     <section className="gs-panel overflow-hidden">
