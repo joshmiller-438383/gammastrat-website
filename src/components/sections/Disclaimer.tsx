@@ -36,7 +36,7 @@ export default function Disclaimer({ text, visible = true }: DisclaimerProps) {
             fontWeight: 700,
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.3)',
+            color: 'rgba(255,255,255,0.55)',
             marginBottom: '1.25rem',
           }}
         >
@@ -48,7 +48,7 @@ export default function Disclaimer({ text, visible = true }: DisclaimerProps) {
               key={i}
               style={{
                 fontSize: '0.6875rem',
-                color: 'rgba(255,255,255,0.28)',
+                color: 'rgba(255,255,255,0.55)',
                 lineHeight: 1.7,
                 margin: 0,
               }}
