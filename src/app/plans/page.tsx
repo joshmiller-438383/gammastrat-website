@@ -135,6 +135,9 @@ export default async function PlansPage() {
     client.fetch(`*[_type == "homepage"][0]{ disclaimerText, disclaimerVisible }`, {}, { cache: 'no-store' }).catch(() => null),
   ])
 
+  // DEBUG: log what Sanity returned
+  console.log('[plans-page] pp:', JSON.stringify({ pp_null: pp === null, cards: pp?.pricingCards?.map((c: {planId?: string; ctaText?: string}) => ({ planId: c.planId, ctaText: c.ctaText })) }))
+
   // Merge Sanity data with fallbacks
   const hero = {
     badge:       pp?.heroBadge       ?? 'Plans & Pricing',
