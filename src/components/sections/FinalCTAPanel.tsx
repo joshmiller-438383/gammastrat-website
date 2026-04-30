@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 
 interface FinalCTAPanelProps {
@@ -10,69 +9,60 @@ interface FinalCTAPanelProps {
   imageUrl?: string
 }
 
-function highlightAccent(text: string, accentWords: string[]): React.ReactNode {
-  if (!accentWords || accentWords.length === 0) return text
-  const pattern = new RegExp(`(${accentWords.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
-  const parts = text.split(pattern)
-  return parts.map((part, i) => {
-    const isAccent = accentWords.some(w => w.toLowerCase() === part.toLowerCase())
-    return isAccent ? (
-      <span key={i} className="gradient-text">{part}</span>
-    ) : (
-      part
-    )
-  })
+function highlight(text: string, words: string[]): React.ReactNode {
+  if (!words?.length) return text
+  const pattern = new RegExp(`(${words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
+  return text.split(pattern).map((part, i) =>
+    words.some(w => w.toLowerCase() === part.toLowerCase())
+      ? <span key={i} className="gradient-text">{part}</span>
+      : part
+  )
 }
 
 export default function FinalCTAPanel({
   headline = 'Gain The Edge. Stay Ahead.',
-  accentWords = ['Stay Ahead.'],
+  accentWords = ['Gain The Edge.'],
   subheadline = 'Institutional intelligence. Delivered daily.',
   buttonText = 'Start Your Edge',
   buttonUrl = '/subscribe',
   imageUrl,
 }: FinalCTAPanelProps) {
   return (
-    <section className="gs-panel relative overflow-hidden flex flex-col lg:flex-row min-h-[280px]">
-      {/* Left: Copy */}
-      <div className="relative z-10 flex flex-col justify-center p-8 lg:p-10 xl:p-12 lg:w-[55%] flex-shrink-0">
-        <h2 className="text-[1.75rem] lg:text-[2rem] xl:text-[2.5rem] font-bold leading-[1.15] tracking-tight text-white mb-4">
-          {highlightAccent(headline, accentWords ?? [])}
-        </h2>
+    <section className="gs-panel overflow-hidden">
+      <div className="flex flex-col lg:flex-row" style={{ minHeight: '300px' }}>
 
-        {subheadline && (
-          <p className="text-sm lg:text-base text-[var(--text-secondary)] leading-relaxed mb-8">
-            {subheadline}
-          </p>
-        )}
-
-        {buttonText && buttonUrl && (
-          <Link href={buttonUrl} className="btn-gold text-xs font-bold uppercase tracking-widest px-6 py-3.5 self-start">
-            {buttonText}
-          </Link>
-        )}
-      </div>
-
-      {/* Right: Visual — GammaStrat logo / orbit graphic */}
-      <div className="relative flex-1 min-h-[200px] lg:min-h-0 overflow-hidden">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt="GammaStrat — gain the edge"
-            fill
-            className="object-cover object-center"
-            sizes="(max-width: 1024px) 100vw, 45vw"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center"
-            style={{ background: 'radial-gradient(circle at center, rgba(201,162,74,0.15) 0%, transparent 70%)' }}>
-            <div className="w-24 h-24 rounded-full border-2 border-[var(--gold-border)] flex items-center justify-center">
-              <span className="text-[var(--gold)] text-3xl font-bold">GS</span>
+        {/* LEFT: Copy + CTA — always first (top on mobile) */}
+        <div className="flex flex-col justify-center p-8 lg:p-10 xl:p-12 lg:w-[55%] flex-shrink-0">
+          <h2 style={{ fontSize: 'clamp(2rem,3vw,2.75rem)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.02em', color: '#fff', marginBottom: '0.75rem' }}>
+            {highlight(headline, accentWords ?? [])}
+          </h2>
+          {subheadline && (
+            <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '2rem' }}>
+              {subheadline}
+            </p>
+          )}
+          {buttonText && buttonUrl && (
+            <div>
+              <Link href={buttonUrl} className="btn-gold text-xs font-bold uppercase tracking-widest px-6 py-3 inline-block">
+                {buttonText}
+              </Link>
             </div>
-          </div>
-        )}
-        {/* Left fade */}
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#090B12] to-transparent pointer-events-none" />
+          )}
+        </div>
+
+        {/* RIGHT: GS logo / visual — below on mobile */}
+        <div style={{ position: 'relative', flex: 1, minHeight: '240px' }}>
+          {imageUrl ? (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={imageUrl} alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+              <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '5rem', background: 'linear-gradient(to right, #090B12, transparent)', pointerEvents: 'none' }} />
+            </>
+          ) : (
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(201,162,74,0.12) 0%, transparent 70%)' }} />
+          )}
+        </div>
+
       </div>
     </section>
   )

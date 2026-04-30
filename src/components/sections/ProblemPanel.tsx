@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 interface ProblemPoint {
   _key?: string
   label: string
@@ -13,73 +11,138 @@ interface ProblemPanelProps {
   imageUrl?: string
 }
 
-function highlightAccent(text: string, accentWords: string[]): React.ReactNode {
-  if (!accentWords || accentWords.length === 0) return text
-  const pattern = new RegExp(`(${accentWords.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
-  const parts = text.split(pattern)
-  return parts.map((part, i) => {
-    const isAccent = accentWords.some(w => w.toLowerCase() === part.toLowerCase())
-    return isAccent ? (
-      <span key={i} className="gradient-text">{part}</span>
-    ) : (
-      part
-    )
-  })
+function highlight(text: string, words: string[]): React.ReactNode {
+  if (!words?.length) return text
+  const pattern = new RegExp(`(${words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
+  return text.split(pattern).map((part, i) =>
+    words.some(w => w.toLowerCase() === part.toLowerCase())
+      ? <span key={i} className="gradient-text">{part}</span>
+      : part
+  )
 }
+
+const DEFAULT_POINTS: ProblemPoint[] = [
+  { label: 'No Positioning' },
+  { label: 'Mispriced Volatility' },
+  { label: 'Unknown Risk' },
+]
 
 export default function ProblemPanel({
   headline = 'Trading Blind Is Expensive.',
   accentWords = ['Is Expensive.'],
-  body = 'Most traders focus on price. Professionals focus on positioning.',
-  points = [
-    { label: 'No Positioning' },
-    { label: 'Mispriced Volatility' },
-    { label: 'Unknown Risk' },
-  ],
+  body = 'Most traders focus on price. Professionals focus on positioning. Without gamma data, volatility structure, and dealer exposure, you are trading blind.',
+  points = DEFAULT_POINTS,
   imageUrl,
 }: ProblemPanelProps) {
   return (
-    <section className="gs-panel relative overflow-hidden min-h-[380px] flex flex-col">
+    <section
+      className="gs-panel overflow-hidden"
+      style={{ position: 'relative', minHeight: '380px' }}
+    >
       {/* Full-bleed background image */}
       {imageUrl && (
-        <div className="absolute inset-0">
-          <Image
-            src={imageUrl}
-            alt="Trading blind — lighthouse in storm"
-            fill
-            className="object-cover object-center"
-            sizes="(max-width: 1024px) 100vw, 40vw"
-          />
-          {/* Gradient: heavy at bottom-left, lighter top-right */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#090B12] via-[#090B12]/70 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#090B12]/80 via-transparent to-transparent" />
-        </div>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={imageUrl}
+          alt=""
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center right',
+          }}
+        />
       )}
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col justify-between flex-1 p-8 lg:p-10">
-        {/* Risk labels — top right, matching blueprint */}
+      {/* Dark overlay — heavy bottom-left, lighter top-right */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to top right, rgba(9,11,18,0.92) 0%, rgba(9,11,18,0.6) 50%, rgba(9,11,18,0.15) 100%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Content layer */}
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          minHeight: '380px',
+          padding: '2rem 2.5rem',
+        }}
+      >
+        {/* Risk labels — top right */}
         {points && points.length > 0 && (
-          <div className="flex flex-col items-end gap-2 self-end">
-            {points.map((point, i) => (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+            {points.map((pt, i) => (
               <div
-                key={point._key ?? i}
-                className="flex items-center gap-2 px-3 py-1.5 rounded bg-black/40 border border-white/10 backdrop-blur-sm"
+                key={pt._key ?? i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.375rem 0.75rem',
+                  borderRadius: '0.25rem',
+                  background: 'rgba(0,0,0,0.45)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                }}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--gold-muted)] flex-shrink-0" />
-                <span className="text-xs text-[var(--text-secondary)] font-medium uppercase tracking-wide">{point.label}</span>
+                <span
+                  style={{
+                    width: '0.375rem',
+                    height: '0.375rem',
+                    borderRadius: '50%',
+                    background: 'var(--gold)',
+                    flexShrink: 0,
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: '0.6875rem',
+                    fontWeight: 600,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: 'rgba(255,255,255,0.85)',
+                  }}
+                >
+                  {pt.label}
+                </span>
               </div>
             ))}
           </div>
         )}
 
         {/* Headline + body — bottom left */}
-        <div className="mt-auto">
-          <h2 className="text-[1.75rem] lg:text-[2rem] xl:text-[2.25rem] font-bold leading-[1.15] tracking-tight text-white mb-3">
-            {highlightAccent(headline, accentWords ?? [])}
+        <div style={{ marginTop: 'auto' }}>
+          <h2
+            style={{
+              fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: '-0.02em',
+              color: '#fff',
+              marginBottom: '0.75rem',
+            }}
+          >
+            {highlight(headline, accentWords ?? [])}
           </h2>
           {body && (
-            <p className="text-sm lg:text-base text-[var(--text-secondary)] leading-relaxed max-w-[260px]">
+            <p
+              style={{
+                fontSize: '0.9375rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.6,
+                maxWidth: '280px',
+              }}
+            >
               {body}
             </p>
           )}

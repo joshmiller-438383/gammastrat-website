@@ -1,38 +1,31 @@
-import Image from 'next/image'
-
-interface CredibilityPillar {
+interface Pillar {
   _key?: string
-  title: string
-  description?: string
-  body?: string  // Sanity uses 'body' field
   icon?: string
+  title: string
+  body?: string
 }
 
 interface CredibilityPanelProps {
   headline?: string
   accentWords?: string[]
-  pillars?: CredibilityPillar[]
+  pillars?: Pillar[]
   imageUrl?: string
 }
 
-function highlightAccent(text: string, accentWords: string[]): React.ReactNode {
-  if (!accentWords || accentWords.length === 0) return text
-  const pattern = new RegExp(`(${accentWords.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
-  const parts = text.split(pattern)
-  return parts.map((part, i) => {
-    const isAccent = accentWords.some(w => w.toLowerCase() === part.toLowerCase())
-    return isAccent ? (
-      <span key={i} className="gradient-text">{part}</span>
-    ) : (
-      part
-    )
-  })
+function highlight(text: string, words: string[]): React.ReactNode {
+  if (!words?.length) return text
+  const pattern = new RegExp(`(${words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
+  return text.split(pattern).map((part, i) =>
+    words.some(w => w.toLowerCase() === part.toLowerCase())
+      ? <span key={i} className="gradient-text">{part}</span>
+      : part
+  )
 }
 
-const DEFAULT_PILLARS: CredibilityPillar[] = [
-  { title: 'Wall Street Hedge Fund Founder', icon: '🏛️' },
-  { title: 'University Professor Endorsed', icon: '🎓' },
-  { title: 'Quantitative Models & Research Driven', icon: '🔬' },
+const DEFAULT_PILLARS: Pillar[] = [
+  { title: 'Wall Street Hedge Fund Founder', body: 'Built by practitioners who traded at the institutional level.' },
+  { title: 'University Professor Endorsed', body: 'Methodology validated by quantitative finance academics.' },
+  { title: 'Quantitative Models & Research Driven', body: 'Every signal backed by rigorous statistical research.' },
 ]
 
 export default function CredibilityPanel({
@@ -42,52 +35,46 @@ export default function CredibilityPanel({
   imageUrl,
 }: CredibilityPanelProps) {
   return (
-    <section className="gs-panel relative overflow-hidden flex flex-col lg:flex-row min-h-[300px]">
-      {/* Left: Image */}
-      {imageUrl && (
-        <div className="relative lg:w-[30%] min-h-[180px] lg:min-h-0 overflow-hidden flex-shrink-0">
-          <Image
-            src={imageUrl}
-            alt="Credibility visual"
-            fill
-            className="object-cover object-center"
-            sizes="(max-width: 1024px) 100vw, 30vw"
-          />
-          <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#090B12] to-transparent pointer-events-none" />
-        </div>
-      )}
+    <section className="gs-panel overflow-hidden">
+      <div className="flex flex-col lg:flex-row" style={{ minHeight: '320px' }}>
 
-      {/* Right: Content */}
-      <div className="flex-1 flex flex-col justify-center p-8 lg:p-10">
-        <div className="mb-4">
-          <span className="section-label">Credibility</span>
-        </div>
-
-        <h2 className="text-[1.75rem] lg:text-[2rem] font-bold leading-[1.15] tracking-tight text-white mb-8">
-          {highlightAccent(headline, accentWords ?? [])}
-        </h2>
-
-        {pillars && pillars.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {pillars.map((pillar, i) => (
-              <div key={pillar._key ?? i} className="flex flex-col items-center text-center gap-3">
-                {/* Icon circle */}
-                <div className="w-14 h-14 rounded-full flex items-center justify-center text-2xl"
-                  style={{ background: 'rgba(201,162,74,0.1)', border: '1px solid rgba(201,162,74,0.25)' }}>
-                  {pillar.icon ?? '◈'}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-white leading-snug">{pillar.title}</p>
-                  {(pillar.description || pillar.body) && (
-                    <p className="text-xs text-[var(--text-secondary)] mt-1 leading-relaxed">
-                      {pillar.description ?? pillar.body}
-                    </p>
+        {/* LEFT: Headline + pillars — always first (top on mobile) */}
+        <div className="flex flex-col justify-center p-8 lg:p-10 xl:p-12 lg:w-[55%] flex-shrink-0">
+          <p className="section-label mb-4">Credibility</p>
+          <h2 style={{ fontSize: 'clamp(1.75rem,2.5vw,2.25rem)', fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.02em', color: '#fff', marginBottom: '2rem' }}>
+            {highlight(headline, accentWords ?? [])}
+          </h2>
+          {pillars && pillars.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
+              {pillars.map((p, i) => (
+                <div key={p._key ?? i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', flex: '1 1 120px', maxWidth: '160px' }}>
+                  {/* Icon placeholder — hexagon outline */}
+                  <div style={{ width: '3rem', height: '3rem', borderRadius: '0.5rem', background: 'rgba(201,162,74,0.1)', border: '1px solid rgba(201,162,74,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.75rem' }}>
+                    <span style={{ fontSize: '1.25rem' }}>{p.icon ?? '◈'}</span>
+                  </div>
+                  <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#fff', lineHeight: 1.4 }}>{p.title}</p>
+                  {p.body && (
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginTop: '0.25rem' }}>{p.body}</p>
                   )}
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* RIGHT: Visual — below on mobile */}
+        <div style={{ position: 'relative', flex: 1, minHeight: '240px' }}>
+          {imageUrl ? (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={imageUrl} alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+              <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '5rem', background: 'linear-gradient(to right, #090B12, transparent)', pointerEvents: 'none' }} />
+            </>
+          ) : (
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(201,162,74,0.08) 0%, transparent 70%)' }} />
+          )}
+        </div>
+
       </div>
     </section>
   )
