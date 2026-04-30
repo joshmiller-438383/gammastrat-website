@@ -4,10 +4,15 @@ export default {
   type: 'document',
   __experimental_actions: ['update', 'publish'],
   groups: [
-    { name: 'hero',        title: '🦸 Hero' },
+    { name: 'hero',        title: '🦸 1. Hero Panel' },
+    { name: 'problem',     title: '⚠️ 2. Problem Panel' },
+    { name: 'solution',    title: '📊 3. Solution Dashboard Panel' },
+    { name: 'reports',     title: '📋 4. Reports Grid' },
+    { name: 'whyDiff',     title: '⚡ 5. Why Different Panel' },
+    { name: 'credibility', title: '🏛 6. Credibility Panel' },
+    { name: 'finalCta',    title: '🎯 7. Final CTA Panel' },
     { name: 'logoStrip',   title: '🏢 Logo Strip' },
-    { name: 'features',    title: '⚡ Features / Solutions' },
-    { name: 'stats',       title: '📊 Stats' },
+    { name: 'stats',       title: '📈 Stats Bar' },
     { name: 'blog',        title: '📰 Blog Section' },
     { name: 'contact',     title: '📬 Contact' },
     { name: 'nav',         title: '🧭 Navbar' },
@@ -15,19 +20,26 @@ export default {
   ],
   fields: [
 
-    // ─── HERO ───────────────────────────────────────────────────────────────
+    // ─── 1. HERO PANEL ──────────────────────────────────────────────────────
     {
       name: 'heroBadge',
       title: 'Hero — Badge Text',
       type: 'string',
-      description: 'Small uppercase text above the headline',
+      description: 'Small uppercase label above the headline (e.g. "AI-Powered Options Intelligence")',
       group: 'hero',
     },
     {
       name: 'heroHeadline',
       title: 'Hero — Headline',
       type: 'string',
-      description: 'Main large headline',
+      description: 'Main large headline text',
+      group: 'hero',
+    },
+    {
+      name: 'heroAccentWords',
+      title: 'Hero — Accent Words (blue/purple gradient)',
+      type: 'string',
+      description: 'Comma-separated exact words from the headline to highlight in gradient color (e.g. "Options Market")',
       group: 'hero',
     },
     {
@@ -42,67 +54,303 @@ export default {
       name: 'heroTrustLine',
       title: 'Hero — Trust Line',
       type: 'string',
-      description: 'Small credibility text below the CTAs',
+      description: 'Small italic credibility text below CTAs (e.g. "No credit card required. Cancel anytime.")',
       group: 'hero',
     },
     {
       name: 'heroCtaPrimaryText',
-      title: 'Hero — Primary CTA Text',
+      title: 'Hero — Primary CTA Button Text',
       type: 'string',
       group: 'hero',
     },
     {
       name: 'heroCtaPrimaryUrl',
-      title: 'Hero — Primary CTA URL',
+      title: 'Hero — Primary CTA Button URL',
       type: 'string',
       group: 'hero',
     },
     {
       name: 'heroCtaSecondaryText',
-      title: 'Hero — Secondary CTA Text',
+      title: 'Hero — Secondary CTA Button Text',
       type: 'string',
       group: 'hero',
     },
     {
       name: 'heroCtaSecondaryUrl',
-      title: 'Hero — Secondary CTA URL',
+      title: 'Hero — Secondary CTA Button URL',
       type: 'string',
       group: 'hero',
     },
     {
       name: 'heroImage',
-      title: 'Hero — Media Image',
+      title: 'Hero — Visual (GammaStrat-01)',
       type: 'image',
-      description: 'Image shown in the hero section (right side / background). Upload to replace the default video thumbnail.',
+      description: 'Gamma/volatility surface chart visual shown right of headline. Upload GammaStrat-01.png here.',
       options: { hotspot: true },
       group: 'hero',
+    },
+
+    // ─── 2. PROBLEM PANEL ───────────────────────────────────────────────────
+    {
+      name: 'problemHeadline',
+      title: 'Problem — Headline',
+      type: 'string',
+      description: 'e.g. "Trading Blind Is Expensive."',
+      group: 'problem',
+    },
+    {
+      name: 'problemAccentWords',
+      title: 'Problem — Accent Words (blue/purple gradient)',
+      type: 'string',
+      description: 'Comma-separated words to highlight (e.g. "Is Expensive")',
+      group: 'problem',
+    },
+    {
+      name: 'problemBody',
+      title: 'Problem — Body Copy',
+      type: 'text',
+      rows: 3,
+      description: 'Short paragraph explaining the problem traders face',
+      group: 'problem',
+    },
+    {
+      name: 'problemPoints',
+      title: 'Problem — Risk Labels (shown on visual)',
+      type: 'array',
+      description: 'Labels overlaid on the visual (e.g. "No Positioning", "Mispriced Volatility", "Unknown Risk")',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'label', title: 'Label Text', type: 'string' },
+          ],
+          preview: { select: { title: 'label' } },
+        },
+      ],
+      group: 'problem',
+    },
+    {
+      name: 'problemImage',
+      title: 'Problem — Visual (GammaStrat-02)',
+      type: 'image',
+      description: 'Dark storm/lighthouse risk visual. Upload GammaStrat-02.png here.',
+      options: { hotspot: true },
+      group: 'problem',
+    },
+
+    // ─── 3. SOLUTION DASHBOARD PANEL ────────────────────────────────────────
+    {
+      name: 'solutionHeadline',
+      title: 'Solution — Headline',
+      type: 'string',
+      description: 'e.g. "See The Market Like Institutions Do."',
+      group: 'solution',
+    },
+    {
+      name: 'solutionAccentWords',
+      title: 'Solution — Accent Words (blue/purple gradient)',
+      type: 'string',
+      description: 'Comma-separated words to highlight (e.g. "Like Institutions Do")',
+      group: 'solution',
+    },
+    {
+      name: 'solutionBody',
+      title: 'Solution — Body Copy',
+      type: 'text',
+      rows: 3,
+      description: 'Short paragraph explaining the solution',
+      group: 'solution',
+    },
+    {
+      name: 'solutionImage',
+      title: 'Solution — Dashboard Visual (GammaStrat-03)',
+      type: 'image',
+      description: 'Institutional analytics dashboard screenshot. Upload GammaStrat-03.png here.',
+      options: { hotspot: true },
+      group: 'solution',
+    },
+
+    // ─── 4. REPORTS GRID ────────────────────────────────────────────────────
+    {
+      name: 'reportsHeadline',
+      title: 'Reports — Section Headline',
+      type: 'string',
+      description: 'e.g. "Daily Intelligence. Every Market Day."',
+      group: 'reports',
+    },
+    {
+      name: 'reportsSubheadline',
+      title: 'Reports — Section Subheadline',
+      type: 'string',
+      description: 'e.g. "9 institutional-grade reports delivered to your inbox before market open."',
+      group: 'reports',
+    },
+    {
+      name: 'reportItems',
+      title: 'Reports — Report Cards (4-column grid)',
+      type: 'array',
+      description: 'Each card appears in the reports grid. Recommended: 8–9 cards.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'title',       title: 'Report Title',       type: 'string' },
+            { name: 'description', title: 'Short Description',  type: 'text', rows: 2 },
+            { name: 'icon',        title: 'Icon Emoji',         type: 'string', description: 'Optional emoji (e.g. "📊")' },
+            { name: 'image',       title: 'Card Visual',        type: 'image', options: { hotspot: true } },
+          ],
+          preview: {
+            select: { title: 'title', subtitle: 'description' },
+          },
+        },
+      ],
+      group: 'reports',
+    },
+    {
+      name: 'reportsImage',
+      title: 'Reports — Section Visual (GammaStrat-04)',
+      type: 'image',
+      description: 'Reports grid/dashboard visual. Upload GammaStrat-04.png here.',
+      options: { hotspot: true },
+      group: 'reports',
+    },
+
+    // ─── 5. WHY DIFFERENT PANEL ─────────────────────────────────────────────
+    {
+      name: 'whyHeadline',
+      title: 'Why Different — Headline',
+      type: 'string',
+      description: 'e.g. "We Focus On What Moves Markets."',
+      group: 'whyDiff',
+    },
+    {
+      name: 'whyAccentWords',
+      title: 'Why Different — Accent Words (blue/purple gradient)',
+      type: 'string',
+      description: 'Comma-separated words to highlight (e.g. "Moves Markets")',
+      group: 'whyDiff',
+    },
+    {
+      name: 'whyDrivers',
+      title: 'Why Different — Data Drivers (left list)',
+      type: 'array',
+      description: 'List of data inputs shown on the left (e.g. "Options Pricing", "Dealer Positioning")',
+      of: [{ type: 'string' }],
+      group: 'whyDiff',
+    },
+    {
+      name: 'whyImage',
+      title: 'Why Different — Flow Visual (GammaStrat-05)',
+      type: 'image',
+      description: 'Data flows converging into edge visual. Upload GammaStrat-05.png here.',
+      options: { hotspot: true },
+      group: 'whyDiff',
+    },
+
+    // ─── 6. CREDIBILITY PANEL ───────────────────────────────────────────────
+    {
+      name: 'credibilityHeadline',
+      title: 'Credibility — Headline',
+      type: 'string',
+      description: 'e.g. "Built On Expert Foundations."',
+      group: 'credibility',
+    },
+    {
+      name: 'credibilityAccentWords',
+      title: 'Credibility — Accent Words (blue/purple gradient)',
+      type: 'string',
+      description: 'Comma-separated words to highlight (e.g. "Expert Foundations")',
+      group: 'credibility',
+    },
+    {
+      name: 'credibilityPillars',
+      title: 'Credibility — Three Pillars',
+      type: 'array',
+      description: 'Three credibility cards shown below the headline',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'icon',  title: 'Icon (emoji)',   type: 'string', description: 'e.g. "🏛" or "🎓"' },
+            { name: 'title', title: 'Pillar Title',   type: 'string' },
+            { name: 'body',  title: 'Pillar Body',    type: 'text', rows: 2 },
+          ],
+          preview: { select: { title: 'title' } },
+        },
+      ],
+      group: 'credibility',
+    },
+    {
+      name: 'credibilityImage',
+      title: 'Credibility — Visual (GammaStrat-06)',
+      type: 'image',
+      description: 'Credibility/foundation visual. Upload GammaStrat-06.png here.',
+      options: { hotspot: true },
+      group: 'credibility',
+    },
+
+    // ─── 7. FINAL CTA PANEL ─────────────────────────────────────────────────
+    {
+      name: 'ctaHeadline',
+      title: 'Final CTA — Headline',
+      type: 'string',
+      description: 'e.g. "Gain The Edge. Stay Ahead."',
+      group: 'finalCta',
+    },
+    {
+      name: 'ctaAccentWords',
+      title: 'Final CTA — Accent Words (blue/purple gradient)',
+      type: 'string',
+      description: 'Comma-separated words to highlight (e.g. "The Edge")',
+      group: 'finalCta',
+    },
+    {
+      name: 'ctaSubheadline',
+      title: 'Final CTA — Subheadline',
+      type: 'string',
+      description: 'e.g. "Institutional intelligence. Delivered daily."',
+      group: 'finalCta',
+    },
+    {
+      name: 'ctaButtonText',
+      title: 'Final CTA — Button Text',
+      type: 'string',
+      group: 'finalCta',
+    },
+    {
+      name: 'ctaButtonUrl',
+      title: 'Final CTA — Button URL',
+      type: 'string',
+      group: 'finalCta',
+    },
+    {
+      name: 'ctaImage',
+      title: 'Final CTA — Circular Visual (GammaStrat-07)',
+      type: 'image',
+      description: 'Circular glow/target with GS mark. Upload GammaStrat-07.png here.',
+      options: { hotspot: true },
+      group: 'finalCta',
     },
 
     // ─── LOGO STRIP ─────────────────────────────────────────────────────────
     {
       name: 'logoStripLabel',
-      title: 'Logo Strip — Label',
+      title: 'Logo Strip — Label Text',
       type: 'string',
-      description: 'e.g. "Trusted by 4,000+ companies"',
+      description: 'e.g. "Trusted by traders at"',
       group: 'logoStrip',
     },
     {
       name: 'logoStripItems',
-      title: 'Logo Strip — Logos',
+      title: 'Logo Strip — Companies',
       type: 'array',
-      description: 'Upload a logo image for each company. If no image is uploaded, the company name will be shown as text.',
+      description: 'Upload a logo for each company. If no image is uploaded, the company name shows as text.',
       of: [
         {
           type: 'object',
           fields: [
             { name: 'name', title: 'Company Name', type: 'string' },
-            {
-              name: 'logo',
-              title: 'Logo Image',
-              type: 'image',
-              description: 'Upload the company logo (SVG or PNG with transparent background works best)',
-              options: { hotspot: false },
-            },
+            { name: 'logo', title: 'Logo Image',   type: 'image', options: { hotspot: false } },
           ],
           preview: { select: { title: 'name', media: 'logo' } },
         },
@@ -110,52 +358,7 @@ export default {
       group: 'logoStrip',
     },
 
-    // ─── FEATURES / SOLUTIONS ───────────────────────────────────────────────
-    {
-      name: 'featuresLabel',
-      title: 'Features — Section Label',
-      type: 'string',
-      description: 'Small uppercase label (e.g. "Solutions")',
-      group: 'features',
-    },
-    {
-      name: 'featuresHeadline',
-      title: 'Features — Headline',
-      type: 'string',
-      group: 'features',
-    },
-    {
-      name: 'featuresSubheadline',
-      title: 'Features — Subheadline',
-      type: 'string',
-      group: 'features',
-    },
-    {
-      name: 'featureItems',
-      title: 'Features — Cards',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'tag',         title: 'Tag (small label)',  type: 'string' },
-            { name: 'title',       title: 'Card Title',         type: 'string' },
-            { name: 'description', title: 'Card Description',   type: 'text', rows: 3 },
-            {
-              name: 'image',
-              title: 'Card Image',
-              type: 'image',
-              description: 'Upload an image for this feature card',
-              options: { hotspot: true },
-            },
-          ],
-          preview: { select: { title: 'title', subtitle: 'tag', media: 'image' } },
-        },
-      ],
-      group: 'features',
-    },
-
-    // ─── STATS ──────────────────────────────────────────────────────────────
+    // ─── STATS BAR ──────────────────────────────────────────────────────────
     {
       name: 'statsHeadline',
       title: 'Stats — Headline',
@@ -170,15 +373,15 @@ export default {
     },
     {
       name: 'statItems',
-      title: 'Stats — Items',
+      title: 'Stats — Stat Items',
       type: 'array',
       of: [
         {
           type: 'object',
           fields: [
-            { name: 'value', title: 'Value',     type: 'string', description: 'e.g. "99.99%"' },
-            { name: 'label', title: 'Label',     type: 'string', description: 'e.g. "Uptime"' },
-            { name: 'sub',   title: 'Sub-label', type: 'string', description: 'e.g. "Continuous platform reliability"' },
+            { name: 'value', title: 'Value (e.g. "99.99%")', type: 'string' },
+            { name: 'label', title: 'Label (e.g. "Uptime")', type: 'string' },
+            { name: 'sub',   title: 'Sub-text',              type: 'string' },
           ],
           preview: { select: { title: 'value', subtitle: 'label' } },
         },
@@ -189,23 +392,20 @@ export default {
     // ─── BLOG SECTION ───────────────────────────────────────────────────────
     {
       name: 'blogHeadline',
-      title: 'Blog Section — Headline',
+      title: 'Blog — Section Headline',
       type: 'string',
-      description: 'e.g. "Trade smarter. Stay ahead."',
       group: 'blog',
     },
     {
       name: 'blogSubheadline',
-      title: 'Blog Section — Subheadline',
+      title: 'Blog — Section Subheadline',
       type: 'string',
-      description: 'e.g. "The latest market news, innovations, methodologies, and resources."',
       group: 'blog',
     },
     {
       name: 'blogCtaText',
-      title: 'Blog Section — CTA Link Text',
+      title: 'Blog — CTA Button Text',
       type: 'string',
-      description: 'e.g. "View all posts"',
       group: 'blog',
     },
 
@@ -230,7 +430,7 @@ export default {
     },
     {
       name: 'contactPhone',
-      title: 'Contact — Phone',
+      title: 'Contact — Phone Number',
       type: 'string',
       group: 'contact',
     },
@@ -238,7 +438,7 @@ export default {
       name: 'contactAddress',
       title: 'Contact — Address',
       type: 'text',
-      rows: 3,
+      rows: 2,
       group: 'contact',
     },
     {
@@ -317,7 +517,7 @@ export default {
       name: 'footerCopyright',
       title: 'Footer — Copyright Text',
       type: 'string',
-      description: 'Use {year} as a placeholder for the current year. e.g. "© {year} GammaStrat. All rights reserved."',
+      description: 'Use {year} as placeholder for current year',
       group: 'footer',
     },
     {

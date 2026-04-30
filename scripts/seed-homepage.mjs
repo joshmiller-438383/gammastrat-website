@@ -26,7 +26,6 @@ function keyed(arr) {
   return arr.map((item, i) => ({
     _key: `key_${i}_${Math.random().toString(36).slice(2, 7)}`,
     ...item,
-    // Recursively key nested arrays
     ...(item.dropdown ? { dropdown: keyed(item.dropdown) } : {}),
     ...(item.links ? { links: keyed(item.links) } : {}),
   }))
@@ -36,28 +35,133 @@ const homepageDoc = {
   _id: 'homepage',
   _type: 'homepage',
 
-  // ─── HERO ───────────────────────────────────────────────────────────────
-  heroBadge: 'Trusted by 2.5M+ traders',
+  // ─── 1. HERO PANEL ──────────────────────────────────────────────────────
+  heroBadge: 'Institutional Options Intelligence',
   heroHeadline: 'See What the Options Market Is Pricing Before Price Moves',
+  heroAccentWords: 'Options Market',
   heroDescription: 'Institutional-grade options intelligence revealing gamma positioning, volatility mispricings, and probability edge across SPX, QQQ, and the most liquid names.',
-  heroTrustLine: 'Built by a Wall Street hedge fund founder. Validated by quantitative research.',
-  heroCtaPrimaryText: 'Start Subscription',
+  heroTrustLine: 'Used by serious options traders, volatility specialists, and SPX/index traders.',
+  heroCtaPrimaryText: 'Start Your Edge',
   heroCtaPrimaryUrl: '/plans',
   heroCtaSecondaryText: 'View Sample Reports',
-  heroCtaSecondaryUrl: '#solutions',
+  heroCtaSecondaryUrl: '#reports',
 
-  // ─── LOGO STRIP ─────────────────────────────────────────────────────────
-  logoStripLabel: 'Trusted by 4,000+ companies',
-  logoStripItems: keyed([
-    { name: 'StackEd Lab' },
-    { name: 'Magnolia' },
-    { name: 'Powersurge' },
-    { name: 'Warpspeed' },
-    { name: 'Leapyear' },
-    { name: 'EasyTrade' },
+  // ─── 2. PROBLEM PANEL ───────────────────────────────────────────────────
+  problemHeadline: 'Trading Blind Is Expensive.',
+  problemAccentWords: 'Is Expensive.',
+  problemBody: 'Most traders focus on price. Professionals focus on positioning. Without gamma data, volatility structure, and dealer exposure, you are trading blind.',
+  problemPoints: keyed([
+    { label: 'No Positioning Data' },
+    { label: 'Mispriced Volatility' },
+    { label: 'Unknown Risk Exposure' },
   ]),
 
-  // ─── FEATURES / SOLUTIONS ───────────────────────────────────────────────
+  // ─── 3. SOLUTION DASHBOARD PANEL ────────────────────────────────────────
+  solutionHeadline: 'See The Market Like Institutions Do.',
+  solutionAccentWords: 'Like Institutions Do.',
+  solutionBody: 'GammaStrat translates complex options data into clear, actionable intelligence so you can stop guessing and start executing with conviction.',
+
+  // ─── 4. REPORTS GRID ────────────────────────────────────────────────────
+  reportsHeadline: 'Every Report You Need to Trade With Edge',
+  reportsSubheadline: 'Institutional-grade options intelligence, delivered daily before market open.',
+  reportItems: keyed([
+    {
+      title: 'DOPR Spreads Analysis',
+      description: 'Highest probability options spreads ranked by market expectations.',
+      icon: '📊',
+    },
+    {
+      title: 'Volatility Risk Premium & Squeeze',
+      description: 'Identify volatility mispricings and premium opportunities.',
+      icon: '📈',
+    },
+    {
+      title: 'Relative Value & Positioning',
+      description: 'Spot rare dislocations in how the market is pricing probability.',
+      icon: '⚖️',
+    },
+    {
+      title: 'Signal Strength Rankings',
+      description: 'Rank the best directional and market-neutral opportunities.',
+      icon: '📡',
+    },
+    {
+      title: 'Filtered Tickers',
+      description: 'Find tickers with aligned signals across multiple frameworks.',
+      icon: '🔍',
+    },
+    {
+      title: 'Market Mood Gauge',
+      description: 'Instant read on the current gamma and volatility regime.',
+      icon: '🎯',
+    },
+    {
+      title: 'VIX & VVIX Term Structure',
+      description: 'See forward volatility expectations across maturities.',
+      icon: '📉',
+    },
+    {
+      title: 'Volatility Regime Report',
+      description: 'Understand the current market environment and what it means for your trades.',
+      icon: '🌐',
+    },
+    {
+      title: 'Options Market Insights',
+      description: 'Daily analysis of SPX, QQQ, and GLO with skew, pin risk, and positioning.',
+      icon: '💡',
+    },
+  ]),
+
+  // ─── 5. WHY DIFFERENT PANEL ─────────────────────────────────────────────
+  whyHeadline: 'We Focus On What Moves Markets.',
+  whyAccentWords: 'Moves Markets.',
+  whyDrivers: [
+    'Options Pricing',
+    'Dealer Positioning',
+    'Volatility Structure',
+    'Probability Distribution',
+  ],
+
+  // ─── 6. CREDIBILITY PANEL ───────────────────────────────────────────────
+  credibilityHeadline: 'Built On Expert Foundations.',
+  credibilityAccentWords: 'Expert Foundations.',
+  credibilityPillars: keyed([
+    {
+      icon: '🏛',
+      title: 'Wall Street Hedge Fund Founder',
+      body: 'Built on frameworks developed and tested in institutional trading environments at the highest levels of the market.',
+    },
+    {
+      icon: '🎓',
+      title: 'University Professor Endorsed',
+      body: 'Methodology validated by academic research in derivatives pricing, market microstructure, and quantitative finance.',
+    },
+    {
+      icon: '⚙️',
+      title: 'Quantitative Models & Research Driven',
+      body: 'Every signal is backed by rigorous quantitative analysis, not opinion, guesswork, or retail trading folklore.',
+    },
+  ]),
+
+  // ─── 7. FINAL CTA PANEL ─────────────────────────────────────────────────
+  ctaHeadline: 'Gain The Edge. Stay Ahead.',
+  ctaAccentWords: 'The Edge.',
+  ctaSubheadline: 'Institutional intelligence. Delivered daily.',
+  ctaButtonText: 'Start Your Edge',
+  ctaButtonUrl: '/plans',
+
+  // ─── LOGO STRIP ─────────────────────────────────────────────────────────
+  logoStripLabel: 'Trusted by serious options traders',
+  logoStripItems: keyed([
+    { name: 'SPX Traders' },
+    { name: 'Volatility Specialists' },
+    { name: 'Spread Traders' },
+    { name: 'Premium Sellers' },
+    { name: 'Index Options' },
+    { name: 'Quant Funds' },
+  ]),
+
+  // ─── FEATURES (legacy — kept for backward compat) ───────────────────────
   featuresLabel: 'Solutions',
   featuresHeadline: 'A Complete Options Intelligence Stack',
   featuresSubheadline: 'Each report is designed to improve trade selection, structure, and volatility edge.',
@@ -91,42 +195,40 @@ const homepageDoc = {
 
   // ─── BLOG SECTION ───────────────────────────────────────────────────────
   blogHeadline: 'Trade smarter. Stay ahead.',
-  blogSubheadline: 'The latest market news, innovations, methodologies, and resources.',
+  blogSubheadline: 'The latest market insights, methodologies, and resources.',
   blogCtaText: 'View all posts',
 
   // ─── CONTACT ────────────────────────────────────────────────────────────
-  contactHeadline: 'Connect with us now',
-  contactSubheadline: 'Need assistance? Contact our experts.',
+  contactHeadline: 'Connect with us',
+  contactSubheadline: 'Questions about GammaStrat? Our team is here to help.',
   contactEmail: 'support@gammastrat.com',
-  contactPhone: '+1 (555) 000-0000',
-  contactAddress: '1234 S Rangeline Pkwy, Suite 200\nSalt Lake City, Utah, USA',
+  contactPhone: '',
+  contactAddress: '',
   contactCtaText: 'Send message',
 
   // ─── NAVBAR ─────────────────────────────────────────────────────────────
-  navLoginText: 'Log in',
+  navLoginText: 'Member Portal',
   navLoginUrl: 'https://members.gammastrat.com',
-  navCtaText: 'Start free trial →',
+  navCtaText: 'Start Your Edge →',
   navCtaUrl: '/plans',
   navLinks: keyed([
     {
-      label: 'Solutions',
-      href: '#',
-      dropdown: [
-        { label: 'Market Analytics', href: '#solutions' },
-        { label: 'Trade Signals', href: '#solutions' },
-        { label: 'Risk Management', href: '#solutions' },
-        { label: 'Portfolio Tools', href: '#solutions' },
-      ],
+      label: 'Reports',
+      href: '#reports',
     },
-    { label: 'About', href: '/#about' },
-    { label: 'Pricing', href: '/plans' },
+    {
+      label: 'About',
+      href: '/#about',
+    },
+    {
+      label: 'Pricing',
+      href: '/plans',
+    },
     {
       label: 'Support',
       href: '#',
       dropdown: [
         { label: 'Documentation', href: '#' },
-        { label: 'Academy', href: '#' },
-        { label: 'Community', href: '#' },
         { label: 'Contact', href: '/#contact' },
       ],
     },
@@ -141,7 +243,6 @@ const homepageDoc = {
       links: [
         { label: 'Home', href: '/' },
         { label: 'Pricing', href: '/plans' },
-        { label: 'Academy', href: '#' },
         { label: 'Member Portal', href: 'https://members.gammastrat.com' },
       ],
     },
@@ -149,7 +250,6 @@ const homepageDoc = {
       heading: 'Company',
       links: [
         { label: 'About', href: '#' },
-        { label: 'Careers', href: '#' },
         { label: 'Contact', href: '/#contact' },
       ],
     },
@@ -157,7 +257,6 @@ const homepageDoc = {
       heading: 'Resources',
       links: [
         { label: 'Blog', href: '/blog' },
-        { label: 'Newsletter', href: '#' },
         { label: 'Support', href: '/#contact' },
       ],
     },
@@ -172,7 +271,7 @@ const homepageDoc = {
 }
 
 async function seed() {
-  console.log('Seeding homepage document with _key fields...')
+  console.log('Seeding homepage document with all 7 new section fields...')
   try {
     const result = await client.createOrReplace(homepageDoc)
     console.log('✅ Homepage seeded successfully:', result._id)
