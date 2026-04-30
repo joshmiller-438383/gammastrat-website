@@ -1,29 +1,23 @@
 import { NextResponse } from 'next/server'
 import { client, queries } from '../../../../sanity/client'
 
-async function getSanityData() {
-  try {
-    const homepage = await client.fetch(queries.homepage)
-    return { homepage }
-  } catch (err) {
-    console.error('[Sanity fetch error]', err)
-    return { homepage: null }
-  }
-}
-
 export async function GET() {
   try {
-    // Simulate EXACT page.tsx code path
-    const { homepage: hp } = await getSanityData()
-    
+    const [hp, pp] = await Promise.all([
+      client.fetch(queries.homepage).catch((e: Error) => ({ _error: e.message })),
+      client.fetch(queries.plansPage).catch((e: Error) => ({ _error: e.message })),
+    ])
+
     return NextResponse.json({
-      // Exact same expressions as page.tsx
-      heroImageUrl_pagePath: hp?.heroImage?.asset?.url ?? null,
-      problemImageUrl_pagePath: hp?.problemImage?.asset?.url ?? null,
-      solutionImageUrl_pagePath: hp?.solutionImage?.asset?.url ?? null,
-      // Raw heroImage object
-      heroImageRaw: hp?.heroImage ?? null,
-      hasHomepage: !!hp,
+      hasHomepage: !!hp && !('_error' in (hp as object)),
+      hasPlansPage: !!pp && !('_error' in (pp as object)),
+      plansPageError: pp && '_error' in (pp as object) ? (pp as { _error: string })._error : null,
+      plansPageData: pp && !('_error' in (pp as object)) ? {
+        heroBadge: (pp as { heroBadge?: string })?.heroBadge,
+        heroCtaText: (pp as { heroCtaText?: string })?.heroCtaText,
+        pricingCardsCount: (pp as { pricingCards?: unknown[] })?.pricingCards?.length ?? 0,
+        firstCardCtaText: (pp as { pricingCards?: Array<{ ctaText?: string }> })?.pricingCards?.[0]?.ctaText,
+      } : null,
       token: process.env.SANITY_API_TOKEN ? 'SET' : 'NOT SET',
     })
   } catch (err) {
