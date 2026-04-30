@@ -1,5 +1,4 @@
 export const dynamic = "force-dynamic"
-import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ShopifyCheckoutModal from '@/components/ShopifyCheckoutModal'
 import { client, queries } from '../../../sanity/client'
@@ -179,10 +178,8 @@ export default async function PlansPage() {
 
   return (
     <main style={{ background: '#05070B', minHeight: '100vh' }}>
-      <Navbar />
-
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
-      <section className="pt-36 pb-16 sm:pt-40 sm:pb-20 text-center px-5">
+      <section className="pt-16 pb-16 sm:pt-20 sm:pb-20 text-center px-5">
         <div className="max-w-[760px] mx-auto">
           <p className="text-xs uppercase tracking-[0.22em] text-[#C9A24A] font-semibold mb-4">{hero.badge}</p>
           <h1 className="text-4xl sm:text-5xl md:text-[52px] font-bold text-white leading-tight mb-5">
