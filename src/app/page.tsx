@@ -106,7 +106,11 @@ export default async function HomePage() {
       </div>
 
       {/* FAQ Section — above Final CTA */}
-      <FAQSection />
+      <FAQSection
+        headline={hp?.faqHeadline}
+        subtitle={hp?.faqSubtitle}
+        items={hp?.faqItems}
+      />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         {/* Row 6: Final CTA */}

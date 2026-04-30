@@ -18,6 +18,7 @@ export default {
     { name: 'nav',         title: '🧭 Navbar' },
     { name: 'footer',      title: '🦶 Footer' },
     { name: 'disclaimer',  title: '⚖️ Legal Disclaimer' },
+    { name: 'faq',         title: '❓ FAQ Section' },
   ],
   fields: [
 
@@ -550,6 +551,54 @@ export default {
         },
       ],
       group: 'footer',
+    },
+    // ─── FAQ SECTION ──────────────────────────────────────────────────────────
+    {
+      name: 'faqHeadline',
+      title: 'FAQ — Section Headline',
+      type: 'string',
+      initialValue: 'Frequently Asked Questions',
+      group: 'faq',
+    },
+    {
+      name: 'faqSubtitle',
+      title: 'FAQ — Section Subtitle',
+      type: 'string',
+      initialValue: 'Everything you need to know before you start trading with edge.',
+      group: 'faq',
+    },
+    {
+      name: 'faqItems',
+      title: 'FAQ — Questions & Answers',
+      type: 'array',
+      description: 'Add, remove, or reorder FAQ questions. Each item has a question and a plain-text answer.',
+      group: 'faq',
+      of: [
+        {
+          type: 'object',
+          name: 'faqItem',
+          title: 'FAQ Item',
+          fields: [
+            {
+              name: 'question',
+              title: 'Question',
+              type: 'string',
+              validation: (Rule: any) => Rule.required(),
+            },
+            {
+              name: 'answer',
+              title: 'Answer',
+              type: 'text',
+              rows: 5,
+              description: 'Plain text answer. Use line breaks for paragraphs.',
+              validation: (Rule: any) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: { title: 'question', subtitle: 'answer' },
+          },
+        },
+      ],
     },
     // ─── DISCLAIMER ─────────────────────────────────────────────────────────
     {

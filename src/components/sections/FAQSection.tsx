@@ -1,163 +1,94 @@
 'use client'
 import { useState } from 'react'
 
-interface FAQItem {
+interface SanityFAQItem {
+  _key: string
   question: string
-  answer: React.ReactNode
+  answer: string
 }
 
-const DEFAULT_FAQS: FAQItem[] = [
+interface FAQSectionProps {
+  headline?: string
+  subtitle?: string
+  items?: SanityFAQItem[]
+}
+
+// Hardcoded fallback FAQ items (used when Sanity has no data yet)
+const DEFAULT_FAQS: SanityFAQItem[] = [
   {
+    _key: 'faq1',
     question: 'What exactly is GammaStrat?',
-    answer: (
-      <p>
-        GammaStrat is an institutional-grade options intelligence platform that analyzes gamma
-        positioning, volatility structure, and probability distributions to identify where the
-        market is likely to move — before price moves.
-      </p>
-    ),
+    answer: 'GammaStrat is an institutional-grade options intelligence platform that analyzes gamma positioning, volatility structure, and probability distributions to identify where the market is likely to move — before price moves.',
   },
   {
+    _key: 'faq2',
     question: 'Who is this for?',
-    answer: (
-      <>
-        <p className="mb-3">Serious traders:</p>
-        <ul className="space-y-1.5">
-          {['SPX / index options traders', 'Volatility traders', 'Premium sellers / spread traders', 'Traders who want positioning data, not just price charts'].map(item => (
-            <li key={item} className="flex items-start gap-2">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-[#C9A24A] flex-shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </>
-    ),
+    answer: 'Serious traders:\n\n• SPX / index options traders\n• Volatility traders\n• Premium sellers / spread traders\n• Traders who want positioning data, not just price charts',
   },
   {
+    _key: 'faq3',
     question: 'How is this different from typical trading tools?',
-    answer: (
-      <>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-2">
-          <div className="rounded-lg bg-white/3 border border-white/6 p-4">
-            <p className="text-xs uppercase tracking-widest text-white/40 mb-2">Most tools show</p>
-            {['Price', 'Indicators', 'Lagging signals'].map(item => (
-              <p key={item} className="text-sm text-white/60 py-0.5">— {item}</p>
-            ))}
-          </div>
-          <div className="rounded-lg bg-[#C9A24A]/8 border border-[#C9A24A]/20 p-4">
-            <p className="text-xs uppercase tracking-widest text-[#C9A24A]/70 mb-2">GammaStrat shows</p>
-            {['Dealer positioning', 'Gamma exposure', 'Volatility mispricing', 'Probability edge'].map(item => (
-              <p key={item} className="text-sm text-white/80 py-0.5">+ {item}</p>
-            ))}
-          </div>
-        </div>
-        <p className="text-white/60 text-sm mt-3">You see what drives price — not just price itself.</p>
-      </>
-    ),
+    answer: 'Most tools show price, indicators, and lagging signals.\n\nGammaStrat shows dealer positioning, gamma exposure, volatility mispricing, and probability edge.\n\nYou see what drives price — not just price itself.',
   },
   {
+    _key: 'faq4',
     question: 'Do I need to trade options to use this?',
-    answer: (
-      <>
-        <p className="mb-3">No — but you'll get the most value if you do.</p>
-        <p className="mb-2">Futures and directional traders can still use:</p>
-        <ul className="space-y-1.5 mb-3">
-          {['Gamma levels', 'Volatility structure', 'Positioning data'].map(item => (
-            <li key={item} className="flex items-start gap-2">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-[#C9A24A] flex-shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <p>To improve entries, exits, and bias.</p>
-      </>
-    ),
+    answer: 'No — but you\'ll get the most value if you do.\n\nFutures and directional traders can still use gamma levels, volatility structure, and positioning data to improve entries, exits, and bias.',
   },
   {
+    _key: 'faq5',
     question: 'How often are reports updated?',
-    answer: (
-      <>
-        <p className="mb-3 text-[#C9A24A] font-medium">Daily.</p>
-        <p className="mb-2">Each report reflects:</p>
-        <ul className="space-y-1.5">
-          {['Latest options positioning', 'Current volatility conditions', 'Updated probability rankings'].map(item => (
-            <li key={item} className="flex items-start gap-2">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-[#C9A24A] flex-shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </>
-    ),
+    answer: 'Daily.\n\nEach report reflects:\n• Latest options positioning\n• Current volatility conditions\n• Updated probability rankings',
   },
   {
+    _key: 'faq6',
     question: 'What kind of edge does this give?',
-    answer: (
-      <>
-        <p className="mb-2">GammaStrat helps you:</p>
-        <ul className="space-y-1.5">
-          {['Identify high-probability setups', 'Avoid crowded trades', 'Trade with positioning, not against it', 'Understand volatility regimes'].map(item => (
-            <li key={item} className="flex items-start gap-2">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-[#C9A24A] flex-shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </>
-    ),
+    answer: 'GammaStrat helps you:\n• Identify high-probability setups\n• Avoid crowded trades\n• Trade with positioning, not against it\n• Understand volatility regimes',
   },
   {
+    _key: 'faq7',
     question: 'Is this beginner-friendly?',
-    answer: (
-      <p>
-        Yes — but it's built for serious traders. GammaStrat is designed for traders who want to
-        understand positioning, volatility, and probability at a deeper level. That said, we provide
-        clear guidance on how to interpret each report — including what matters, how to read the
-        signals, and how to apply them in real trades. You don't need to be an expert in options
-        theory to start — but you will think like one very quickly.
-      </p>
-    ),
+    answer: 'Yes — but it\'s built for serious traders. GammaStrat is designed for traders who want to understand positioning, volatility, and probability at a deeper level.\n\nThat said, we provide clear guidance on how to interpret each report — including what matters, how to read the signals, and how to apply them in real trades. You don\'t need to be an expert in options theory to start — but you will think like one very quickly.',
   },
   {
+    _key: 'faq8',
     question: 'Can I see a sample before subscribing?',
-    answer: <p>Yes — sample reports are available directly on the homepage.</p>,
+    answer: 'Yes — sample reports are available directly on the homepage.',
   },
   {
+    _key: 'faq9',
     question: 'What markets does this cover?',
-    answer: (
-      <>
-        <p className="mb-2">Primarily:</p>
-        <ul className="space-y-1.5">
-          {['SPX', 'QQQ', 'Major equities', 'Volatility products (VIX, VVIX)'].map(item => (
-            <li key={item} className="flex items-start gap-2">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-[#C9A24A] flex-shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </>
-    ),
+    answer: 'Primarily:\n• SPX\n• QQQ\n• Major equities\n• Volatility products (VIX, VVIX)',
   },
   {
+    _key: 'faq10',
     question: 'How quickly can I start using it?',
-    answer: (
-      <>
-        <p className="mb-3 text-[#C9A24A] font-medium">Immediately after subscribing.</p>
-        <p className="mb-2">You'll get access to:</p>
-        <ul className="space-y-1.5">
-          {['Full report library', 'Daily updates', 'All analytics dashboards'].map(item => (
-            <li key={item} className="flex items-start gap-2">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-[#C9A24A] flex-shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </>
-    ),
+    answer: 'Immediately after subscribing.\n\nYou\'ll get access to:\n• Full report library\n• Daily updates\n• All analytics dashboards',
   },
 ]
 
-function FAQItem({ item, isOpen, onToggle }: { item: FAQItem; isOpen: boolean; onToggle: () => void }) {
+// Render plain text answer with bullet points and line breaks
+function renderAnswer(text: string) {
+  const lines = text.split('\n')
+  return (
+    <div className="space-y-2">
+      {lines.map((line, i) => {
+        if (!line.trim()) return null
+        if (line.startsWith('•') || line.startsWith('-')) {
+          return (
+            <div key={i} className="flex items-start gap-2">
+              <span className="mt-1.5 w-1 h-1 rounded-full bg-[#C9A24A] flex-shrink-0" />
+              <span>{line.replace(/^[•\-]\s*/, '')}</span>
+            </div>
+          )
+        }
+        return <p key={i}>{line}</p>
+      })}
+    </div>
+  )
+}
+
+function FAQItem({ item, isOpen, onToggle }: { item: SanityFAQItem; isOpen: boolean; onToggle: () => void }) {
   return (
     <div
       className={`rounded-xl border transition-all duration-200 cursor-pointer overflow-hidden
@@ -189,18 +120,21 @@ function FAQItem({ item, isOpen, onToggle }: { item: FAQItem; isOpen: boolean; o
       <div
         className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}
       >
-        <div className="px-5 sm:px-6 pb-5 text-sm text-[#A7ADBB] leading-relaxed space-y-2">
-          {item.answer}
+        <div className="px-5 sm:px-6 pb-5 text-sm text-[#A7ADBB] leading-relaxed">
+          {renderAnswer(item.answer)}
         </div>
       </div>
     </div>
   )
 }
 
-export default function FAQSection() {
+export default function FAQSection({ headline, subtitle, items }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-
   const toggle = (i: number) => setOpenIndex(prev => (prev === i ? null : i))
+
+  const faqs = (items && items.length > 0) ? items : DEFAULT_FAQS
+  const title = headline || 'Frequently Asked Questions'
+  const sub = subtitle || 'Everything you need to know before you start trading with edge.'
 
   return (
     <section
@@ -214,7 +148,6 @@ export default function FAQSection() {
           className="absolute right-0 top-1/2 -translate-y-1/2 w-[480px] opacity-[0.04]"
           viewBox="0 0 480 600" fill="none"
         >
-          {/* Gamma distribution curves */}
           {[0, 30, 60, 90, 120].map((offset, i) => (
             <path
               key={i}
@@ -224,7 +157,6 @@ export default function FAQSection() {
               fill="none"
             />
           ))}
-          {/* Signal dots */}
           {[240, 280, 320, 360].map((y, i) => (
             <circle key={i} cx={240 + i * 20} cy={y} r="2" fill="#C9A24A" />
           ))}
@@ -234,22 +166,25 @@ export default function FAQSection() {
       <div className="relative max-w-[900px] mx-auto px-5 sm:px-8">
         {/* Section header */}
         <div className="mb-12 sm:mb-14">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#C9A24A] font-medium mb-3">
-            FAQ
-          </p>
+          <p className="text-xs uppercase tracking-[0.2em] text-[#C9A24A] font-medium mb-3">FAQ</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-            Frequently Asked <span className="text-[#C9A24A]">Questions</span>
+            {title.includes('Questions') ? (
+              <>
+                {title.replace('Questions', '').trim()}{' '}
+                <span className="text-[#C9A24A]">Questions</span>
+              </>
+            ) : (
+              title
+            )}
           </h2>
-          <p className="mt-3 text-[#A7ADBB] text-base max-w-xl">
-            Everything you need to know before you start trading with edge.
-          </p>
+          <p className="mt-3 text-[#A7ADBB] text-base max-w-xl">{sub}</p>
         </div>
 
         {/* Accordion */}
         <div className="space-y-3">
-          {DEFAULT_FAQS.map((item, i) => (
+          {faqs.map((item, i) => (
             <FAQItem
-              key={i}
+              key={item._key || i}
               item={item}
               isOpen={openIndex === i}
               onToggle={() => toggle(i)}
