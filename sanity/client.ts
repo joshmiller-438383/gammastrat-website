@@ -6,6 +6,8 @@ export const client = createClient({
   apiVersion: '2024-01-01',
   useCdn: false,
   token: process.env.SANITY_API_TOKEN,
+  // Prevent Next.js / Vercel edge from caching responses so Sanity edits go live immediately
+  fetchOptions: { cache: 'no-store' },
 })
 
 export const writeClient = createClient({
