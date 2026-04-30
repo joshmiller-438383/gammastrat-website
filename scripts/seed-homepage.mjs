@@ -150,6 +150,15 @@ const homepageDoc = {
   ctaButtonText: 'Start Your Edge',
   ctaButtonUrl: '/plans',
 
+  // ─── SECTION IMAGES (Sanity CDN asset references) ───────────────────────
+  heroImage: { _type: 'image', asset: { _type: 'reference', _ref: 'image-bc8b808a6b343555786e04f40c878b4950f9b4f1-890x340-png' } },
+  problemImage: { _type: 'image', asset: { _type: 'reference', _ref: 'image-215e3a8d40fe3112dd4b1cfc45eec234bc9d67fd-646x340-png' } },
+  solutionImage: { _type: 'image', asset: { _type: 'reference', _ref: 'image-b984aaea6f2c781cdfc4c548d7e03151f7d5d1f2-890x340-png' } },
+  reportsImage: { _type: 'image', asset: { _type: 'reference', _ref: 'image-2ba2415e8e17d60bf373d53ebc90b0c4d14a01cb-646x340-png' } },
+  whyImage: { _type: 'image', asset: { _type: 'reference', _ref: 'image-2ff011d2d64e218535464b4f9193ef53729ce259-645x344-png' } },
+  credibilityImage: { _type: 'image', asset: { _type: 'reference', _ref: 'image-976bbfc504e196a635b840f1df24231035723c5c-430x344-png' } },
+  ctaImage: { _type: 'image', asset: { _type: 'reference', _ref: 'image-e485f613010f388c4498df344e256775d6ad1452-461x344-png' } },
+
   // ─── LOGO STRIP ─────────────────────────────────────────────────────────
   logoStripLabel: 'Trusted by serious options traders',
   logoStripItems: keyed([

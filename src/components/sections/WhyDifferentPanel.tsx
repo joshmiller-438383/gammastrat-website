@@ -1,11 +1,12 @@
-'use client'
-
 import Image from 'next/image'
+
+// Sanity stores whyDrivers as string[] but we also support {label} objects
+type WhyDriver = string | { _key?: string; label: string; icon?: string }
 
 interface WhyDifferentPanelProps {
   headline?: string
   accentWords?: string[]
-  drivers?: string[] | string
+  drivers?: WhyDriver[]
   imageUrl?: string
 }
 
@@ -23,98 +24,75 @@ function highlightAccent(text: string, accentWords: string[]): React.ReactNode {
   })
 }
 
-const DRIVERS = [
-  { icon: '◈', label: 'Options Pricing' },
-  { icon: '◉', label: 'Dealer Positioning' },
-  { icon: '◎', label: 'Volatility Structure' },
-  { icon: '⊙', label: 'Probability Distribution' },
+function getDriverLabel(d: WhyDriver): string {
+  return typeof d === 'string' ? d : d.label
+}
+
+const DEFAULT_DRIVERS: WhyDriver[] = [
+  'Options Pricing',
+  'Dealer Positioning',
+  'Volatility Structure',
+  'Probability Distribution',
 ]
 
 export default function WhyDifferentPanel({
   headline = 'We Focus On What Moves Markets.',
   accentWords = ['Moves Markets.'],
-  drivers,
+  drivers = DEFAULT_DRIVERS,
   imageUrl,
 }: WhyDifferentPanelProps) {
-  const driverList = Array.isArray(drivers)
-    ? drivers
-    : drivers
-      ? drivers.split('\n').filter(Boolean).map(d => d.trim())
-      : DRIVERS.map(d => d.label)
-
   return (
-    <section className="gs-panel relative overflow-hidden min-h-[400px] flex flex-col lg:flex-row">
-      {/* Background glow — gold */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full blur-3xl opacity-20"
-          style={{ background: 'radial-gradient(circle, rgba(201,162,39,0.2) 0%, transparent 70%)' }} />
-        <div className="absolute top-1/2 left-1/2 w-48 h-48 rounded-full blur-2xl opacity-15"
-          style={{ background: 'radial-gradient(circle, rgba(201,162,39,0.15) 0%, transparent 70%)' }} />
-      </div>
-
-      {/* Left: Copy */}
-      <div className="relative z-10 flex flex-col justify-center p-8 lg:p-12 lg:w-[45%]">
-        <div className="inline-flex items-center gap-2 mb-4">
-          <span className="w-2 h-2 rounded-full bg-[#C9A227]" />
-          <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A227]">Why Different</span>
+    <section className="gs-panel relative overflow-hidden flex flex-col lg:flex-row min-h-[320px]">
+      {/* Left: Copy + drivers */}
+      <div className="relative z-10 flex flex-col justify-center p-8 lg:p-10 xl:p-12 lg:w-[45%] flex-shrink-0">
+        <div className="mb-4">
+          <span className="section-label">Why Different</span>
         </div>
 
-        <h2 className="text-3xl lg:text-4xl font-bold leading-[1.15] tracking-tight text-white mb-6">
+        <h2 className="text-[1.75rem] lg:text-[2rem] xl:text-[2.25rem] font-bold leading-[1.15] tracking-tight text-white mb-6">
           {highlightAccent(headline, accentWords ?? [])}
         </h2>
 
-        <div className="flex flex-col gap-3">
-          {driverList.map((driver, i) => {
-            const iconData = DRIVERS[i] ?? { icon: '◆' }
-            return (
-              <div key={i} className="flex items-center gap-3 group">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm flex-shrink-0"
-                  style={{ background: 'rgba(201,162,39,0.1)', border: '1px solid rgba(201,162,39,0.25)', color: '#C9A227' }}>
-                  {iconData.icon}
+        {drivers && drivers.length > 0 && (
+          <div className="flex flex-col gap-2.5">
+            {drivers.map((driver, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'rgba(201,162,74,0.12)', border: '1px solid rgba(201,162,74,0.2)' }}>
+                  <span className="text-xs text-[var(--gold)]">◈</span>
                 </div>
-                <span className="text-sm text-[#AAB4C3] group-hover:text-white transition-colors">
-                  {driver}
-                </span>
+                <span className="text-sm font-medium text-[var(--text-secondary)]">{getDriverLabel(driver)}</span>
               </div>
-            )
-          })}
-        </div>
-
-        {/* Flow arrow indicator — gold gradient */}
-        <div className="mt-8 flex items-center gap-3">
-          <div className="flex-1 h-px"
-            style={{ background: 'linear-gradient(to right, rgba(201,162,39,0.6), rgba(232,197,71,0.4))' }} />
-          <div className="text-xs text-[#AAB4C3]/60 uppercase tracking-widest">→ Edge</div>
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Right: Visual */}
-      <div className="relative lg:w-[55%] min-h-[280px] lg:min-h-0 overflow-hidden">
+      {/* Right: Visual with PRICE / POSITIONING labels */}
+      <div className="relative flex-1 min-h-[240px] lg:min-h-0 overflow-hidden">
         {imageUrl ? (
           <Image
             src={imageUrl}
-            alt="Options data flow visualization"
+            alt="Why Different — options market forces visualization"
             fill
             className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 55vw"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, rgba(201,162,39,0.04) 0%, rgba(201,162,39,0.01) 100%)' }}>
-            <div className="text-[#AAB4C3]/30 text-sm">Flow Visual</div>
-          </div>
+          <div className="absolute inset-0"
+            style={{ background: 'linear-gradient(135deg, rgba(201,162,74,0.06) 0%, rgba(201,162,74,0.02) 100%)' }} />
         )}
         {/* Left fade */}
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0C0F18] to-transparent pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#090B12] to-transparent pointer-events-none" />
 
-        {/* Overlay labels */}
-        <div className="absolute bottom-8 right-8 flex flex-col gap-2 text-right">
-          <div className="text-xs text-[#AAB4C3]/60 uppercase tracking-widest">POSITIONING</div>
-          <div className="text-xs text-[#AAB4C3]/40">(The Cause)</div>
+        {/* Blueprint labels: PRICE (top right) and POSITIONING (bottom right) */}
+        <div className="absolute top-6 right-6 text-right">
+          <div className="text-xs font-bold text-white/70 uppercase tracking-widest">PRICE</div>
+          <div className="text-[10px] text-[var(--text-secondary)]">(The Effect)</div>
         </div>
-        <div className="absolute top-8 right-8 flex flex-col gap-2 text-right">
-          <div className="text-xs text-[#AAB4C3]/60 uppercase tracking-widest">PRICE</div>
-          <div className="text-xs text-[#AAB4C3]/40">(The Effect)</div>
+        <div className="absolute bottom-6 right-6 text-right">
+          <div className="text-xs font-bold text-[var(--gold)] uppercase tracking-widest">POSITIONING</div>
+          <div className="text-[10px] text-[var(--text-secondary)]">(The Cause)</div>
         </div>
       </div>
     </section>

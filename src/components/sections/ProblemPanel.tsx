@@ -1,5 +1,3 @@
-'use client'
-
 import Image from 'next/image'
 
 interface ProblemPoint {
@@ -34,59 +32,58 @@ export default function ProblemPanel({
   accentWords = ['Is Expensive.'],
   body = 'Most traders focus on price. Professionals focus on positioning.',
   points = [
-    { label: 'No Positioning Data' },
+    { label: 'No Positioning' },
     { label: 'Mispriced Volatility' },
-    { label: 'Unknown Risk Exposure' },
+    { label: 'Unknown Risk' },
   ],
   imageUrl,
 }: ProblemPanelProps) {
   return (
-    <section className="gs-panel relative overflow-hidden min-h-[400px] flex flex-col">
-      {/* Background image */}
+    <section className="gs-panel relative overflow-hidden min-h-[380px] flex flex-col">
+      {/* Full-bleed background image */}
       {imageUrl && (
         <div className="absolute inset-0">
           <Image
             src={imageUrl}
-            alt="Trading blind risk visualization"
+            alt="Trading blind — lighthouse in storm"
             fill
-            className="object-cover object-center opacity-40"
-            sizes="(max-width: 1024px) 100vw, 45vw"
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 40vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0C0F18]/90 via-[#0C0F18]/60 to-transparent" />
+          {/* Gradient: heavy at bottom-left, lighter top-right */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#090B12] via-[#090B12]/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#090B12]/80 via-transparent to-transparent" />
         </div>
       )}
 
-      {/* Subtle dark glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full bg-red-900/10 blur-3xl" />
-      </div>
-
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-between h-full p-8 lg:p-10">
-        <div>
-          <h2 className="text-3xl lg:text-4xl xl:text-[40px] font-bold leading-[1.15] tracking-tight text-white mb-4">
-            {highlightAccent(headline, accentWords ?? [])}
-          </h2>
-          {body && (
-            <p className="text-base text-[#AAB4C3] leading-relaxed mb-6 max-w-xs">
-              {body}
-            </p>
-          )}
-        </div>
-
+      <div className="relative z-10 flex flex-col justify-between flex-1 p-8 lg:p-10">
+        {/* Risk labels — top right, matching blueprint */}
         {points && points.length > 0 && (
-          <div className="flex flex-col gap-2 mt-auto">
+          <div className="flex flex-col items-end gap-2 self-end">
             {points.map((point, i) => (
               <div
                 key={point._key ?? i}
-                className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-white/5 border border-white/8"
+                className="flex items-center gap-2 px-3 py-1.5 rounded bg-black/40 border border-white/10 backdrop-blur-sm"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-red-400/70 flex-shrink-0" />
-                <span className="text-sm text-[#AAB4C3]">{point.label}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--gold-muted)] flex-shrink-0" />
+                <span className="text-xs text-[var(--text-secondary)] font-medium uppercase tracking-wide">{point.label}</span>
               </div>
             ))}
           </div>
         )}
+
+        {/* Headline + body — bottom left */}
+        <div className="mt-auto">
+          <h2 className="text-[1.75rem] lg:text-[2rem] xl:text-[2.25rem] font-bold leading-[1.15] tracking-tight text-white mb-3">
+            {highlightAccent(headline, accentWords ?? [])}
+          </h2>
+          {body && (
+            <p className="text-sm lg:text-base text-[var(--text-secondary)] leading-relaxed max-w-[260px]">
+              {body}
+            </p>
+          )}
+        </div>
       </div>
     </section>
   )

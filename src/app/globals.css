@@ -1,26 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* ── Brand colors — aligned with logo gold ── */
-  --gold: #C9A227;
+  /* ── Blueprint design tokens ── */
+  --gold: #C9A24A;
+  --gold-muted: #9F7B2E;
   --gold-light: #E8C547;
-  --gold-dark: #A07D1A;
-  --gold-glow: rgba(201, 162, 39, 0.25);
+  --gold-glow: rgba(201, 162, 74, 0.25);
+  --gold-border: rgba(201, 162, 74, 0.2);
 
-  /* ── Dark backgrounds ── */
+  /* ── Dark backgrounds (exact blueprint values) ── */
   --gs-bg: #05070B;
-  --gs-bg-alt: #070A12;
-  --gs-card: #0C0F18;
+  --gs-panel: #090B12;
+  --gs-panel-alt: #0B0E16;
+  --gs-card: #0C0F1A;
   --gs-border: rgba(255, 255, 255, 0.08);
-  --gs-border-gold: rgba(201, 162, 39, 0.2);
-  --gs-muted: #AAB4C3;
+  --gs-muted: #A7ADBB;
 
-  /* ── Secondary accents (used sparingly) ── */
-  --gs-blue: #3B82F6;
-  --gs-violet: #8B5CF6;
+  /* ── Typography ── */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A7ADBB;
 }
 
 * {
@@ -35,7 +36,7 @@ html {
 
 body {
   background: var(--gs-bg);
-  color: #ffffff;
+  color: var(--text-primary);
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -44,10 +45,88 @@ body {
 /* Scrollbar — gold tinted */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--gs-bg); }
-::-webkit-scrollbar-thumb { background: rgba(201, 162, 39, 0.3); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(201, 162, 39, 0.6); }
+::-webkit-scrollbar-thumb { background: rgba(201, 162, 74, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201, 162, 74, 0.6); }
 
-/* Logo ticker */
+/* ── Panel card — blueprint spec ── */
+.gs-panel {
+  background: var(--gs-panel);
+  border: 1px solid var(--gs-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* ── Blueprint CTA button ── */
+.btn-gold {
+  background: linear-gradient(135deg, #C9A24A 0%, #E8C547 100%);
+  color: #05070B;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  border-radius: 6px;
+  box-shadow: 0 0 20px rgba(201, 162, 74, 0.35);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+}
+.btn-gold:hover {
+  box-shadow: 0 0 36px rgba(201, 162, 74, 0.55);
+  transform: translateY(-1px);
+}
+
+/* ── Gold outline button ── */
+.btn-outline-gold {
+  background: transparent;
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--gold-border);
+  transition: background 0.2s ease, border-color 0.2s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+.btn-outline-gold:hover {
+  background: rgba(201, 162, 74, 0.08);
+  border-color: var(--gold);
+}
+
+/* Keep legacy btn-glow alias */
+.btn-glow {
+  background: linear-gradient(135deg, #C9A24A 0%, #E8C547 100%);
+  color: #05070B;
+  box-shadow: 0 0 20px rgba(201, 162, 74, 0.35);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 36px rgba(201, 162, 74, 0.55);
+  transform: translateY(-1px);
+}
+
+/* ── Gradient text — gold ── */
+.gradient-text {
+  background: linear-gradient(90deg, #C9A24A 0%, #E8C547 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section label ── */
+.section-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ── Ticker marquee ── */
 .ticker-wrap {
   overflow: hidden;
   white-space: nowrap;
@@ -59,13 +138,12 @@ body {
 .ticker-inner:hover {
   animation-play-state: paused;
 }
-
 @keyframes scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* Section fade-up */
+/* ── Fade-up entrance ── */
 .fade-up {
   opacity: 0;
   transform: translateY(24px);
@@ -76,43 +154,37 @@ body {
   transform: translateY(0);
 }
 
-/* Gradient text — gold */
-.gradient-text {
-  background: linear-gradient(90deg, #C9A227 0%, #E8C547 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* GS panel card */
-.gs-panel {
-  background: var(--gs-card);
-  border: 1px solid var(--gs-border);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-/* Glow button — gold */
-.btn-glow {
-  background: linear-gradient(135deg, #C9A227 0%, #E8C547 100%);
-  color: #05070B;
-  box-shadow: 0 0 20px rgba(201, 162, 39, 0.35);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-.btn-glow:hover {
-  box-shadow: 0 0 36px rgba(201, 162, 39, 0.55);
-  transform: translateY(-1px);
-}
-
-/* Subtle radial background glow — gold */
+/* ── Radial glow ── */
 .bg-radial-glow {
-  background: radial-gradient(ellipse at 50% 0%, rgba(201, 162, 39, 0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(201, 162, 74, 0.08) 0%, transparent 70%);
 }
 
-/* Gold accent line */
+/* ── Gold accent line ── */
 .gold-accent-line {
   width: 40px;
   height: 2px;
   background: var(--gold);
   border-radius: 1px;
+}
+
+/* ── Risk tag (problem panel) ── */
+.risk-tag {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.risk-tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-muted);
+  flex-shrink: 0;
 }

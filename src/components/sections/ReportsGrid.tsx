@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { useState } from 'react'
 
 interface ReportItem {
   _key?: string
@@ -17,118 +18,78 @@ interface ReportsGridProps {
   imageUrl?: string
 }
 
-const ICON_MAP: Record<string, string> = {
-  dopr: '📊',
-  volatility: '📈',
-  relative: '⚖️',
-  signal: '📡',
-  filtered: '🔍',
-  mood: '🎯',
-  vix: '📉',
-  regime: '🌐',
-  insights: '💡',
-}
-
-function getIcon(title: string, icon?: string): string {
-  if (icon) return icon
-  const lower = title.toLowerCase()
-  for (const [key, emoji] of Object.entries(ICON_MAP)) {
-    if (lower.includes(key)) return emoji
-  }
-  return '📋'
-}
+const DEFAULT_ITEMS: ReportItem[] = [
+  { title: 'DOPR Spreads Analysis', description: 'Highest probability options spreads ranked by market expectations.' },
+  { title: 'Volatility Risk Premium & Squeeze', description: 'Identify volatility mispricings and premium opportunities.' },
+  { title: 'Relative Value & Positioning', description: 'Spot rare dislocations in how the market is pricing probability.' },
+  { title: 'Signal Strength Rankings', description: 'Rank the best directional and market-neutral opportunities.' },
+  { title: 'Filtered Tickers', description: 'Find tickers with aligned signals across multiple frameworks.' },
+  { title: 'Market Mood Gauge', description: 'Instant read on the current gamma and volatility regime.' },
+  { title: 'VIX & VVIX Term Structure', description: 'See forward volatility expectations across maturities.' },
+  { title: 'Volatility Regime Report', description: 'Understand the current market environment and what it means for your trades.' },
+  { title: 'Options Market Insights', description: 'Daily analysis of SPX, QQQ, and GLD with skew, pin risk, and positioning.' },
+]
 
 export default function ReportsGrid({
-  headline = 'Every Report You Need to Trade With Edge',
-  subheadline = 'Institutional-grade options intelligence, delivered daily.',
+  headline = 'What You Get Every Morning.',
+  subheadline,
   items,
   imageUrl,
 }: ReportsGridProps) {
-  const defaultItems: ReportItem[] = [
-    { title: 'DOPR Spreads Analysis', description: 'Highest probability options spreads ranked by market expectations.' },
-    { title: 'Volatility Risk Premium & Squeeze', description: 'Identify volatility mispricings and premium opportunities.' },
-    { title: 'Relative Value & Positioning', description: 'Spot rare dislocations in how the market is pricing probability.' },
-    { title: 'Signal Strength Rankings', description: 'Rank the best directional and market-neutral opportunities.' },
-    { title: 'Filtered Tickers', description: 'Find tickers with aligned signals across multiple frameworks.' },
-    { title: 'Market Mood Gauge', description: 'Instant read on the current gamma and volatility regime.' },
-    { title: 'VIX & VVIX Term Structure', description: 'See forward volatility expectations across maturities.' },
-    { title: 'Volatility Regime Report', description: 'Understand the current market environment and what it means for your trades.' },
-    { title: 'Options Market Insights', description: 'Daily analysis of SPX, QQQ, and GLO with skew, pin risk, and positioning.' },
-  ]
-
-  const reportItems = (items && items.length > 0) ? items : defaultItems
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const reportItems = (items && items.length > 0) ? items : DEFAULT_ITEMS
 
   return (
-    <section className="py-4">
-      {/* Section header */}
-      <div className="gs-panel p-8 lg:p-10 mb-4">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div>
-            <div className="inline-flex items-center gap-2 mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#C9A227]" />
-              <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A227]">Reports Library</span>
-            </div>
-            <h2 className="text-3xl lg:text-4xl font-bold leading-tight text-white mb-2">
-              {headline}
-            </h2>
-            {subheadline && (
-              <p className="text-base text-[#AAB4C3]">{subheadline}</p>
-            )}
-          </div>
-          {imageUrl && (
-            <div className="relative w-full lg:w-64 h-32 lg:h-24 rounded-xl overflow-hidden flex-shrink-0">
-              <Image
-                src={imageUrl}
-                alt="Reports visualization"
-                fill
-                className="object-cover"
-                sizes="256px"
-              />
-            </div>
-          )}
-        </div>
+    <section className="gs-panel relative overflow-hidden flex flex-col lg:flex-row min-h-[340px]">
+      {/* Left: Image panel */}
+      <div className="relative lg:w-[35%] min-h-[200px] lg:min-h-0 overflow-hidden flex-shrink-0">
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt="GammaStrat daily reports"
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 35vw"
+          />
+        ) : (
+          <div className="absolute inset-0"
+            style={{ background: 'linear-gradient(135deg, rgba(201,162,74,0.06) 0%, rgba(201,162,74,0.02) 100%)' }} />
+        )}
+        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#090B12] to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#090B12] to-transparent pointer-events-none lg:hidden" />
       </div>
 
-      {/* Report cards grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {reportItems.map((item, i) => (
-          <div
-            key={item._key ?? i}
-            className="gs-panel p-5 flex flex-col gap-3 transition-all duration-200 group"
-            style={{ borderColor: 'rgba(255,255,255,0.08)' }}
-            onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(201,162,39,0.3)')}
-            onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
-          >
-            {/* Icon or image */}
-            {item.image?.asset?.url ? (
-              <div className="relative w-full h-28 rounded-lg overflow-hidden mb-1">
-                <Image
-                  src={item.image.asset.url}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
-              </div>
-            ) : (
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xl"
-                style={{ background: 'rgba(201,162,39,0.1)', border: '1px solid rgba(201,162,39,0.2)' }}>
-                {getIcon(item.title, item.icon)}
-              </div>
+      {/* Right: Report cards grid */}
+      <div className="flex-1 flex flex-col justify-center p-6 lg:p-8">
+        {headline && (
+          <div className="mb-5">
+            <span className="section-label mb-2 block">Daily Intelligence</span>
+            <h2 className="text-xl lg:text-2xl font-bold text-white">{headline}</h2>
+            {subheadline && (
+              <p className="text-sm text-[var(--text-secondary)] mt-1">{subheadline}</p>
             )}
+          </div>
+        )}
 
-            <div>
-              <h3 className="text-sm font-semibold text-white leading-tight mb-1.5 group-hover:text-[#C9A227] transition-colors">
-                {item.title}
-              </h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
+          {reportItems.map((item, i) => (
+            <div
+              key={item._key ?? i}
+              className="rounded-lg p-3 border transition-all duration-200 cursor-default"
+              style={{
+                background: hoveredIndex === i ? 'rgba(201,162,74,0.08)' : 'rgba(255,255,255,0.03)',
+                borderColor: hoveredIndex === i ? 'rgba(201,162,74,0.3)' : 'rgba(255,255,255,0.07)',
+              }}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <h3 className="text-xs font-semibold text-white mb-1.5 leading-tight">{item.title}</h3>
               {item.description && (
-                <p className="text-xs text-[#AAB4C3] leading-relaxed">
-                  {item.description}
-                </p>
+                <p className="text-[11px] text-[var(--text-secondary)] leading-snug">{item.description}</p>
               )}
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   )
