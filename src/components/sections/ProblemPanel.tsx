@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 
 interface ProblemPoint {
@@ -18,7 +19,7 @@ function highlight(text: string, words: string[]): React.ReactNode {
   const pattern = new RegExp(`(${words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi')
   return text.split(pattern).map((part, i) =>
     words.some(w => w.toLowerCase() === part.toLowerCase())
-      ? <span key={i} className="gradient-text">{part}</span>
+      ? <span key={i} style={{ color: '#C9A24A' }}>{part}</span>
       : part
   )
 }
@@ -39,145 +40,109 @@ export default function ProblemPanel({
   imageUrl,
 }: ProblemPanelProps) {
   const img = imageUrl || PROBLEM_IMG
+
   return (
-    <section
-      className="gs-panel overflow-hidden"
-      style={{ position: 'relative', minHeight: '420px' }}
-    >
+    <section className="gs-panel relative overflow-hidden" style={{ minHeight: '420px' }}>
       {/* Full-bleed background image */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={img}
         alt=""
         aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover object-center"
+      />
+      {/* Left-heavy dark gradient */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'linear-gradient(to right, rgba(9,11,18,0.92) 0%, rgba(9,11,18,0.6) 45%, rgba(9,11,18,0.18) 100%)' }}
+      />
+      {/* Bottom gradient for text legibility */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'linear-gradient(to top, rgba(9,11,18,0.65) 0%, transparent 55%)' }}
+      />
+
+      {/* Content layer — stacks vertically on mobile, row on sm+ */}
+      <div
+        className="relative z-10 flex flex-col sm:flex-row sm:items-end sm:justify-between"
         style={{
-          position: 'absolute',
-          inset: 0,
+          minHeight: '420px',
+          padding: 'clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 4vw, 3rem)',
+          gap: '1.5rem',
+          boxSizing: 'border-box',
           width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center',
         }}
-      />
-
-      {/* Dark gradient overlay — heavy on left, fades to transparent on right */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to right, rgba(9,11,18,0.88) 0%, rgba(9,11,18,0.55) 45%, rgba(9,11,18,0.15) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
-      {/* Additional bottom gradient to ensure text legibility */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to top, rgba(9,11,18,0.6) 0%, transparent 50%)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* Content layer — 2-column: text left, labels right */}
-      <div className="problem-content">
+      >
         {/* LEFT: Headline + body */}
-        <div className="problem-text">
-          <h2 className="problem-headline">
+        <div style={{ flex: '0 1 auto', maxWidth: '360px', minWidth: 0 }}>
+          <h2
+            style={{
+              fontSize: 'clamp(1.625rem, 3.5vw, 2.5rem)',
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: '-0.02em',
+              color: '#fff',
+              marginBottom: '0.875rem',
+            }}
+          >
             {highlight(headline, accentWords ?? [])}
           </h2>
-          {body && <p className="problem-body">{body}</p>}
+          {body && (
+            <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }}>
+              {body}
+            </p>
+          )}
         </div>
 
-        {/* RIGHT: Risk labels */}
+        {/* Labels — left-aligned on mobile, right-aligned on sm+ */}
         {points && points.length > 0 && (
-          <div className="problem-labels">
+          <div
+            className="flex flex-col items-start sm:items-end"
+            style={{ gap: '0.625rem', flexShrink: 0, maxWidth: '100%' }}
+          >
             {points.map((pt, i) => (
-              <div key={pt._key ?? i} className="problem-label-pill">
-                <span className="problem-label-dot" />
-                <span className="problem-label-text">{pt.label}</span>
+              <div
+                key={pt._key ?? i}
+                className="flex items-center"
+                style={{
+                  gap: '0.5rem',
+                  padding: '0.4rem 0.875rem',
+                  borderRadius: '0.25rem',
+                  background: 'rgba(0,0,0,0.55)',
+                  border: '1px solid rgba(255,255,255,0.14)',
+                  backdropFilter: 'blur(4px)',
+                  WebkitBackdropFilter: 'blur(4px)',
+                  maxWidth: 'min(280px, calc(100vw - 2.5rem))',
+                }}
+              >
+                <span
+                  style={{
+                    width: '0.4rem',
+                    height: '0.4rem',
+                    borderRadius: '50%',
+                    background: '#C9A24A',
+                    flexShrink: 0,
+                    display: 'inline-block',
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: '0.6875rem',
+                    fontWeight: 600,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: 'rgba(255,255,255,0.9)',
+                    whiteSpace: 'normal',
+                    wordBreak: 'break-word',
+                  }}
+                >
+                  {pt.label}
+                </span>
               </div>
             ))}
           </div>
         )}
       </div>
-
-      <style>{`
-        .problem-content {
-          position: relative;
-          z-index: 10;
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          min-height: 420px;
-          padding: 2.5rem 3rem;
-          gap: 2rem;
-        }
-        .problem-text { flex: 0 1 45%; max-width: 360px; }
-        .problem-headline {
-          font-size: clamp(1.75rem, 3vw, 2.5rem);
-          font-weight: 700;
-          line-height: 1.1;
-          letter-spacing: -0.02em;
-          color: #fff;
-          margin-bottom: 0.875rem;
-        }
-        .problem-body { font-size: 0.9375rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
-        .problem-labels {
-          flex: 0 0 auto;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          gap: 0.625rem;
-          padding-bottom: 0.25rem;
-          min-width: 0;
-        }
-        .problem-label-pill {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.4rem 0.875rem;
-          border-radius: 0.25rem;
-          background: rgba(0,0,0,0.55);
-          border: 1px solid rgba(255,255,255,0.14);
-          backdrop-filter: blur(4px);
-          -webkit-backdrop-filter: blur(4px);
-          white-space: nowrap;
-        }
-        .problem-label-dot {
-          width: 0.4rem;
-          height: 0.4rem;
-          border-radius: 50%;
-          background: #C9A24A;
-          flex-shrink: 0;
-        }
-        .problem-label-text {
-          font-size: 0.6875rem;
-          font-weight: 600;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.9);
-        }
-        @media (max-width: 640px) {
-          .problem-content {
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-end;
-            padding: 1.75rem 1.25rem;
-            gap: 1.25rem;
-            min-height: 460px;
-          }
-          .problem-text { flex: none; max-width: 100%; }
-          .problem-headline { font-size: 1.625rem; }
-          .problem-body { font-size: 0.875rem; }
-          .problem-labels {
-            align-items: flex-start;
-            width: 100%;
-          }
-          .problem-label-pill { white-space: normal; }
-          .problem-label-text { font-size: 0.625rem; letter-spacing: 0.08em; }
-        }
-      `}</style>
     </section>
   )
 }
