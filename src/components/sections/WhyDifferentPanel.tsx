@@ -1,3 +1,5 @@
+import React from 'react'
+
 interface WhyDifferentPanelProps {
   headline?: string
   accentWords?: string[]
@@ -27,13 +29,15 @@ function getDriverLabel(d: string | { _key?: string; label?: string; text?: stri
   return d.label ?? d.text ?? ''
 }
 
+const WHY_IMG = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-why-visual-kKV343vLFmabCJyxXRyCQs.png'
+
 export default function WhyDifferentPanel({
   headline = 'We Focus On What Moves Markets.',
   accentWords = ['Moves Markets.'],
   drivers = DEFAULT_DRIVERS,
   imageUrl,
 }: WhyDifferentPanelProps) {
-  const img = imageUrl || 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-why-visual-kKV343vLFmabCJyxXRyCQs.png'
+  const img = imageUrl || WHY_IMG
   return (
     <section className="gs-panel overflow-hidden">
       <div className="flex flex-col lg:flex-row" style={{ minHeight: '360px' }}>
@@ -60,27 +64,21 @@ export default function WhyDifferentPanel({
 
         {/* RIGHT: Visual — below on mobile */}
         <div className="relative overflow-hidden" style={{ flex: 1, minHeight: '260px' }}>
-          <>
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img} alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
-              {/* Left fade */}
-              <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '5rem', background: 'linear-gradient(to right, #090B12, transparent)', pointerEvents: 'none' }} />
-              {/* Price/Positioning labels overlay */}
-              <div style={{ position: 'absolute', top: '50%', right: '1.5rem', transform: 'translateY(-50%)', display: 'flex', flexDirection: 'column', gap: '4rem', alignItems: 'flex-end' }}>
-                <div style={{ textAlign: 'right' }}>
-                  <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)' }}>PRICE</p>
-                  <p style={{ fontSize: '0.625rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.05em' }}>(The Effect)</p>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--gold)' }}>POSITIONING</p>
-                  <p style={{ fontSize: '0.625rem', color: 'rgba(201,162,74,0.6)', letterSpacing: '0.05em' }}>(The Cause)</p>
-                </div>
-              </div>
-            </>
-          ) : (
-            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center right, rgba(201,162,74,0.12) 0%, transparent 70%)' }} />
-          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={img} alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+          {/* Left fade */}
+          <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '5rem', background: 'linear-gradient(to right, #090B12, transparent)', pointerEvents: 'none' }} />
+          {/* Price/Positioning labels overlay */}
+          <div style={{ position: 'absolute', top: '50%', right: '1.5rem', transform: 'translateY(-50%)', display: 'flex', flexDirection: 'column', gap: '4rem', alignItems: 'flex-end' }}>
+            <div style={{ textAlign: 'right' }}>
+              <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)' }}>PRICE</p>
+              <p style={{ fontSize: '0.625rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.05em' }}>(The Effect)</p>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <p style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--gold)' }}>POSITIONING</p>
+              <p style={{ fontSize: '0.625rem', color: 'rgba(201,162,74,0.6)', letterSpacing: '0.05em' }}>(The Cause)</p>
+            </div>
+          </div>
         </div>
 
       </div>

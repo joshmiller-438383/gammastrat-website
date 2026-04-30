@@ -11,6 +11,7 @@ interface HeroPanelProps {
   ctaPrimaryUrl?: string
   ctaSecondaryText?: string
   ctaSecondaryUrl?: string
+  trustLine?: string
   imageUrl?: string
 }
 
@@ -33,6 +34,7 @@ export default function HeroPanel({
   ctaPrimaryUrl = '/subscribe',
   ctaSecondaryText = 'View Sample Report',
   ctaSecondaryUrl = '/reports',
+  trustLine,
   imageUrl,
 }: HeroPanelProps) {
   const img = imageUrl || HERO_IMG
