@@ -1,5 +1,3 @@
-'use client'
-
 import Image from 'next/image'
 
 interface ReportItem {
@@ -65,14 +63,14 @@ export default function ReportsGrid({
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div>
             <div className="inline-flex items-center gap-2 mb-3">
-              <span className="w-2 h-2 rounded-full bg-violet-brand" />
-              <span className="text-xs font-semibold tracking-widest uppercase text-violet-brand">Reports Library</span>
+              <span className="w-2 h-2 rounded-full bg-[#C9A227]" />
+              <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A227]">Reports Library</span>
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold leading-tight text-white mb-2">
               {headline}
             </h2>
             {subheadline && (
-              <p className="text-base text-dark-muted">{subheadline}</p>
+              <p className="text-base text-[#AAB4C3]">{subheadline}</p>
             )}
           </div>
           {imageUrl && (
@@ -94,7 +92,10 @@ export default function ReportsGrid({
         {reportItems.map((item, i) => (
           <div
             key={item._key ?? i}
-            className="gs-panel p-5 flex flex-col gap-3 hover:border-blue-brand/30 hover:bg-white/[0.02] transition-all duration-200 group"
+            className="gs-panel p-5 flex flex-col gap-3 transition-all duration-200 group"
+            style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+            onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(201,162,39,0.3)')}
+            onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
           >
             {/* Icon or image */}
             {item.image?.asset?.url ? (
@@ -108,17 +109,18 @@ export default function ReportsGrid({
                 />
               </div>
             ) : (
-              <div className="w-10 h-10 rounded-lg bg-blue-brand/10 border border-blue-brand/20 flex items-center justify-center text-xl">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xl"
+                style={{ background: 'rgba(201,162,39,0.1)', border: '1px solid rgba(201,162,39,0.2)' }}>
                 {getIcon(item.title, item.icon)}
               </div>
             )}
 
             <div>
-              <h3 className="text-sm font-semibold text-white leading-tight mb-1.5 group-hover:text-blue-brand transition-colors">
+              <h3 className="text-sm font-semibold text-white leading-tight mb-1.5 group-hover:text-[#C9A227] transition-colors">
                 {item.title}
               </h3>
               {item.description && (
-                <p className="text-xs text-dark-muted leading-relaxed">
+                <p className="text-xs text-[#AAB4C3] leading-relaxed">
                   {item.description}
                 </p>
               )}

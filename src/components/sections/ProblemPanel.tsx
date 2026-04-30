@@ -52,11 +52,11 @@ export default function ProblemPanel({
             className="object-cover object-center opacity-40"
             sizes="(max-width: 1024px) 100vw, 45vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-gs-card/90 via-gs-card/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0C0F18]/90 via-[#0C0F18]/60 to-transparent" />
         </div>
       )}
 
-      {/* Subtle red/dark glow */}
+      {/* Subtle dark glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full bg-red-900/10 blur-3xl" />
       </div>
@@ -68,7 +68,7 @@ export default function ProblemPanel({
             {highlightAccent(headline, accentWords ?? [])}
           </h2>
           {body && (
-            <p className="text-base text-dark-muted leading-relaxed mb-6 max-w-xs">
+            <p className="text-base text-[#AAB4C3] leading-relaxed mb-6 max-w-xs">
               {body}
             </p>
           )}
@@ -82,7 +82,7 @@ export default function ProblemPanel({
                 className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-white/5 border border-white/8"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-red-400/70 flex-shrink-0" />
-                <span className="text-sm text-dark-muted">{point.label}</span>
+                <span className="text-sm text-[#AAB4C3]">{point.label}</span>
               </div>
             ))}
           </div>

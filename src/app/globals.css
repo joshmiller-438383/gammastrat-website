@@ -1,25 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Legacy tokens kept for backward compat */
+  /* ── Brand colors — aligned with logo gold ── */
   --gold: #C9A227;
-  --teal: #2DD4BF;
-  --dark: #05070B;
-  --dark-card: #080D18;
+  --gold-light: #E8C547;
+  --gold-dark: #A07D1A;
+  --gold-glow: rgba(201, 162, 39, 0.25);
 
-  /* New GammaStrat design system */
+  /* ── Dark backgrounds ── */
   --gs-bg: #05070B;
   --gs-bg-alt: #070A12;
-  --gs-card: #080D18;
+  --gs-card: #0C0F18;
   --gs-border: rgba(255, 255, 255, 0.08);
+  --gs-border-gold: rgba(201, 162, 39, 0.2);
+  --gs-muted: #AAB4C3;
+
+  /* ── Secondary accents (used sparingly) ── */
   --gs-blue: #3B82F6;
   --gs-violet: #8B5CF6;
-  --gs-muted: #AAB4C3;
-  --gs-glow-blue: rgba(59, 130, 246, 0.25);
-  --gs-glow-violet: rgba(139, 92, 246, 0.25);
 }
 
 * {
@@ -40,11 +41,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar */
+/* Scrollbar — gold tinted */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--gs-bg); }
-::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.3); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(59, 130, 246, 0.6); }
+::-webkit-scrollbar-thumb { background: rgba(201, 162, 39, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(201, 162, 39, 0.6); }
 
 /* Logo ticker */
 .ticker-wrap {
@@ -75,9 +76,9 @@ body {
   transform: translateY(0);
 }
 
-/* Gradient text utility */
+/* Gradient text — gold */
 .gradient-text {
-  background: linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%);
+  background: linear-gradient(90deg, #C9A227 0%, #E8C547 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -91,18 +92,27 @@ body {
   overflow: hidden;
 }
 
-/* Glow button */
+/* Glow button — gold */
 .btn-glow {
-  background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+  background: linear-gradient(135deg, #C9A227 0%, #E8C547 100%);
+  color: #05070B;
+  box-shadow: 0 0 20px rgba(201, 162, 39, 0.35);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .btn-glow:hover {
-  box-shadow: 0 0 36px rgba(59, 130, 246, 0.55);
+  box-shadow: 0 0 36px rgba(201, 162, 39, 0.55);
   transform: translateY(-1px);
 }
 
-/* Subtle radial background glow */
+/* Subtle radial background glow — gold */
 .bg-radial-glow {
-  background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(201, 162, 39, 0.08) 0%, transparent 70%);
+}
+
+/* Gold accent line */
+.gold-accent-line {
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 1px;
 }

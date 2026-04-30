@@ -58,17 +58,18 @@ export default function CredibilityPanel({
 
   return (
     <section className="gs-panel relative overflow-hidden">
-      {/* Background glow */}
+      {/* Background glow — gold */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-blue-glow blur-3xl opacity-25" />
+        <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl opacity-20"
+          style={{ background: 'radial-gradient(circle, rgba(201,162,39,0.2) 0%, transparent 70%)' }} />
       </div>
 
       <div className="relative z-10 flex flex-col lg:flex-row gap-0">
         {/* Left: Copy */}
         <div className="flex flex-col justify-center p-8 lg:p-12 lg:w-[45%]">
           <div className="inline-flex items-center gap-2 mb-4">
-            <span className="w-2 h-2 rounded-full bg-blue-brand" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-blue-brand">Credibility</span>
+            <span className="w-2 h-2 rounded-full bg-[#C9A227]" />
+            <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A227]">Credibility</span>
           </div>
 
           <h2 className="text-3xl lg:text-4xl font-bold leading-[1.15] tracking-tight text-white mb-8">
@@ -79,15 +80,16 @@ export default function CredibilityPanel({
           <div className="flex flex-col gap-5">
             {pillarList.map((pillar, i) => (
               <div key={pillar._key ?? i} className="flex gap-4 group">
-                <div className="w-12 h-12 rounded-xl bg-blue-brand/10 border border-blue-brand/20 flex items-center justify-center text-2xl flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+                  style={{ background: 'rgba(201,162,39,0.1)', border: '1px solid rgba(201,162,39,0.25)' }}>
                   {pillar.icon ?? '◆'}
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-white mb-1 group-hover:text-blue-brand transition-colors">
+                  <h3 className="text-sm font-semibold text-white mb-1 group-hover:text-[#C9A227] transition-colors">
                     {pillar.title}
                   </h3>
                   {pillar.body && (
-                    <p className="text-xs text-dark-muted leading-relaxed">{pillar.body}</p>
+                    <p className="text-xs text-[#AAB4C3] leading-relaxed">{pillar.body}</p>
                   )}
                 </div>
               </div>
@@ -106,11 +108,12 @@ export default function CredibilityPanel({
               sizes="(max-width: 1024px) 100vw, 55vw"
             />
           ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-brand/5 to-violet-brand/10 flex items-center justify-center">
-              <div className="text-dark-muted/30 text-sm">Credibility Visual</div>
+            <div className="absolute inset-0 flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, rgba(201,162,39,0.04) 0%, rgba(201,162,39,0.01) 100%)' }}>
+              <div className="text-[#AAB4C3]/30 text-sm">Credibility Visual</div>
             </div>
           )}
-          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-gs-card to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0C0F18] to-transparent pointer-events-none" />
         </div>
       </div>
     </section>

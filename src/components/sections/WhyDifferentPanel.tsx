@@ -44,17 +44,19 @@ export default function WhyDifferentPanel({
 
   return (
     <section className="gs-panel relative overflow-hidden min-h-[400px] flex flex-col lg:flex-row">
-      {/* Background glow */}
+      {/* Background glow — gold */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-violet-glow blur-3xl opacity-40" />
-        <div className="absolute top-1/2 left-1/2 w-48 h-48 rounded-full bg-blue-glow blur-2xl opacity-20" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full blur-3xl opacity-20"
+          style={{ background: 'radial-gradient(circle, rgba(201,162,39,0.2) 0%, transparent 70%)' }} />
+        <div className="absolute top-1/2 left-1/2 w-48 h-48 rounded-full blur-2xl opacity-15"
+          style={{ background: 'radial-gradient(circle, rgba(201,162,39,0.15) 0%, transparent 70%)' }} />
       </div>
 
       {/* Left: Copy */}
       <div className="relative z-10 flex flex-col justify-center p-8 lg:p-12 lg:w-[45%]">
         <div className="inline-flex items-center gap-2 mb-4">
-          <span className="w-2 h-2 rounded-full bg-violet-brand" />
-          <span className="text-xs font-semibold tracking-widest uppercase text-violet-brand">Why Different</span>
+          <span className="w-2 h-2 rounded-full bg-[#C9A227]" />
+          <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A227]">Why Different</span>
         </div>
 
         <h2 className="text-3xl lg:text-4xl font-bold leading-[1.15] tracking-tight text-white mb-6">
@@ -66,10 +68,11 @@ export default function WhyDifferentPanel({
             const iconData = DRIVERS[i] ?? { icon: '◆' }
             return (
               <div key={i} className="flex items-center gap-3 group">
-                <div className="w-8 h-8 rounded-lg bg-blue-brand/10 border border-blue-brand/20 flex items-center justify-center text-blue-brand text-sm flex-shrink-0">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm flex-shrink-0"
+                  style={{ background: 'rgba(201,162,39,0.1)', border: '1px solid rgba(201,162,39,0.25)', color: '#C9A227' }}>
                   {iconData.icon}
                 </div>
-                <span className="text-sm text-dark-muted group-hover:text-white transition-colors">
+                <span className="text-sm text-[#AAB4C3] group-hover:text-white transition-colors">
                   {driver}
                 </span>
               </div>
@@ -77,10 +80,11 @@ export default function WhyDifferentPanel({
           })}
         </div>
 
-        {/* Flow arrow indicator */}
+        {/* Flow arrow indicator — gold gradient */}
         <div className="mt-8 flex items-center gap-3">
-          <div className="flex-1 h-px bg-gradient-to-r from-blue-brand/50 to-violet-brand/50" />
-          <div className="text-xs text-dark-muted/60 uppercase tracking-widest">→ Edge</div>
+          <div className="flex-1 h-px"
+            style={{ background: 'linear-gradient(to right, rgba(201,162,39,0.6), rgba(232,197,71,0.4))' }} />
+          <div className="text-xs text-[#AAB4C3]/60 uppercase tracking-widest">→ Edge</div>
         </div>
       </div>
 
@@ -95,21 +99,22 @@ export default function WhyDifferentPanel({
             sizes="(max-width: 1024px) 100vw, 55vw"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-brand/5 to-violet-brand/10 flex items-center justify-center">
-            <div className="text-dark-muted/30 text-sm">Flow Visual</div>
+          <div className="absolute inset-0 flex items-center justify-center"
+            style={{ background: 'linear-gradient(135deg, rgba(201,162,39,0.04) 0%, rgba(201,162,39,0.01) 100%)' }}>
+            <div className="text-[#AAB4C3]/30 text-sm">Flow Visual</div>
           </div>
         )}
         {/* Left fade */}
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-gs-card to-transparent pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0C0F18] to-transparent pointer-events-none" />
 
         {/* Overlay labels */}
         <div className="absolute bottom-8 right-8 flex flex-col gap-2 text-right">
-          <div className="text-xs text-dark-muted/60 uppercase tracking-widest">POSITIONING</div>
-          <div className="text-xs text-dark-muted/40">(The Cause)</div>
+          <div className="text-xs text-[#AAB4C3]/60 uppercase tracking-widest">POSITIONING</div>
+          <div className="text-xs text-[#AAB4C3]/40">(The Cause)</div>
         </div>
         <div className="absolute top-8 right-8 flex flex-col gap-2 text-right">
-          <div className="text-xs text-dark-muted/60 uppercase tracking-widest">PRICE</div>
-          <div className="text-xs text-dark-muted/40">(The Effect)</div>
+          <div className="text-xs text-[#AAB4C3]/60 uppercase tracking-widest">PRICE</div>
+          <div className="text-xs text-[#AAB4C3]/40">(The Effect)</div>
         </div>
       </div>
     </section>

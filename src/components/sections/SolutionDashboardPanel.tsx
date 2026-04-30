@@ -24,8 +24,8 @@ function highlightAccent(text: string, accentWords: string[]): React.ReactNode {
 }
 
 const METRICS = [
-  { label: 'GAMMA EXPOSURE', value: '+2.17B', sub: 'Bullish', color: 'text-blue-brand' },
-  { label: 'VOLATILITY REGIME', value: 'Elevated', sub: null, color: 'text-violet-brand' },
+  { label: 'GAMMA EXPOSURE', value: '+2.17B', sub: 'Bullish', color: 'text-[#C9A227]' },
+  { label: 'VOLATILITY REGIME', value: 'Elevated', sub: null, color: 'text-[#E8C547]' },
   { label: 'IV RANK (SPX)', value: '68', sub: null, color: 'text-white' },
   { label: 'MARKET MOOD', value: 'RISK ON', sub: null, color: 'text-emerald-400' },
 ]
@@ -38,9 +38,10 @@ export default function SolutionDashboardPanel({
 }: SolutionDashboardPanelProps) {
   return (
     <section className="gs-panel relative overflow-hidden">
-      {/* Background glow */}
+      {/* Background glow — gold */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-blue-glow blur-3xl opacity-30" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl opacity-20"
+          style={{ background: 'radial-gradient(circle, rgba(201,162,39,0.2) 0%, transparent 70%)' }} />
       </div>
 
       <div className="relative z-10 flex flex-col lg:flex-row gap-0">
@@ -50,7 +51,7 @@ export default function SolutionDashboardPanel({
             {highlightAccent(headline, accentWords ?? [])}
           </h2>
           {body && (
-            <p className="text-base text-dark-muted leading-relaxed mb-8 max-w-sm">
+            <p className="text-base text-[#AAB4C3] leading-relaxed mb-8 max-w-sm">
               {body}
             </p>
           )}
@@ -59,11 +60,11 @@ export default function SolutionDashboardPanel({
           <div className="grid grid-cols-2 gap-3">
             {METRICS.map((m) => (
               <div key={m.label} className="px-4 py-3 rounded-lg bg-white/5 border border-white/8">
-                <div className="text-[10px] font-semibold tracking-widest uppercase text-dark-muted/60 mb-1">
+                <div className="text-[10px] font-semibold tracking-widest uppercase text-[#AAB4C3]/60 mb-1">
                   {m.label}
                 </div>
                 <div className={`text-lg font-bold ${m.color}`}>{m.value}</div>
-                {m.sub && <div className="text-xs text-dark-muted/60">{m.sub}</div>}
+                {m.sub && <div className="text-xs text-[#AAB4C3]/60">{m.sub}</div>}
               </div>
             ))}
           </div>
@@ -80,12 +81,13 @@ export default function SolutionDashboardPanel({
               sizes="(max-width: 1024px) 100vw, 62vw"
             />
           ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-brand/5 to-violet-brand/5 flex items-center justify-center">
-              <div className="text-dark-muted/30 text-sm">Dashboard Visual</div>
+            <div className="absolute inset-0 flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, rgba(201,162,39,0.04) 0%, rgba(201,162,39,0.01) 100%)' }}>
+              <div className="text-[#AAB4C3]/30 text-sm">Dashboard Visual</div>
             </div>
           )}
           {/* Left fade */}
-          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-gs-card to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0C0F18] to-transparent pointer-events-none" />
         </div>
       </div>
     </section>

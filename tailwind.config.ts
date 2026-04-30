@@ -9,36 +9,38 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Primary brand accent — matches the logo gold
         gold: {
           DEFAULT: '#C9A227',
           light: '#E8C547',
           dark: '#A07D1A',
+          glow: 'rgba(201,162,39,0.25)',
         },
-        teal: {
-          brand: '#2DD4BF',
+        // Secondary accent — warm amber complement
+        amber: {
+          brand: '#D4A017',
+          glow: 'rgba(212,160,23,0.2)',
         },
-        blue: {
-          brand: '#3B82F6',
-          glow: 'rgba(59,130,246,0.25)',
-        },
-        violet: {
-          brand: '#8B5CF6',
-          glow: 'rgba(139,92,246,0.25)',
-        },
+        // Dark backgrounds
         dark: {
           DEFAULT: '#05070B',
           alt: '#070A12',
-          card: '#080D18',
+          card: '#0C0F18',
           border: 'rgba(255,255,255,0.08)',
           muted: '#AAB4C3',
         },
+        // GammaStrat design tokens
         gs: {
           bg: '#05070B',
-          card: '#080D18',
+          card: '#0C0F18',
           border: 'rgba(255,255,255,0.08)',
+          gold: '#C9A227',
+          'gold-light': '#E8C547',
+          'gold-dark': '#A07D1A',
+          muted: '#AAB4C3',
+          // Keep blue/violet as secondary only
           blue: '#3B82F6',
           violet: '#8B5CF6',
-          muted: '#AAB4C3',
         },
       },
       fontFamily: {
@@ -46,9 +48,11 @@ const config: Config = {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-brand': 'linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%)',
-        'gradient-brand-text': 'linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%)',
-        'radial-glow': 'radial-gradient(ellipse at center, rgba(59,130,246,0.15) 0%, transparent 70%)',
+        // Gold-based gradients to match logo
+        'gradient-brand': 'linear-gradient(135deg, #C9A227 0%, #E8C547 100%)',
+        'gradient-brand-text': 'linear-gradient(90deg, #C9A227 0%, #E8C547 100%)',
+        'radial-glow': 'radial-gradient(ellipse at center, rgba(201,162,39,0.12) 0%, transparent 70%)',
+        'radial-glow-lg': 'radial-gradient(ellipse at 30% 50%, rgba(201,162,39,0.08) 0%, transparent 60%)',
       },
       animation: {
         'fade-up': 'fadeUp 0.6s ease-out forwards',
@@ -70,8 +74,8 @@ const config: Config = {
           '100%': { transform: 'translateX(-50%)' },
         },
         pulseGlow: {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(59,130,246,0.2)' },
-          '50%': { boxShadow: '0 0 40px rgba(59,130,246,0.4)' },
+          '0%, 100%': { boxShadow: '0 0 20px rgba(201,162,39,0.2)' },
+          '50%': { boxShadow: '0 0 40px rgba(201,162,39,0.4)' },
         },
       },
     },

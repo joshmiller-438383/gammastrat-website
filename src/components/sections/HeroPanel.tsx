@@ -44,18 +44,19 @@ export default function HeroPanel({
 }: HeroPanelProps) {
   return (
     <section className="gs-panel relative overflow-hidden min-h-[520px] flex flex-col lg:flex-row">
-      {/* Radial glow background */}
+      {/* Radial glow background — gold */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-radial-glow opacity-60" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-glow blur-3xl opacity-20" />
+        <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(201,162,39,0.08) 0%, transparent 70%)' }} />
       </div>
 
       {/* Left: Copy */}
       <div className="relative z-10 flex flex-col justify-center p-8 lg:p-12 lg:w-[52%]">
         {badge && (
           <div className="inline-flex items-center gap-2 mb-6 self-start">
-            <span className="w-2 h-2 rounded-full bg-blue-brand animate-pulse" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-blue-brand">
+            <span className="w-2 h-2 rounded-full bg-[#C9A227] animate-pulse" />
+            <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A227]">
               {badge}
             </span>
           </div>
@@ -66,7 +67,7 @@ export default function HeroPanel({
         </h1>
 
         {description && (
-          <p className="text-base lg:text-lg text-dark-muted leading-relaxed mb-8 max-w-md">
+          <p className="text-base lg:text-lg text-[#AAB4C3] leading-relaxed mb-8 max-w-md">
             {description}
           </p>
         )}
@@ -75,7 +76,8 @@ export default function HeroPanel({
           {ctaPrimaryText && ctaPrimaryUrl && (
             <Link
               href={ctaPrimaryUrl}
-              className="btn-glow inline-flex items-center justify-center px-7 py-3.5 rounded-lg text-sm font-semibold text-white"
+              className="inline-flex items-center justify-center px-7 py-3.5 rounded-lg text-sm font-semibold text-[#05070B] bg-[#C9A227] hover:bg-[#E8C547] transition-colors"
+              style={{ boxShadow: '0 0 20px rgba(201,162,39,0.3)' }}
             >
               {ctaPrimaryText}
             </Link>
@@ -91,7 +93,7 @@ export default function HeroPanel({
         </div>
 
         {trustLine && (
-          <p className="text-xs text-dark-muted/70 leading-relaxed max-w-sm">
+          <p className="text-xs text-[#AAB4C3]/70 leading-relaxed max-w-sm">
             {trustLine}
           </p>
         )}
@@ -109,12 +111,13 @@ export default function HeroPanel({
             sizes="(max-width: 1024px) 100vw, 48vw"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-brand/10 to-violet-brand/10 flex items-center justify-center">
-            <div className="text-dark-muted/30 text-sm">Visual</div>
+          <div className="absolute inset-0 flex items-center justify-center"
+            style={{ background: 'linear-gradient(135deg, rgba(201,162,39,0.06) 0%, rgba(201,162,39,0.02) 100%)' }}>
+            <div className="text-[#AAB4C3]/30 text-sm">Visual</div>
           </div>
         )}
         {/* Fade overlay on left edge */}
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-gs-card to-transparent pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0C0F18] to-transparent pointer-events-none" />
       </div>
     </section>
   )
