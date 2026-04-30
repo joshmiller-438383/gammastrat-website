@@ -67,5 +67,6 @@ export const queries = {
 
     featuresLabel, featuresHeadline, featuresSubheadline,
     featureItems[]{ _key, tag, title, description, image{ asset->{ url }, hotspot, crop } },
+    disclaimerText, disclaimerVisible,
   }`,
 }

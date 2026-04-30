@@ -9,6 +9,7 @@ import WhyDifferentPanel from '@/components/sections/WhyDifferentPanel'
 import CredibilityPanel from '@/components/sections/CredibilityPanel'
 import FinalCTAPanel from '@/components/sections/FinalCTAPanel'
 import LogoStrip from '@/components/sections/LogoStrip'
+import Disclaimer from '@/components/sections/Disclaimer'
 import { client, queries } from '../../sanity/client'
 
 // Accent words are stored as comma-separated strings in Sanity
@@ -115,6 +116,11 @@ export default async function HomePage() {
         />
 
       </div>
+
+      <Disclaimer
+        text={hp?.disclaimerText}
+        visible={hp?.disclaimerVisible}
+      />
 
       <Footer
         tagline={hp?.footerTagline}

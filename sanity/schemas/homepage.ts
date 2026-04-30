@@ -17,6 +17,7 @@ export default {
     { name: 'contact',     title: '📬 Contact' },
     { name: 'nav',         title: '🧭 Navbar' },
     { name: 'footer',      title: '🦶 Footer' },
+    { name: 'disclaimer',  title: '⚖️ Legal Disclaimer' },
   ],
   fields: [
 
@@ -549,6 +550,23 @@ export default {
         },
       ],
       group: 'footer',
+    },
+    // ─── DISCLAIMER ─────────────────────────────────────────────────────────
+    {
+      name: 'disclaimerText',
+      title: 'Legal Disclaimer Text',
+      type: 'text',
+      rows: 20,
+      description: 'Full legal disclaimer shown at the bottom of the homepage and pricing page.',
+      group: 'disclaimer',
+    },
+    {
+      name: 'disclaimerVisible',
+      title: 'Show Disclaimer',
+      type: 'boolean',
+      description: 'Toggle to show/hide the disclaimer section.',
+      initialValue: true,
+      group: 'disclaimer',
     },
   ],
 }

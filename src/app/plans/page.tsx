@@ -5,6 +5,7 @@ import LogoStrip from '@/components/sections/LogoStrip'
 import Contact from '@/components/sections/Contact'
 import ShopifyCheckoutModal from '@/components/ShopifyCheckoutModal'
 import { client, queries } from '../../../sanity/client'
+import Disclaimer from '@/components/sections/Disclaimer'
 
 interface Plan {
   _id: string
@@ -42,6 +43,13 @@ const planIcons: Record<string, string> = {
   Pro: '◈', Elite: '◉',
 }
 
+async function getHomepageDisclaimer() {
+  try {
+    const hp = await client.fetch(`*[_type == "homepage"][0]{ disclaimerText, disclaimerVisible }`)
+    return hp
+  } catch { return null }
+}
+
 async function getPlans(): Promise<Plan[]> {
   try {
     const plans = await client.fetch<Plan[]>(queries.plans)
@@ -50,7 +58,7 @@ async function getPlans(): Promise<Plan[]> {
 }
 
 export default async function PlansPage() {
-  const plans = await getPlans()
+  const [plans, hp] = await Promise.all([getPlans(), getHomepageDisclaimer()])
   return (
     <main>
       <Navbar />
@@ -111,6 +119,10 @@ export default async function PlansPage() {
       </section>
       <LogoStrip />
       <Contact />
+      <Disclaimer
+        text={hp?.disclaimerText}
+        visible={hp?.disclaimerVisible}
+      />
       <Footer />
     </main>
   )
