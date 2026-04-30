@@ -25,7 +25,7 @@ export default function FinalCTAPanel({
   subheadline = 'Institutional intelligence. Delivered daily.',
   buttonText = 'Start Your Edge',
   buttonUrl = '/subscribe',
-  imageUrl,
+  imageUrl = 'https://cdn.sanity.io/images/fa41e7wa/production/e485f613010f388c4498df344e256775d6ad1452-461x344.png',
 }: FinalCTAPanelProps) {
   return (
     <section className="gs-panel overflow-hidden">

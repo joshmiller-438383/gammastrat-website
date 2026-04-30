@@ -32,7 +32,7 @@ export default function CredibilityPanel({
   headline = 'Built On Expert Foundations.',
   accentWords = ['Expert Foundations.'],
   pillars = DEFAULT_PILLARS,
-  imageUrl,
+  imageUrl = 'https://cdn.sanity.io/images/fa41e7wa/production/976bbfc504e196a635b840f1df24231035723c5c-430x344.png',
 }: CredibilityPanelProps) {
   return (
     <section className="gs-panel overflow-hidden">

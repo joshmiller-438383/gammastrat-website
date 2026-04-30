@@ -29,7 +29,7 @@ export default function ReportsGrid({
   headline = 'Every Report You Need to Trade With Edge',
   subheadline = 'Institutional-grade options intelligence, delivered daily before market open.',
   items = DEFAULT_ITEMS,
-  imageUrl,
+  imageUrl = 'https://cdn.sanity.io/images/fa41e7wa/production/2ba2415e8e17d60bf373d53ebc90b0c4d14a01cb-646x340.png',
 }: ReportsGridProps) {
   return (
     <section className="gs-panel overflow-hidden">

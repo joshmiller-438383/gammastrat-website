@@ -32,7 +32,7 @@ export default function ProblemPanel({
   accentWords = ['Is Expensive.'],
   body = 'Most traders focus on price. Professionals focus on positioning. Without gamma data, volatility structure, and dealer exposure, you are trading blind.',
   points = DEFAULT_POINTS,
-  imageUrl,
+  imageUrl = 'https://cdn.sanity.io/images/fa41e7wa/production/215e3a8d40fe3112dd4b1cfc45eec234bc9d67fd-646x340.png',
 }: ProblemPanelProps) {
   return (
     <section
