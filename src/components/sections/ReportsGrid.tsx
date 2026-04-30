@@ -29,34 +29,23 @@ export default function ReportsGrid({
   headline = 'Every Report You Need to Trade With Edge',
   subheadline = 'Institutional-grade options intelligence, delivered daily before market open.',
   items = DEFAULT_ITEMS,
-  imageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-reports-visual-b2qGMjd34hNXD49gnnqLLs.png',
+  imageUrl,
 }: ReportsGridProps) {
+  const img = imageUrl || 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-reports-visual-b2qGMjd34hNXD49gnnqLLs.png'
   return (
     <section className="gs-panel overflow-hidden">
-      <div className="flex flex-col lg:flex-row" style={{ minHeight: '420px' }}>
+      {/* CSS grid: image 30% / cards 70% on desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-[30%_70%]" style={{ minHeight: '420px' }}>
 
-        {/* LEFT: Section image — shows below content on mobile */}
-        <div
-          className="order-2 lg:order-1"
-          style={{ position: 'relative', width: '100%', minHeight: '220px', flexShrink: 0 }}
-        >
-          {/* On lg screens, fix width to ~28% */}
-          <style>{`@media (min-width: 1024px) { .reports-img-col { width: 28% !important; min-height: unset !important; } }`}</style>
-          <div className="reports-img-col" style={{ position: 'relative', width: '100%', height: '100%', minHeight: '220px' }}>
-            {imageUrl ? (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={imageUrl} alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
-                <div style={{ position: 'absolute', top: 0, bottom: 0, right: 0, width: '4rem', background: 'linear-gradient(to left, #090B12, transparent)', pointerEvents: 'none' }} />
-              </>
-            ) : (
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(201,162,74,0.06) 0%, rgba(201,162,74,0.02) 100%)' }} />
-            )}
-          </div>
+        {/* LEFT: Section image — goes below content on mobile */}
+        <div className="relative order-2 lg:order-1 overflow-hidden" style={{ minHeight: '220px' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={img} alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+          <div style={{ position: 'absolute', top: 0, bottom: 0, right: 0, width: '4rem', background: 'linear-gradient(to left, #090B12, transparent)', pointerEvents: 'none' }} />
         </div>
 
-        {/* RIGHT: Header + grid — always first on mobile */}
-        <div className="order-1 lg:order-2 flex flex-col justify-center p-8 lg:p-10 flex-1">
+        {/* RIGHT: Header + cards — always first on mobile */}
+        <div className="order-1 lg:order-2 flex flex-col justify-center p-8 lg:p-10">
           <p className="section-label mb-3">Daily Intelligence</p>
           <h2 style={{ fontSize: 'clamp(1.5rem,2.2vw,2rem)', fontWeight: 700, lineHeight: 1.2, letterSpacing: '-0.02em', color: '#fff', marginBottom: '0.5rem' }}>
             {headline}

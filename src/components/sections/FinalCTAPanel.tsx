@@ -25,8 +25,9 @@ export default function FinalCTAPanel({
   subheadline = 'Institutional intelligence. Delivered daily.',
   buttonText = 'Start Your Edge',
   buttonUrl = '/subscribe',
-  imageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-cta-visual-C2G6APswUQ8A9orhFGSsLF.png',
+  imageUrl,
 }: FinalCTAPanelProps) {
+  const img = imageUrl || 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-cta-visual-C2G6APswUQ8A9orhFGSsLF.png'
   return (
     <section className="gs-panel overflow-hidden">
       <div className="flex flex-col lg:flex-row" style={{ minHeight: '300px' }}>
@@ -51,11 +52,11 @@ export default function FinalCTAPanel({
         </div>
 
         {/* RIGHT: GS logo / visual — below on mobile */}
-        <div style={{ position: 'relative', flex: 1, minHeight: '240px' }}>
-          {imageUrl ? (
+        <div className="relative overflow-hidden" style={{ flex: 1, minHeight: '240px' }}>
+          <>
             <>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imageUrl} alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+              <img src={img} alt="" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
               <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '5rem', background: 'linear-gradient(to right, #090B12, transparent)', pointerEvents: 'none' }} />
             </>
           ) : (
