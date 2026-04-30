@@ -135,9 +135,6 @@ export default async function PlansPage() {
     client.fetch(`*[_type == "homepage"][0]{ disclaimerText, disclaimerVisible }`, {}, { cache: 'no-store' }).catch(() => null),
   ])
 
-  // DEBUG: log what Sanity returned
-  console.log('[plans-page] pp:', JSON.stringify({ pp_null: pp === null, cards: pp?.pricingCards?.map((c: {planId?: string; ctaText?: string}) => ({ planId: c.planId, ctaText: c.ctaText })) }))
-
   // Merge Sanity data with fallbacks
   const hero = {
     badge:       pp?.heroBadge       ?? 'Plans & Pricing',
@@ -181,8 +178,6 @@ export default async function PlansPage() {
 
   return (
     <main style={{ background: '#05070B', minHeight: '100vh' }}>
-      {/* DEBUG: remove after testing */}
-      <div id="__sanity_debug" style={{ display: 'none' }} data-pp={JSON.stringify({ null: pp === null, cards: (pp as {pricingCards?: Array<{planId?: string; ctaText?: string}>})?.pricingCards?.map((c) => ({ id: c.planId, cta: c.ctaText })) })} />
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <section className="pt-16 pb-16 sm:pt-20 sm:pb-20 text-center px-5">
         <div className="max-w-[760px] mx-auto">
