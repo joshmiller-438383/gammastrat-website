@@ -1,11 +1,12 @@
 import Link from 'next/link'
 
+const HERO_IMG = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-hero-visual-5wRzAepj5DhW7kS6y88QbT.png'
+
 interface HeroPanelProps {
   badge?: string
   headline?: string
   accentWords?: string[]
   description?: string
-  trustLine?: string
   ctaPrimaryText?: string
   ctaPrimaryUrl?: string
   ctaSecondaryText?: string
@@ -32,16 +33,17 @@ export default function HeroPanel({
   ctaPrimaryUrl = '/subscribe',
   ctaSecondaryText = 'View Sample Report',
   ctaSecondaryUrl = '/reports',
-  imageUrl = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663412681205/kxdTaP7F9zvuZsQRYFvgTd/gs-hero-visual-5wRzAepj5DhW7kS6y88QbT.png',
+  imageUrl,
 }: HeroPanelProps) {
+  const img = imageUrl || HERO_IMG
   return (
     <section className="gs-panel overflow-hidden">
-      <div className="flex flex-col lg:flex-row">
-        {/* LEFT: Copy — always first on mobile */}
-        <div className="flex flex-col justify-center p-8 lg:p-10 xl:p-12 lg:w-[52%] flex-shrink-0">
-          {badge && (
-            <p className="section-label mb-5">{badge}</p>
-          )}
+      {/* CSS grid: equal 50/50 columns on lg+, single column on mobile */}
+      <div className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: '420px' }}>
+
+        {/* LEFT: Copy */}
+        <div className="flex flex-col justify-center p-8 lg:p-10 xl:p-12 order-1">
+          {badge && <p className="section-label mb-5">{badge}</p>}
           <h1 className="text-[2rem] lg:text-[2.5rem] xl:text-[2.75rem] font-bold leading-[1.1] tracking-tight text-white mb-5">
             {highlight(headline, accentWords ?? [])}
           </h1>
@@ -64,45 +66,18 @@ export default function HeroPanel({
           </div>
         </div>
 
-        {/* RIGHT: Image — goes below text on mobile */}
-        <div className="relative flex-1 min-h-[260px] lg:min-h-[380px] overflow-hidden">
-          {imageUrl ? (
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={imageUrl}
-                alt=""
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                }}
-              />
-              {/* Fade left edge into panel bg */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0, bottom: 0, left: 0,
-                  width: '6rem',
-                  background: 'linear-gradient(to right, #090B12, transparent)',
-                  pointerEvents: 'none',
-                }}
-              />
-            </>
-          ) : (
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(135deg, rgba(201,162,74,0.08) 0%, rgba(201,162,74,0.02) 100%)',
-              }}
-            />
-          )}
+        {/* RIGHT: Image — goes below on mobile */}
+        <div className="relative order-2 overflow-hidden" style={{ minHeight: '280px' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={img}
+            alt=""
+            aria-hidden="true"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+          />
+          <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '5rem', background: 'linear-gradient(to right, #090B12, transparent)', pointerEvents: 'none' }} />
         </div>
+
       </div>
     </section>
   )
