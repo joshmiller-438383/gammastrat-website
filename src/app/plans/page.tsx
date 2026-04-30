@@ -131,8 +131,8 @@ function Cell({ value, isGamma }: { value: string; isGamma?: boolean }) {
 
 export default async function PlansPage() {
   const [pp, hp] = await Promise.all([
-    client.fetch(queries.plansPage).catch(() => null),
-    client.fetch(`*[_type == "homepage"][0]{ disclaimerText, disclaimerVisible }`).catch(() => null),
+    client.fetch(queries.plansPage, {}, { cache: 'no-store' }).catch(() => null),
+    client.fetch(`*[_type == "homepage"][0]{ disclaimerText, disclaimerVisible }`, {}, { cache: 'no-store' }).catch(() => null),
   ])
 
   // Merge Sanity data with fallbacks
