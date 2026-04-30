@@ -9,11 +9,6 @@ import WhyDifferentPanel from '@/components/sections/WhyDifferentPanel'
 import CredibilityPanel from '@/components/sections/CredibilityPanel'
 import FinalCTAPanel from '@/components/sections/FinalCTAPanel'
 import LogoStrip from '@/components/sections/LogoStrip'
-import Stats from '@/components/sections/Stats'
-import Testimonial from '@/components/sections/Testimonial'
-import BlogPreview from '@/components/sections/BlogPreview'
-import FAQ from '@/components/sections/FAQ'
-import Contact from '@/components/sections/Contact'
 import { client, queries } from '../../sanity/client'
 
 // Accent words are stored as comma-separated strings in Sanity
@@ -24,20 +19,16 @@ function parseAccentWords(raw?: string): string[] {
 
 async function getSanityData() {
   try {
-    const [faqs, testimonials, posts, homepage] = await Promise.all([
-      client.fetch(queries.faqs),
-      client.fetch(queries.testimonials),
-      client.fetch(queries.posts),
-      client.fetch(queries.homepage),
-    ])
-    return { faqs, testimonials, posts, homepage }
-  } catch {
-    return { faqs: [], testimonials: [], posts: [], homepage: null }
+    const homepage = await client.fetch(queries.homepage)
+    return { homepage }
+  } catch (err) {
+    console.error('[Sanity fetch error]', err)
+    return { homepage: null }
   }
 }
 
 export default async function HomePage() {
-  const { faqs, testimonials, posts, homepage: hp } = await getSanityData()
+  const { homepage: hp } = await getSanityData()
 
   return (
     <main className="min-h-screen bg-gs-bg">
@@ -49,10 +40,10 @@ export default async function HomePage() {
         navLinks={hp?.navLinks}
       />
 
-      {/* ── Main content wrapper ── */}
+      {/* ── Blueprint 7-panel grid ── */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-4">
 
-        {/* Row 1: Hero (large left) + Problem (right) */}
+        {/* Row 1: Hero (3fr) + Problem (2fr) */}
         <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4">
           <HeroPanel
             badge={hp?.heroBadge}
@@ -105,13 +96,6 @@ export default async function HomePage() {
           imageUrl={hp?.whyImage?.asset?.url}
         />
 
-        {/* Stats strip */}
-        <Stats
-          headline={hp?.statsHeadline}
-          subheadline={hp?.statsSubheadline}
-          items={hp?.statItems}
-        />
-
         {/* Row 5: Credibility */}
         <CredibilityPanel
           headline={hp?.credibilityHeadline}
@@ -119,20 +103,6 @@ export default async function HomePage() {
           pillars={hp?.credibilityPillars}
           imageUrl={hp?.credibilityImage?.asset?.url}
         />
-
-        {/* Testimonials */}
-        <Testimonial items={testimonials} />
-
-        {/* Blog preview */}
-        <BlogPreview
-          items={posts}
-          headline={hp?.blogHeadline}
-          subheadline={hp?.blogSubheadline}
-          ctaText={hp?.blogCtaText}
-        />
-
-        {/* FAQ */}
-        <FAQ items={faqs} />
 
         {/* Row 6: Final CTA */}
         <FinalCTAPanel
@@ -144,15 +114,6 @@ export default async function HomePage() {
           imageUrl={hp?.ctaImage?.asset?.url}
         />
 
-        {/* Contact */}
-        <Contact
-          headline={hp?.contactHeadline}
-          subheadline={hp?.contactSubheadline}
-          email={hp?.contactEmail}
-          phone={hp?.contactPhone}
-          address={hp?.contactAddress}
-          ctaText={hp?.contactCtaText}
-        />
       </div>
 
       <Footer
