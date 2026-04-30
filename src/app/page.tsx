@@ -78,7 +78,6 @@ export default async function HomePage() {
           headline={hp?.solutionHeadline}
           accentWords={parseAccentWords(hp?.solutionAccentWords)}
           body={hp?.solutionBody}
-          imageUrl={hp?.solutionImage?.asset?.url}
         />
 
         {/* Row 3: Reports grid */}
@@ -86,7 +85,6 @@ export default async function HomePage() {
           headline={hp?.reportsHeadline}
           subheadline={hp?.reportsSubheadline}
           items={hp?.reportItems}
-          imageUrl={hp?.reportsImage?.asset?.url}
         />
 
         {/* Row 4: Why Different (full width) */}
@@ -94,7 +92,6 @@ export default async function HomePage() {
           headline={hp?.whyHeadline}
           accentWords={parseAccentWords(hp?.whyAccentWords)}
           drivers={hp?.whyDrivers}
-          imageUrl={hp?.whyImage?.asset?.url}
         />
 
         {/* Row 5: Credibility */}
@@ -102,7 +99,6 @@ export default async function HomePage() {
           headline={hp?.credibilityHeadline}
           accentWords={parseAccentWords(hp?.credibilityAccentWords)}
           pillars={hp?.credibilityPillars}
-          imageUrl={hp?.credibilityImage?.asset?.url}
         />
 
         {/* Row 6: Final CTA */}
@@ -112,7 +108,6 @@ export default async function HomePage() {
           subheadline={hp?.ctaSubheadline}
           buttonText={hp?.ctaButtonText}
           buttonUrl={hp?.ctaButtonUrl}
-          imageUrl={hp?.ctaImage?.asset?.url}
         />
 
       </div>
