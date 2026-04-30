@@ -1,176 +1,195 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
-
-interface NavDropdownItem {
-  label: string
-  href: string
-}
-
-interface NavLinkItem {
-  label: string
-  href: string
-  dropdown?: NavDropdownItem[]
-}
 
 interface NavbarProps {
   loginText?: string
   loginUrl?: string
   ctaText?: string
   ctaUrl?: string
-  navLinks?: NavLinkItem[]
 }
 
-const defaultNavLinks: NavLinkItem[] = [
-  {
-    label: 'Solutions',
-    href: '#',
-    dropdown: [
-      { label: 'Market Analytics', href: '#' },
-      { label: 'Trade Signals', href: '#' },
-      { label: 'Risk Management', href: '#' },
-      { label: 'Portfolio Tools', href: '#' },
-    ],
-  },
-  { label: 'About', href: '/#about' },
-  { label: 'Pricing', href: '/plans' },
-  {
-    label: 'Support',
-    href: '#',
-    dropdown: [
-      { label: 'Documentation', href: '#' },
-      { label: 'Academy', href: '#' },
-      { label: 'Community', href: '#' },
-      { label: 'Contact', href: '/#contact' },
-    ],
-  },
+const NAV_ITEMS = [
+  { label: 'Edge',    anchor: 'edge' },
+  { label: 'Reports', anchor: 'reports' },
+  { label: 'Method',  anchor: 'method' },
+  { label: 'FAQ',     anchor: 'faq' },
 ]
 
+// Offset so the section is not hidden behind the fixed nav
+const SCROLL_OFFSET = 80
+
+function scrollToSection(anchor: string) {
+  const el = document.getElementById(anchor)
+  if (!el) return
+  const top = el.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET
+  window.scrollTo({ top, behavior: 'smooth' })
+}
+
 export default function Navbar({
-  loginText = 'Log in',
-  loginUrl = '#',
-  ctaText = 'Start free trial →',
+  loginText = 'Member Portal',
+  loginUrl = 'https://members.gammastrat.com',
+  ctaText = 'Start Your Edge',
   ctaUrl = '/plans',
-  navLinks,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('')
   const [mobileOpen, setMobileOpen] = useState(false)
-  const links = navLinks && navLinks.length > 0 ? navLinks : defaultNavLinks
 
+  // Transparent → solid on scroll
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[#0D0F12]/95 backdrop-blur-md border-b border-white/5' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <img
-            src="/logo.png"
-            alt="GammaStrat"
-            className="h-10 w-auto object-contain"
-          />
-        </Link>
+  // Active section detection via IntersectionObserver
+  const updateActive = useCallback(() => {
+    const sections = NAV_ITEMS.map(item => document.getElementById(item.anchor))
+    const scrollY = window.scrollY + SCROLL_OFFSET + 40
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
-          {links.map((link, i) =>
-            link.dropdown && link.dropdown.length > 0 ? (
-              <NavDropdown
-                key={i}
-                label={link.label}
-                items={link.dropdown}
-              />
-            ) : (
-              <NavLink key={i} href={link.href}>{link.label}</NavLink>
+    let current = ''
+    for (const section of sections) {
+      if (!section) continue
+      const top = section.offsetTop
+      const bottom = top + section.offsetHeight
+      if (scrollY >= top && scrollY < bottom) {
+        current = section.id
+        break
+      }
+    }
+    setActiveSection(current)
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('scroll', updateActive, { passive: true })
+    updateActive()
+    return () => window.removeEventListener('scroll', updateActive)
+  }, [updateActive])
+
+  // Close mobile menu on resize to desktop
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth >= 768) setMobileOpen(false) }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  return (
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[#0D0F12]/95 backdrop-blur-md border-b border-white/8 shadow-lg'
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+
+        {/* ── Logo ── */}
+        <button
+          onClick={() => scrollToSection('edge')}
+          className="flex items-center gap-2 flex-shrink-0 focus:outline-none"
+          aria-label="Back to top"
+        >
+          <img src="/logo.png" alt="GammaStrat" className="h-9 w-auto object-contain" />
+        </button>
+
+        {/* ── Desktop nav items ── */}
+        <div className="hidden md:flex items-center gap-0.5">
+          {NAV_ITEMS.map(item => {
+            const isActive = activeSection === item.anchor
+            return (
+              <button
+                key={item.anchor}
+                onClick={() => scrollToSection(item.anchor)}
+                className={`relative text-sm px-4 py-2 rounded-md transition-all duration-200 focus:outline-none
+                  ${isActive
+                    ? 'text-[#C9A24A] font-medium'
+                    : 'text-white/65 hover:text-white hover:bg-white/5'
+                  }`}
+              >
+                {item.label}
+                {/* Active underline indicator */}
+                {isActive && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#C9A24A] rounded-full" />
+                )}
+              </button>
             )
-          )}
+          })}
         </div>
 
-        {/* CTA */}
+        {/* ── Desktop right side: Member Portal + CTA ── */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href={loginUrl} className="text-sm text-white/70 hover:text-white transition-colors px-3 py-2">
+          <Link
+            href={loginUrl}
+            className="text-xs text-white/50 hover:text-white/80 transition-colors px-2 py-1.5 tracking-wide"
+          >
             {loginText}
           </Link>
-          <Link
-            href={ctaUrl}
-            className="text-sm font-semibold bg-[#C9A227] hover:bg-[#E8C547] text-[#0D0F12] px-4 py-2 rounded-md transition-all duration-200 flex items-center gap-1.5"
+          <button
+            onClick={() => scrollToSection('cta')}
+            className="text-sm font-semibold bg-[#C9A24A] hover:bg-[#E0B85A] text-[#0D0F12] px-5 py-2 rounded-md transition-all duration-200 tracking-wide shadow-[0_0_16px_rgba(201,162,74,0.25)] hover:shadow-[0_0_24px_rgba(201,162,74,0.4)]"
           >
             {ctaText}
-          </Link>
+          </button>
         </div>
 
-        {/* Mobile toggle */}
+        {/* ── Mobile hamburger ── */}
         <button
-          className="md:hidden text-white/70 hover:text-white p-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 rounded-md hover:bg-white/5 transition-colors focus:outline-none"
+          onClick={() => setMobileOpen(prev => !prev)}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
         >
-          <div className="w-5 h-0.5 bg-current mb-1 transition-all" />
-          <div className="w-5 h-0.5 bg-current mb-1" />
-          <div className="w-5 h-0.5 bg-current" />
+          <span className={`block w-5 h-0.5 bg-white/80 transition-all duration-200 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`block w-5 h-0.5 bg-white/80 transition-all duration-200 ${mobileOpen ? 'opacity-0' : ''}`} />
+          <span className={`block w-5 h-0.5 bg-white/80 transition-all duration-200 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
         </button>
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden bg-[#0D0F12] border-t border-white/5 px-6 py-4 space-y-3">
-          {links.map((link, i) => (
-            <MobileLink key={i} href={link.href} onClick={() => setMobileOpen(false)}>
-              {link.label}
-            </MobileLink>
-          ))}
-          <div className="pt-3 border-t border-white/5 flex flex-col gap-2">
-            <Link href={loginUrl} className="text-sm text-white/70 text-center py-2">{loginText}</Link>
-            <Link href={ctaUrl} className="text-sm font-semibold bg-[#C9A227] text-[#0D0F12] px-4 py-2.5 rounded-md text-center">
-              {ctaText}
-            </Link>
-          </div>
+      {/* ── Mobile menu ── */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ${
+          mobileOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        } bg-[#0D0F12]/98 backdrop-blur-md border-t border-white/5`}
+      >
+        <div className="px-5 pt-4 pb-6 flex flex-col gap-1">
+          {NAV_ITEMS.map(item => {
+            const isActive = activeSection === item.anchor
+            return (
+              <button
+                key={item.anchor}
+                onClick={() => { scrollToSection(item.anchor); setMobileOpen(false) }}
+                className={`text-left text-base py-3 px-3 rounded-md transition-colors focus:outline-none
+                  ${isActive
+                    ? 'text-[#C9A24A] font-medium bg-[#C9A24A]/8'
+                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                  }`}
+              >
+                {item.label}
+              </button>
+            )
+          })}
+
+          {/* Divider */}
+          <div className="h-px bg-white/8 my-2" />
+
+          {/* Member Portal */}
+          <Link
+            href={loginUrl}
+            onClick={() => setMobileOpen(false)}
+            className="text-sm text-white/50 hover:text-white/80 py-2 px-3 transition-colors text-center"
+          >
+            {loginText}
+          </Link>
+
+          {/* CTA — pinned at bottom of mobile menu */}
+          <button
+            onClick={() => { scrollToSection('cta'); setMobileOpen(false) }}
+            className="mt-1 w-full text-sm font-semibold bg-[#C9A24A] hover:bg-[#E0B85A] text-[#0D0F12] px-5 py-3 rounded-md transition-all duration-200 tracking-wide"
+          >
+            {ctaText}
+          </button>
         </div>
-      )}
+      </div>
     </nav>
-  )
-}
-
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link href={href} className="text-sm text-white/70 hover:text-white transition-colors px-3 py-2 rounded-md hover:bg-white/5">
-      {children}
-    </Link>
-  )
-}
-
-function NavDropdown({ label, items }: { label: string; items: NavDropdownItem[] }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button className="text-sm text-white/70 hover:text-white transition-colors px-3 py-2 rounded-md hover:bg-white/5 flex items-center gap-1">
-        {label}
-        <svg className={`w-3 h-3 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-      {open && (
-        <div className="absolute top-full left-0 mt-1 w-52 bg-[#141720] border border-white/10 rounded-lg shadow-2xl py-1 z-50">
-          {items.map(item => (
-            <a key={item.label} href={item.href} className="block px-4 py-2.5 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors">
-              {item.label}
-            </a>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-function MobileLink({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void }) {
-  return (
-    <Link href={href} onClick={onClick} className="block text-sm text-white/70 hover:text-white py-2 transition-colors">
-      {children}
-    </Link>
   )
 }

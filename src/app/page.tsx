@@ -10,6 +10,7 @@ import CredibilityPanel from '@/components/sections/CredibilityPanel'
 import FinalCTAPanel from '@/components/sections/FinalCTAPanel'
 import LogoStrip from '@/components/sections/LogoStrip'
 import Disclaimer from '@/components/sections/Disclaimer'
+import FAQSection from '@/components/sections/FAQSection'
 import { client, queries } from '../../sanity/client'
 
 // Accent words are stored as comma-separated strings in Sanity
@@ -38,14 +39,12 @@ export default async function HomePage() {
         loginUrl={hp?.navLoginUrl}
         ctaText={hp?.navCtaText}
         ctaUrl={hp?.navCtaUrl}
-        navLinks={hp?.navLinks}
       />
 
       {/* ── Blueprint 7-panel grid ── */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-4">
-
         {/* Row 1: Hero (3fr) + Problem (2fr) */}
-        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4">
+        <div id="edge" className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4">
           <HeroPanel
             badge={hp?.heroBadge}
             headline={hp?.heroHeadline}
@@ -81,27 +80,37 @@ export default async function HomePage() {
         />
 
         {/* Row 3: Reports grid */}
+        <div id="reports">
         <ReportsGrid
           headline={hp?.reportsHeadline}
           subheadline={hp?.reportsSubheadline}
           items={hp?.reportItems}
         />
 
+        </div>
         {/* Row 4: Why Different (full width) */}
+        <div id="method">
         <WhyDifferentPanel
           headline={hp?.whyHeadline}
           accentWords={parseAccentWords(hp?.whyAccentWords)}
           drivers={hp?.whyDrivers}
         />
 
-        {/* Row 5: Credibility */}
         <CredibilityPanel
           headline={hp?.credibilityHeadline}
           accentWords={parseAccentWords(hp?.credibilityAccentWords)}
           pillars={hp?.credibilityPillars}
         />
 
+        </div>
+      </div>
+
+      {/* FAQ Section — above Final CTA */}
+      <FAQSection />
+
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         {/* Row 6: Final CTA */}
+        <div id="cta">
         <FinalCTAPanel
           headline={hp?.ctaHeadline}
           accentWords={parseAccentWords(hp?.ctaAccentWords)}
@@ -110,8 +119,8 @@ export default async function HomePage() {
           buttonUrl={hp?.ctaButtonUrl}
         />
 
+        </div>
       </div>
-
       <Disclaimer
         text={hp?.disclaimerText}
         visible={hp?.disclaimerVisible}
