@@ -181,6 +181,8 @@ export default async function PlansPage() {
 
   return (
     <main style={{ background: '#05070B', minHeight: '100vh' }}>
+      {/* DEBUG: remove after testing */}
+      <div id="__sanity_debug" style={{ display: 'none' }} data-pp={JSON.stringify({ null: pp === null, cards: (pp as {pricingCards?: Array<{planId?: string; ctaText?: string}>})?.pricingCards?.map((c) => ({ id: c.planId, cta: c.ctaText })) })} />
       {/* ── 1. HERO ─────────────────────────────────────────────────────────── */}
       <section className="pt-16 pb-16 sm:pt-20 sm:pb-20 text-center px-5">
         <div className="max-w-[760px] mx-auto">
