@@ -80,98 +80,104 @@ export default function ProblemPanel({
       />
 
       {/* Content layer — 2-column: text left, labels right */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 10,
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'space-between',
-          minHeight: '420px',
-          padding: '2.5rem 3rem',
-          gap: '2rem',
-        }}
-      >
-        {/* LEFT: Headline + body — anchored to bottom-left */}
-        <div style={{ flex: '0 1 45%', maxWidth: '360px' }}>
-          <h2
-            style={{
-              fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-              fontWeight: 700,
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em',
-              color: '#fff',
-              marginBottom: '0.875rem',
-            }}
-          >
+      <div className="problem-content">
+        {/* LEFT: Headline + body */}
+        <div className="problem-text">
+          <h2 className="problem-headline">
             {highlight(headline, accentWords ?? [])}
           </h2>
-          {body && (
-            <p
-              style={{
-                fontSize: '0.9375rem',
-                color: 'rgba(255,255,255,0.65)',
-                lineHeight: 1.6,
-              }}
-            >
-              {body}
-            </p>
-          )}
+          {body && <p className="problem-body">{body}</p>}
         </div>
 
-        {/* RIGHT: Risk labels — stacked, right-aligned, vertically centered */}
+        {/* RIGHT: Risk labels */}
         {points && points.length > 0 && (
-          <div
-            style={{
-              flex: '0 0 auto',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-end',
-              gap: '0.625rem',
-              paddingBottom: '0.25rem',
-            }}
-          >
+          <div className="problem-labels">
             {points.map((pt, i) => (
-              <div
-                key={pt._key ?? i}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.4rem 0.875rem',
-                  borderRadius: '0.25rem',
-                  background: 'rgba(0,0,0,0.5)',
-                  border: '1px solid rgba(255,255,255,0.12)',
-                  backdropFilter: 'blur(4px)',
-                  WebkitBackdropFilter: 'blur(4px)',
-                }}
-              >
-                <span
-                  style={{
-                    width: '0.4rem',
-                    height: '0.4rem',
-                    borderRadius: '50%',
-                    background: 'var(--gold)',
-                    flexShrink: 0,
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: '0.6875rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.9)',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {pt.label}
-                </span>
+              <div key={pt._key ?? i} className="problem-label-pill">
+                <span className="problem-label-dot" />
+                <span className="problem-label-text">{pt.label}</span>
               </div>
             ))}
           </div>
         )}
       </div>
+
+      <style>{`
+        .problem-content {
+          position: relative;
+          z-index: 10;
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          min-height: 420px;
+          padding: 2.5rem 3rem;
+          gap: 2rem;
+        }
+        .problem-text { flex: 0 1 45%; max-width: 360px; }
+        .problem-headline {
+          font-size: clamp(1.75rem, 3vw, 2.5rem);
+          font-weight: 700;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+          color: #fff;
+          margin-bottom: 0.875rem;
+        }
+        .problem-body { font-size: 0.9375rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+        .problem-labels {
+          flex: 0 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 0.625rem;
+          padding-bottom: 0.25rem;
+          min-width: 0;
+        }
+        .problem-label-pill {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.4rem 0.875rem;
+          border-radius: 0.25rem;
+          background: rgba(0,0,0,0.55);
+          border: 1px solid rgba(255,255,255,0.14);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          white-space: nowrap;
+        }
+        .problem-label-dot {
+          width: 0.4rem;
+          height: 0.4rem;
+          border-radius: 50%;
+          background: #C9A24A;
+          flex-shrink: 0;
+        }
+        .problem-label-text {
+          font-size: 0.6875rem;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.9);
+        }
+        @media (max-width: 640px) {
+          .problem-content {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 1.75rem 1.25rem;
+            gap: 1.25rem;
+            min-height: 460px;
+          }
+          .problem-text { flex: none; max-width: 100%; }
+          .problem-headline { font-size: 1.625rem; }
+          .problem-body { font-size: 0.875rem; }
+          .problem-labels {
+            align-items: flex-start;
+            width: 100%;
+          }
+          .problem-label-pill { white-space: normal; }
+          .problem-label-text { font-size: 0.625rem; letter-spacing: 0.08em; }
+        }
+      `}</style>
     </section>
   )
 }
