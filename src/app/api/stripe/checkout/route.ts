@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-04-30.basil' as any,
-})
-
 // Price IDs (test mode — swap for live IDs when going live)
 const STRIPE_PRICES: Record<string, string> = {
   free_trial: 'price_1TSIjNR6Ac0MCpIq3uAexnH7',
@@ -13,6 +9,11 @@ const STRIPE_PRICES: Record<string, string> = {
 }
 
 export async function POST(req: NextRequest) {
+  // Initialize Stripe lazily inside the handler so build-time env check is skipped
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: '2025-04-30.basil' as any,
+  })
+
   try {
     const { planId } = await req.json()
     const priceId = STRIPE_PRICES[planId]
