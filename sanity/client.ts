@@ -29,7 +29,7 @@ export const queries = {
     heroBadge, heroHeadline, heroAccentWord, heroSubheadline, heroCtaText,
     pricingCards[]{
       planId, name, subtitle, price, period, description, badge, highlight,
-      features, ctaText, microCopy
+      features, ctaText, microCopy, checkoutUrl
     },
     tableHeadline, tableBadge,
     tableRows[]{ _key, feature, freeValue, basicValue, gammaValue },

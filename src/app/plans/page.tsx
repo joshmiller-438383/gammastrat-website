@@ -1,15 +1,16 @@
 export const dynamic = "force-dynamic"
 import Footer from '@/components/Footer'
-import ShopifyCheckoutModal from '@/components/ShopifyCheckoutModal'
+import StripeCheckoutButton from '@/components/StripeCheckoutButton'
 import { client, queries } from '../../../sanity/client'
 import Disclaimer from '@/components/sections/Disclaimer'
 
-// ─── Shopify variant IDs ──────────────────────────────────────────────────────
-const SHOPIFY_VARIANTS: Record<string, { variantId: string; planId: string }> = {
-  gamma:      { variantId: '48103900610801', planId: 'gamma' },
-  basic:      { variantId: '48103900446961', planId: 'basic' },
-  free:       { variantId: '48103900414193', planId: 'free-trial' },
-  'free-trial': { variantId: '48103900414193', planId: 'free-trial' },
+// ─── Stripe plan ID map ───────────────────────────────────────────────────────
+const STRIPE_PLAN_IDS: Record<string, string> = {
+  free:         'free_trial',
+  'free-trial': 'free_trial',
+  free_trial:   'free_trial',
+  basic:        'basic',
+  gamma:        'gamma',
 }
 
 // ─── Hardcoded fallbacks ──────────────────────────────────────────────────────
@@ -209,7 +210,7 @@ export default async function PlansPage() {
         <div className="max-w-[1200px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 items-start">
             {plans.map((plan) => {
-              const shopify = SHOPIFY_VARIANTS[plan.planId] || SHOPIFY_VARIANTS['free']
+              const stripePlanId = STRIPE_PLAN_IDS[plan.planId] || plan.planId || 'basic'
               const isGamma = plan.highlight
 
               return (
@@ -272,11 +273,11 @@ export default async function PlansPage() {
                     })}
                   </ul>
 
-                  <ShopifyCheckoutModal
-                    planId={shopify.planId}
-                    variantId={shopify.variantId}
+                  <StripeCheckoutButton
+                    planId={stripePlanId}
                     ctaText={plan.ctaText}
                     highlight={isGamma}
+                    checkoutUrl={(plan as any).checkoutUrl ?? null}
                   />
 
                   {plan.microCopy && (

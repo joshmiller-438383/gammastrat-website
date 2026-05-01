@@ -9,13 +9,19 @@ export default {
       type: 'string',
     },
     {
+      name: 'planId',
+      title: 'Plan ID (slug)',
+      type: 'string',
+      description: 'Used to build the checkout URL. Use: free_trial, basic, or gamma',
+    },
+    {
       name: 'price',
-      title: 'Price (e.g. $10)',
+      title: 'Price (e.g. $84)',
       type: 'string',
     },
     {
       name: 'period',
-      title: 'Period (e.g. /mth)',
+      title: 'Period (e.g. /mo)',
       type: 'string',
     },
     {
@@ -36,15 +42,21 @@ export default {
       description: 'Set to true for the featured/recommended plan',
     },
     {
+      name: 'badge',
+      title: 'Badge Text (e.g. Most Popular)',
+      type: 'string',
+      description: 'Optional badge shown above the plan card',
+    },
+    {
       name: 'ctaText',
       title: 'CTA Button Text',
       type: 'string',
     },
     {
-      name: 'shopifyVariantId',
-      title: 'Shopify Variant ID',
-      type: 'string',
-      description: 'Shopify product variant ID for checkout integration',
+      name: 'checkoutUrl',
+      title: 'Checkout URL Override',
+      type: 'url',
+      description: 'Optional: override the checkout URL. Leave blank to auto-generate from Plan ID. Auto-generates: https://members.gammastrat.com/checkout?plan=<planId>',
     },
     {
       name: 'order',
