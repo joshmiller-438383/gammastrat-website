@@ -11,7 +11,7 @@ const STRIPE_PRICES: Record<string, string> = {
 export async function POST(req: NextRequest) {
   // Initialize Stripe lazily inside the handler so build-time env check is skipped
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2025-04-30.basil' as any,
+    apiVersion: '2024-06-20' as any,
   })
 
   try {
