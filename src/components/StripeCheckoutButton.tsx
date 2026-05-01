@@ -8,6 +8,8 @@ interface StripeCheckoutButtonProps {
   checkoutUrl?: string | null
 }
 
+const MEMBERS_API = 'https://members.gammastrat.com/api/checkout/public'
+
 export default function StripeCheckoutButton({
   planId,
   ctaText,
@@ -28,16 +30,16 @@ export default function StripeCheckoutButton({
     setError(null)
 
     try {
-      const res = await fetch('/api/stripe/checkout', {
+      const res = await fetch(MEMBERS_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ planId }),
       })
       const data = await res.json()
-      if (!res.ok || !data.checkoutUrl) {
+      if (!res.ok || !data.url) {
         throw new Error(data.error || 'Could not create checkout session.')
       }
-      window.location.href = data.checkoutUrl
+      window.location.href = data.url
     } catch (err: any) {
       setError(err.message || 'Something went wrong. Please try again.')
       setLoading(false)
