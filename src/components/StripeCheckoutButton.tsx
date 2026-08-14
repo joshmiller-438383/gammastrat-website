@@ -8,7 +8,8 @@ interface StripeCheckoutButtonProps {
   checkoutUrl?: string | null
 }
 
-const MEMBERS_API = 'https://members.gammastrat.com/api/checkout/public'
+/** Same-origin proxy → members → Stripe (avoids CORS / wrong host in browser). */
+const CHECKOUT_API = '/api/checkout/public'
 
 export default function StripeCheckoutButton({
   planId,
@@ -30,7 +31,7 @@ export default function StripeCheckoutButton({
     setError(null)
 
     try {
-      const res = await fetch(MEMBERS_API, {
+      const res = await fetch(CHECKOUT_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ planId }),
