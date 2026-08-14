@@ -19,5 +19,15 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['styled-components', 'sanity', '@sanity/ui', '@sanity/icons'],
   },
+  // Fewer watched paths → fewer open file descriptors (macOS EMFILE)
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.watchOptions = {
+        ...config.watchOptions,
+        ignored: ['**/.git/**', '**/node_modules/**', '**/.next/**'],
+      }
+    }
+    return config
+  },
 }
 export default nextConfig

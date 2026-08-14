@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import { getMembersUrl } from '../lib/site'
 
 interface NavbarProps {
   loginText?: string
@@ -28,7 +29,7 @@ function scrollToSection(anchor: string) {
 
 export default function Navbar({
   loginText = 'Member Portal',
-  loginUrl = 'https://members.gammastrat.com',
+  loginUrl = getMembersUrl(),
   ctaText = 'Start Your Edge',
   ctaUrl = '/plans',
 }: NavbarProps) {

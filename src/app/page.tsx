@@ -12,6 +12,7 @@ import LogoStrip from '@/components/sections/LogoStrip'
 import Disclaimer from '@/components/sections/Disclaimer'
 import FAQSection from '@/components/sections/FAQSection'
 import { client, queries } from '../../sanity/client'
+import { getMembersUrl } from '../lib/site'
 
 // Accent words are stored as comma-separated strings in Sanity
 function parseAccentWords(raw?: string): string[] {
@@ -36,7 +37,7 @@ export default async function HomePage() {
     <main className="min-h-screen bg-gs-bg">
       <Navbar
         loginText={hp?.navLoginText}
-        loginUrl={hp?.navLoginUrl}
+        loginUrl={getMembersUrl()}
         ctaText={hp?.navCtaText}
         ctaUrl={hp?.navCtaUrl}
       />
