@@ -77,11 +77,12 @@ export default function MarketingCredibility() {
           </div>
           <h2 className="rise">Built by Experts in Options.</h2>
           <p className="lede rise">
-            GammaStrat began as an idea between a father and son, David and Robbie Glenn. As the first
-            reports took shape, they partnered with Tyler Shumway, whose options-pricing research has been
-            published in the Journal of Finance, to keep the platform&apos;s approach grounded in rigorous,
-            academic research. David and Robbie both trade options actively themselves, using
-            GammaStrat&apos;s own reports every trading day.
+            GammaStrat was created by a 30-year Wall Street hedge fund and private equity veteran, his son
+            and a finance professor whose options-pricing research has been published in the Journal of
+            Finance and who is widely considered to be the preeminent academic on the subject of options
+            theory. This expertise is translated into a daily read on estimated dealer positioning,
+            volatility regime, and structural mispricing across benchmarks SPX, QQQ, GLD and TLT as well as
+            the 77 of the most liquid names, all on your screen before every open.
           </p>
 
           <div className="people" style={{ marginTop: 34 }}>
