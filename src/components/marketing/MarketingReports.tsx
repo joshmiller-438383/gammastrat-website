@@ -1,3 +1,5 @@
+import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
+
 interface ReportTier {
   groupClass: string
   headClass?: string
@@ -30,10 +32,15 @@ const TIERS: ReportTier[] = [
     groupClass: 'alpha',
     headClass: 'alpha',
     name: 'ALPHA',
-    plan: 'basic',
-    sub: 'ADDS 2 — 7 REPORTS TOTAL',
+    plan: 'alpha',
+    sub: 'ADDS 2 · 7 REPORTS TOTAL',
     cta: 'GO ALPHA →',
     reports: [
+      { label: 'Strategy Consensus' },
+      { label: 'Sentiment Gauge' },
+      { label: 'Daily Options Activity' },
+      { label: 'Alpha Terminal', terminal: true },
+      { label: 'Alpha Summary' },
       { label: 'Daily Comprehensive Summary' },
       { label: 'Options Probability Dashboard' },
     ],
@@ -42,8 +49,8 @@ const TIERS: ReportTier[] = [
     groupClass: 'delta',
     headClass: 'delta',
     name: 'DELTA',
-    plan: 'basic',
-    sub: 'ADDS 6 — 13 REPORTS TOTAL',
+    plan: 'delta',
+    sub: 'ADDS 6 · 13 REPORTS TOTAL',
     cta: 'GO DELTA →',
     ctaStyle: { color: 'var(--delta)' },
     reports: [
@@ -60,7 +67,7 @@ const TIERS: ReportTier[] = [
     headClass: 'gamma',
     name: 'GAMMA',
     plan: 'gamma',
-    sub: 'ADDS 11 — 24 REPORTS TOTAL + ALL FUTURE REPORTS',
+    sub: 'ADDS 11 · 24 REPORTS TOTAL + ALL FUTURE REPORTS',
     cta: 'GO GAMMA →',
     ctaStyle: { color: 'var(--gold)' },
     reports: [
@@ -95,8 +102,6 @@ const TIERS: ReportTier[] = [
   },
 ]
 
-import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
-
 interface MarketingReportsProps {
   ctaUrl?: string
   samplesUrl?: string
@@ -113,8 +118,8 @@ export default function MarketingReports({
         </div>
         <h2 className="rise">Published Every Trading Day, Before the Open.</h2>
         <p className="lede rise">
-          Every tier is cumulative — each includes everything below it. The board reads the way the
-          product ladder does: start free, climb to the full desk.
+          Every tier is cumulative, so each one includes everything below it. The board reads the same way
+          the ladder does: start free, then climb to the full desk.
         </p>
 
         <div className="board rise">
@@ -161,8 +166,8 @@ export default function MarketingReports({
 
         <div className="samplebar rise">
           <p>
-            <b>Judge the research before you subscribe.</b> Recent sample reports are open to read —
-            see exactly what lands on the desk each morning.
+            <b>Judge the research before you subscribe.</b> Recent sample reports are open to read: see
+            exactly what lands on the desk each morning.
           </p>
           <a className="btn ghost" href={samplesUrl}>
             VIEW SAMPLE REPORTS<span className="ar">→</span>

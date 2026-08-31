@@ -6,7 +6,7 @@ interface MarketingFinalCTAProps {
 }
 
 export default function MarketingFinalCTA({
-  contactUrl = 'mailto:support@gammastrat.com',
+  contactUrl = 'mailto:david@gammastrat.us',
 }: MarketingFinalCTAProps) {
   return (
     <section className="ctaband" id="cta">

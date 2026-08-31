@@ -12,17 +12,17 @@ const PAIN_POINTS = [
   {
     tag: 'BLIND SPOT 01',
     title: 'Invisible Dealer Mechanics',
-    body: "When market makers accumulate large gamma positions, they are forced to hedge. In positive gamma regimes, that hedging dampens volatility and pins price near key strikes. In negative gamma, it amplifies every move. If you don't know which regime you're in, you're trading blind.",
+    body: 'Market makers want to earn spreads, not take market risk. They hedge their options book on a near continuous basis. Positive gamma hedging dampens market volatility and pins price near key strikes. Negative gamma hedging amplifies directional market moves. If you don\'t know which gamma regime you\'re in, you\'re trading blind.',
   },
   {
     tag: 'BLIND SPOT 02',
     title: 'Mispriced Volatility',
-    body: "Every option is a market's price on future movement. When implied volatility detaches from measured reality, one side of the trade is structurally cheap and the other is structurally expensive. That mispricing is invisible on a price chart — and it's exactly what we measure.",
+    body: 'Every option carries a built-in forecast: what the market thinks volatility will be. When that forecast drifts from what actually happens, one side of every trade is quietly overpriced and the other underpriced. A price chart can\'t show you that gap. Our models are built to find it.',
   },
   {
     tag: 'BLIND SPOT 03',
     title: 'Noise Without Context',
-    body: 'The retail market is flooded with "unusual flow" alerts. But a $50 million call sweep could be a directional bet — or a hedge against a massive short position. Raw flow without structural context is not intelligence. It\'s noise dressed up as signal.',
+    body: 'The retail market is flooded with \'unusual flow\' alerts. But a $50 million call sweep could be a speculative directional bet, or it could be a hedge against a massive short position. Raw flow without structural context is not intelligence. It\'s noise dressed up as signal.',
   },
 ] as const
 
@@ -35,9 +35,9 @@ export default function MarketingEdge() {
         </div>
         <h2 className="rise">Trading Blind Is Expensive.</h2>
         <p className="lede rise">
-          Price is the output. By the time the chart moves, the positioning that forced the move was
-          already visible in the options market. Most traders never see it — and that gap is costing
-          them.
+          Price is the output. By the time the chart moves, the positioning in the market that forecasted
+          the move was already visible in the options market. Most traders never see it, and if they do see
+          it, they don&apos;t interpret it properly. That gap is costing them.
         </p>
 
         <div className="p3">

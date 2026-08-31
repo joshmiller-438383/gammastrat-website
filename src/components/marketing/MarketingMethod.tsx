@@ -41,14 +41,7 @@ const BRIEF_CARDS = [
   },
 ] as const
 
-interface MarketingMethodProps {
-  /** Continues the story into terminals until a dedicated method page exists */
-  learnMoreHref?: string
-}
-
-export default function MarketingMethod({
-  learnMoreHref = '#terminals',
-}: MarketingMethodProps) {
+export default function MarketingMethod() {
   return (
     <section id="method" className="method">
       <div className="wrap grid">
@@ -56,22 +49,22 @@ export default function MarketingMethod({
           <div className="slabel rise">
             <span className="n">02</span>THE METHOD
           </div>
-          <h2 className="rise">The Options Market Tells You What&apos;s Coming. We Translate It.</h2>
+          <h2 className="rise">There&apos;s Math Behind Every Move. We Make It Legible.</h2>
           <p className="lede rise">
-            Institutions don&apos;t trade the chart — they trade the conditions around it. Where
-            dealers are positioned. What volatility costs versus what it&apos;s worth. Which
-            strategies the current regime favors. GammaStrat answers those questions every morning,
-            in <b>plain numbers</b>, with every assumption disclosed on the page.
+            Raw options data and published pricing research point toward what&apos;s coming, but neither
+            is built to be read in the five minutes before the market opens. GammaStrat makes that research
+            approachable and actionable by translating it into a daily suite of reports, each one built
+            around the same underlying models but written in plain language. You&apos;ll find them just as
+            useful whether you&apos;re learning options for the first time or running a full volatility
+            book.
           </p>
           <p className="lede rise" style={{ marginTop: 14 }}>
-            Every reading arrives with its probability, its expected value, and its confidence
-            interval. Every model&apos;s known limits are printed on the report. This is research you
-            can interrogate — not a feed of opinions, not a list of alerts, and not a service that
-            profits from your activity.
+            What you won&apos;t find in any of those reports is just as deliberate as what you will. No
+            win-rate claims. No countdown timers or fake urgency. No paid testimonials. Nothing built to
+            get you trading more often than the data warrants. If a reading isn&apos;t exciting that
+            morning, it still gets printed exactly as the model found it. The reports provide a consistent
+            market read day after day.
           </p>
-          <a className="mlink rise" href={learnMoreHref}>
-            HOW THE METHOD WORKS<span className="ar">→</span>
-          </a>
         </div>
 
         <div className="rise">

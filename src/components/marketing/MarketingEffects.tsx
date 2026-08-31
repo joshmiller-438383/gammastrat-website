@@ -191,6 +191,62 @@ export default function MarketingEffects() {
       })
     }
 
+    const stats = Array.from(document.querySelectorAll('.statsband .sv[data-count]')) as HTMLElement[]
+    let statsIo: IntersectionObserver | null = null
+
+    const runCount = (el: HTMLElement) => {
+      const target = parseFloat(el.getAttribute('data-count') || '0')
+      const pre = el.getAttribute('data-prefix') || ''
+      const suf = el.getAttribute('data-suffix') || ''
+      if (reduced) {
+        el.textContent = pre + target + suf
+        return
+      }
+      const dur = 1100
+      let t0: number | null = null
+      const step = (ts: number) => {
+        if (t0 === null) t0 = ts
+        const p = Math.min((ts - t0) / dur, 1)
+        const eased = 1 - Math.pow(1 - p, 3)
+        el.textContent = pre + Math.round(eased * target) + suf
+        if (p < 1) requestAnimationFrame(step)
+        else el.textContent = pre + target + suf
+      }
+      requestAnimationFrame(step)
+    }
+
+    const resetCount = (el: HTMLElement) => {
+      const pre = el.getAttribute('data-prefix') || ''
+      const suf = el.getAttribute('data-suffix') || ''
+      el.textContent = pre + '0' + suf
+    }
+
+    if (stats.length) {
+      if (reduced || !('IntersectionObserver' in window)) {
+        stats.forEach(runCount)
+      } else {
+        stats.forEach(resetCount)
+        statsIo = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              const el = e.target as HTMLElement & { _on?: boolean }
+              if (e.isIntersecting && e.intersectionRatio >= 0.6) {
+                if (!el._on) {
+                  el._on = true
+                  runCount(el)
+                }
+              } else if (!e.isIntersecting) {
+                el._on = false
+                resetCount(el)
+              }
+            })
+          },
+          { threshold: [0, 0.6] }
+        )
+        stats.forEach((el) => statsIo!.observe(el))
+      }
+    }
+
     return () => {
       document.removeEventListener('click', onSectionLinkClick)
       tog?.removeEventListener('click', onToggle)
@@ -199,6 +255,7 @@ export default function MarketingEffects() {
       toTop?.removeEventListener('click', onToTop)
       riseIo?.disconnect()
       drawIo?.disconnect()
+      statsIo?.disconnect()
     }
   }, [router])
 
