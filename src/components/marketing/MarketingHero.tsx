@@ -11,9 +11,12 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
         <div>
           <div className="pill-ann"><span className="pdot" aria-hidden="true"></span>OPTIONS-MARKET RESEARCH · PUBLISHED EVERY TRADING DAY BEFORE THE OPEN</div>
           <h1>Stop Trading Price. <em>Start Trading Structure.</em></h1>
-          <p className="sub">Most traders watch the chart. Professionals watch what moves it. GammaStrat publishes the
-            daily options-market roadmap — dealer positioning, volatility regimes, and structural mispricing
-            across SPX, QQQ, and the 80 most liquid names — on your screen before the market opens.</p>
+          <p className="sub">GammaStrat&apos;s founder is a 30-year Wall Street veteran who partnered with his son and
+            the preeminent finance professor in the field of options theory whose options-pricing research has
+            been published in the Journal of Finance. This expertise is translated into a daily read on dealer
+            positioning, volatility regime and structural mispricing across the most liquid benchmarks (SPX,
+            QQQ, GLD and TLT) as well as 76 of the most liquid individual names, all on your screen before
+            every open.</p>
           <div className="ctas">
             <MarketingCheckoutButton plan="free_trial" className="btn">
               Begin Your Free Trial<span className="ar">→</span>
@@ -22,10 +25,19 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
           </div>
           <div className="microline">FREE FOR 14 DAYS · INCLUDES THE ALPHA TERMINAL · CANCEL ANYTIME</div>
           <a className="expstrip rise" href="#team" aria-label="Meet the GammaStrat team">
-            <span className="exavs"><img src="/marketing/headshot-tyler-shumway.jpg" alt="" width="34" height="34" /><img src="/marketing/headshot-david-glenn.jpg" alt="" width="34" height="34" /></span>
-            <span className="extext"><b>Built by two experts in options</b> — a finance professor with nearly
-              30 years researching and teaching options pricing, and a 30-year Wall Street investor.
-              <span className="exlink">MEET THE TEAM →</span></span>
+            <span className="exavs">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/marketing/headshot-tyler-shumway.jpg" alt="Tyler Shumway" width="34" height="34" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/marketing/headshot-david-glenn.jpg" alt="David Glenn" width="34" height="34" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/marketing/headshot-robbie-glenn.jpg" alt="Robbie Glenn" width="34" height="34" />
+            </span>
+            <span className="extext">
+              <b>Meet the Team</b> — A Wall Street investor. A finance professor. A student turning their
+              research into a screen you can actually read.
+              <span className="exlink">MEET THE TEAM →</span>
+            </span>
           </a>
         </div>
 
@@ -44,7 +56,7 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
               <div>FLAGGED<b className="a">★ PUT CR SPR</b></div>
               <div>PUTS +EV<b className="u">93%</b></div>
             </div>
-            <div className="cap">4 REPORTS · FREE TRIAL</div>
+            <div className="cap">5 REPORTS · FREE TRIAL</div>
           </a>
           <a className="mini md" href="#feat-delta" aria-label="Jump to the Delta Terminal explanation">
             <div className="mm"><span className="mt">DELTA <b>TERMINAL</b></span><span className="chip p">DELTA</span></div>

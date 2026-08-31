@@ -36,17 +36,17 @@ export default function MarketingFooter({
             <div className="fcol">
               <div className="fh">COMPANY</div>
               <a href="/new" data-mkt-section="team">About</a>
-              <a href="mailto:support@gammastrat.com">Contact</a>
+              <a href="mailto:david@gammastrat.us">Contact</a>
             </div>
             <div className="fcol">
               <div className="fh">RESOURCES</div>
               <a href="/new" data-mkt-section="reports">Reports</a>
-              <a href="mailto:support@gammastrat.com">Support</a>
             </div>
             <div className="fcol">
               <div className="fh">LEGAL</div>
               <a href="/terms">Terms</a>
               <a href="/privacy">Privacy</a>
+              <a href="/disclaimer">Disclaimer</a>
             </div>
           </div>
           <div className="legal">

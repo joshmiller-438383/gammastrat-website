@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <MarketingLegalShell title="Terms of Service" updated="August 14, 2026">
+    <MarketingLegalShell title="Terms of Service" updated="August 27, 2026">
       <div className="legal-callout">
         FOR INFORMATIONAL PURPOSES ONLY. NOT INVESTMENT ADVICE. GammaStrat publishes research and
         analytics — not recommendations to buy or sell any security or derivative.
@@ -80,10 +80,39 @@ export default function TermsPage() {
         policies in effect at the time of purchase.
       </p>
 
-      <h2>5. Acceptable Use</h2>
-      <p>You agree not to:</p>
+      <h2>5. Restricted Use of Information</h2>
+      <p>
+        Your subscription grants you a limited license to access and use GammaStrat content for your
+        own personal or internal business purposes only. You may not resell, redistribute, sublicense,
+        or otherwise make available any research, data, reports, terminal output, or other information
+        obtained through the Services to any third party, whether for a fee or otherwise.
+      </p>
+      <p>
+        You may not use GammaStrat information — in whole or in part — as the basis for, or as a
+        component of, any product or service that you offer for sale or commercial distribution,
+        including derivative works, data feeds, newsletters, advisory products, or similar offerings.
+        Any unauthorized commercial use of our information may result in immediate suspension or
+        termination of your access and may expose you to legal liability.
+      </p>
+
+      <h2>6. Data Sources &amp; Accuracy</h2>
+      <p>
+        GammaStrat&apos;s research, reports, terminals, and analytics incorporate data obtained from
+        third-party sources that we believe to be reliable. We do not independently verify all such
+        data and make no representation or warranty that any information provided through the Services
+        is complete, current, or free from error at all times.
+      </p>
+      <p>
+        You acknowledge that market data, pricing, positioning, and other third-party information may
+        be delayed, incomplete, or inaccurate, and that GammaStrat is not responsible for any errors,
+        omissions, or inaccuracies in such data or in any content derived from it. Any reliance on the
+        Services or on third-party data is at your sole risk.
+      </p>
+
+      <h2>7. Acceptable Use</h2>
+      <p>In addition to the restrictions in Section 5, you agree not to:</p>
       <ul>
-        <li>Redistribute, resell, scrape, or publicly republish research, data, or terminal output</li>
+        <li>Scrape or publicly republish research, data, or terminal output</li>
         <li>Reverse engineer, circumvent access controls, or share login credentials</li>
         <li>Use the Services for unlawful purposes or market manipulation</li>
         <li>Misrepresent GammaStrat content as personalized advice to third parties</li>
@@ -93,15 +122,14 @@ export default function TermsPage() {
         GammaStrat, other members, or the integrity of the Services.
       </p>
 
-      <h2>6. Intellectual Property</h2>
+      <h2>8. Intellectual Property</h2>
       <p>
         All content, reports, terminals, branding, software, and methodologies are owned by
         GammaStrat or its licensors and protected by intellectual property laws. Your subscription
-        grants a limited, non-exclusive, non-transferable license to access content for your personal
-        or internal business use only — not for redistribution.
+        grants the limited license described in Section 5.
       </p>
 
-      <h2>7. Disclaimers</h2>
+      <h2>9. Disclaimers</h2>
       <p>
         THE SERVICES ARE PROVIDED &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; WITHOUT WARRANTIES
         OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
@@ -114,7 +142,7 @@ export default function TermsPage() {
         including the possible loss of principal.
       </p>
 
-      <h2>8. Limitation of Liability</h2>
+      <h2>10. Limitation of Liability</h2>
       <p>
         TO THE MAXIMUM EXTENT PERMITTED BY LAW, GAMMASTRAT AND ITS OFFICERS, EMPLOYEES, AND AFFILIATES
         SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES,
@@ -127,21 +155,21 @@ export default function TermsPage() {
         hundred U.S. dollars ($100).
       </p>
 
-      <h2>9. Indemnification</h2>
+      <h2>11. Indemnification</h2>
       <p>
         You agree to indemnify and hold harmless GammaStrat from claims, damages, and expenses
         (including reasonable attorneys&apos; fees) arising from your use of the Services, violation
         of these Terms, or infringement of any third-party rights.
       </p>
 
-      <h2>10. Governing Law &amp; Disputes</h2>
+      <h2>12. Governing Law &amp; Disputes</h2>
       <p>
         These Terms are governed by the laws of the State of Delaware, USA, without regard to
         conflict-of-law principles. Any dispute shall be resolved in the state or federal courts
         located in Delaware, unless otherwise required by applicable consumer protection law.
       </p>
 
-      <h2>11. Contact</h2>
+      <h2>13. Contact</h2>
       <p>
         Questions about these Terms:{' '}
         <a href="mailto:support@gammastrat.com">support@gammastrat.com</a>

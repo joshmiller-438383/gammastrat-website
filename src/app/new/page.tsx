@@ -2,6 +2,7 @@ import MarketingEffects from '@/components/marketing/MarketingEffects'
 import MarketingNav from '@/components/marketing/MarketingNav'
 import TickerTape from '@/components/marketing/TickerTape'
 import MarketingHero from '@/components/marketing/MarketingHero'
+import MarketingStatsBand from '@/components/marketing/MarketingStatsBand'
 import MarketingEdge from '@/components/marketing/MarketingEdge'
 import MarketingMethod from '@/components/marketing/MarketingMethod'
 import MarketingTerminals from '@/components/marketing/MarketingTerminals'
@@ -30,6 +31,7 @@ export default function NewMarketingPage() {
       <MarketingNav membersUrl={membersUrl} ctaUrl={ctaUrl} />
       <TickerTape />
       <MarketingHero ctaUrl={ctaUrl} />
+      <MarketingStatsBand />
       <MarketingEdge />
       <MarketingMethod />
       <MarketingTerminals />

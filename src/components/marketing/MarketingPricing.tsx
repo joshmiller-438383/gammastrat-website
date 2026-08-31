@@ -62,11 +62,11 @@ const CARDS: PricingCard[] = [
   },
   {
     className: 'alpha',
-    plan: 'basic',
+    plan: 'alpha',
     title: 'ALPHA',
     subtitle: 'THE BASE DESK',
-    amount: <>$90<span> / MONTH</span></>,
-    yearLine: <>or <b>$1,000 / year</b> · <span className="sv">save $80</span></>,
+    amount: <>$79<span> / MONTH</span></>,
+    yearLine: <>or <b>$900 / year</b> · <span className="sv">save $48</span></>,
     vals: ['7 REPORTS · ALPHA TERMINAL INCLUDED'],
     features: [
       { text: 'Strategy Consensus' },
@@ -89,7 +89,7 @@ const CARDS: PricingCard[] = [
   },
   {
     className: 'delta',
-    plan: 'basic',
+    plan: 'delta',
     title: 'DELTA',
     subtitle: 'THE VOLATILITY DESK',
     amount: <>$135<span> / MONTH</span></>,

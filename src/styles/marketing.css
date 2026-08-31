@@ -226,14 +226,21 @@ h2 {
   border-radius: 50%;
   object-fit: cover;
   display: block;
+  position: relative;
 }
-.exavs img:first-child {
-  border: 1.5px solid var(--goldd);
+.exavs img:nth-child(1) {
+  border: 1.5px solid rgba(86, 152, 251, 0.7);
   z-index: 1;
 }
-.exavs img:last-child {
-  border: 1.5px solid rgba(86, 152, 251, 0.7);
+.exavs img:nth-child(2) {
+  border: 1.5px solid var(--goldd);
   margin-left: -9px;
+  z-index: 2;
+}
+.exavs img:nth-child(3) {
+  border: 1.5px solid var(--purple);
+  margin-left: -9px;
+  z-index: 3;
 }
 .extext {
   font-size: 12.5px;
@@ -2237,6 +2244,7 @@ h1 em {
   font-weight: 700;
 }
 .pcard .btn {
+  margin-top: auto;
   text-align: center;
 }
 /* CTA + addon footer — keeps buttons aligned across cards after Stripe <button> swap */
@@ -3348,15 +3356,20 @@ h1 em {
   }
 }
 
-/* Checkout buttons use <button class="btn"> — match anchor .btn look */
+/* Checkout buttons use <button class="btn"> — match anchor .btn typography (font: inherit was resetting weight) */
 button.btn {
-  font: inherit;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.2px;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
 }
 button.addon-box {
-  font: inherit;
+  font-family: var(--serif);
+  font-weight: 400;
+  color: var(--ink);
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
