@@ -155,7 +155,7 @@ export default function MarketingTerminals() {
           <li>A regime position map showing where today&apos;s tape sits in the volatility cycle, plotted on the VIX by VVIX classification grid.</li>
         </ul>
         <div className="ctarow">
-          <MarketingCheckoutButton plan="basic" className="btn purp">
+          <MarketingCheckoutButton plan="delta" className="btn purp">
             Go Delta<span className="ar">→</span>
           </MarketingCheckoutButton>
           <span className="microline">13 REPORTS · DELTA TERMINAL · ★ TD SIGNALS</span>
@@ -381,9 +381,9 @@ export default function MarketingTerminals() {
           <li>A gamma regime framework on every single page, showing whether expected dealer hedging flows are dampening the tape or amplifying it.</li>
         </ul>
         <div className="ctarow">
-          <MarketingCheckoutButton plan="gamma" className="btn dpt">
+          <a className="btn dpt" href="#pricing" aria-label="View pricing for Dealer Positioning Daily add-on">
             Add Estimated Dealer Positioning Daily<span className="ar">→</span>
-          </MarketingCheckoutButton>
+          </a>
           <span className="microline">ALPHA +$300/YEAR · DELTA +$200/YEAR · INCLUDED WITH GAMMA</span>
         </div>
       </div>

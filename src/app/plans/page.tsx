@@ -10,7 +10,7 @@ const STRIPE_PLAN_IDS: Record<string, string> = {
   'free-trial': 'free_trial',
   free_trial:   'free_trial',
   basic:        'basic',
-  gamma:        'gamma',
+  gamma:        'gamma_legacy', // old /plans Gamma ($175) — /new uses planId gamma ($180)
 }
 
 // ─── Hardcoded fallbacks ──────────────────────────────────────────────────────

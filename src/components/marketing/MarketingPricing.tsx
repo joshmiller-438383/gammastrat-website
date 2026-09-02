@@ -216,18 +216,14 @@ export default function MarketingPricing(_props: MarketingPricingProps = {}) {
                           <div className="abs">{card.addon.sub}</div>
                         </div>
                       ) : (
-                        <MarketingCheckoutButton
-                          plan={card.addon.plan || 'gamma'}
-                          className="addon-box"
-                          ariaLabel={card.addon.ariaLabel}
-                        >
+                        <div className="addon-box" aria-label={card.addon.ariaLabel}>
                           <span className="abk">
                             <span className="abtag">{card.addon.tag}</span>
                             DEALER POSITIONING DAILY
                           </span>
                           <div className="abt">{card.addon.title}</div>
                           <div className="abs">{card.addon.sub}</div>
-                        </MarketingCheckoutButton>
+                        </div>
                       ))}
                   </div>
                 </div>
