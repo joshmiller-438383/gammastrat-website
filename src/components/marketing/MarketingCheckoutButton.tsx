@@ -2,15 +2,16 @@
 
 import { useState } from 'react'
 
-/** Map new marketing tier names → members/Stripe planIds (existing checkout API). */
+/** Map marketing tier names → members checkout planIds. */
 export const MARKETING_PLAN_IDS = {
   free_trial: 'free_trial',
   trial: 'free_trial',
   free: 'free_trial',
-  alpha: 'basic',
-  basic: 'basic',
-  delta: 'basic',
+  alpha: 'alpha',
+  delta: 'delta',
   gamma: 'gamma',
+  /** Legacy /plans page only */
+  basic: 'basic',
   dpt: 'gamma',
 } as const
 
