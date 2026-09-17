@@ -1,4 +1,4 @@
-import { MARKETING_HOME, MARKETING_HOME_LEGACY } from '@/lib/marketingRoutes'
+import { MARKETING_HOME } from '@/lib/marketingRoutes'
 
 export const MARKETING_SCROLL_OFFSET = 88
 export const MKT_SCROLL_TO_KEY = 'mktScrollTo'
@@ -30,14 +30,12 @@ export function consumeMarketingSectionScroll(): string | null {
   }
 }
 
-/** Parse section id from `#foo` or `/#foo` — no query/hash left in URL after navigate. */
+/** Parse section id from `#foo` or `/new#foo` — no query/hash left in URL after navigate. */
 export function parseMarketingSectionHref(href: string): string | null {
   if (href.startsWith('#') && href.length > 1) return href.slice(1)
   try {
     const url = new URL(href, 'http://local')
-    const onHome =
-      url.pathname === MARKETING_HOME || url.pathname === MARKETING_HOME_LEGACY
-    if (onHome && url.hash.length > 1) return url.hash.slice(1)
+    if (url.pathname === MARKETING_HOME && url.hash.length > 1) return url.hash.slice(1)
   } catch {
     /* ignore */
   }
