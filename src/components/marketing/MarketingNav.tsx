@@ -1,6 +1,7 @@
 'use client'
 
 import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
+import { MARKETING_HOME } from '@/lib/marketingRoutes'
 import { getMembersUrl } from '../../lib/site'
 
 interface MarketingNavProps {
@@ -12,7 +13,7 @@ export default function MarketingNav({ membersUrl = getMembersUrl() }: Marketing
   return (
     <nav className="nav" aria-label="Main">
       <div className="row">
-        <a className="brand" href="/new" aria-label="GammaStrat home">
+        <a className="brand" href={MARKETING_HOME} aria-label="GammaStrat home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/marketing/logo.png"
@@ -35,12 +36,12 @@ export default function MarketingNav({ membersUrl = getMembersUrl() }: Marketing
           </svg>
         </button>
         <div className="links" id="navLinks">
-          <a className="nl" href="/new" data-mkt-section="edge">HOW IT WORKS</a>
-          <a className="nl" href="/new" data-mkt-section="terminals">TERMINALS</a>
-          <a className="nl" href="/new" data-mkt-section="reports">REPORTS</a>
-          <a className="nl" href="/new" data-mkt-section="team">THE TEAM</a>
-          <a className="nl" href="/new" data-mkt-section="pricing">PRICING</a>
-          <a className="nl" href="/new" data-mkt-section="faq">FAQ</a>
+          <a className="nl" href={MARKETING_HOME} data-mkt-section="edge">HOW IT WORKS</a>
+          <a className="nl" href={MARKETING_HOME} data-mkt-section="terminals">TERMINALS</a>
+          <a className="nl" href={MARKETING_HOME} data-mkt-section="reports">REPORTS</a>
+          <a className="nl" href={MARKETING_HOME} data-mkt-section="team">THE TEAM</a>
+          <a className="nl" href={MARKETING_HOME} data-mkt-section="pricing">PRICING</a>
+          <a className="nl" href={MARKETING_HOME} data-mkt-section="faq">FAQ</a>
           <a className="nl" href={membersUrl}>MEMBER PORTAL</a>
           <MarketingCheckoutButton plan="free_trial" className="btn">
             Begin Your Free Trial<span className="ar">→</span>

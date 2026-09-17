@@ -75,7 +75,7 @@ const FAQ_ITEMS: FaqItem[] = [
     qn: 'Q11',
     question: 'How does billing work?',
     answer:
-      'Monthly or annual, your choice. Alpha is $79/month (three-month minimum on monthly billing) or $900/year. Delta is $135/month or $1,500/year. Gamma is $180/month or $2,000/year. Tiers are cumulative — each includes everything below it. You can cancel anytime. Dealer Positioning Daily is an optional upgrade: $300/year on Alpha, $200/year on Delta, and included free with Gamma.',
+      'Monthly or annual, your choice. Alpha is $79/month (three-month minimum on monthly billing) or $900/year. Delta is $135/month or $1,500/year. Gamma is $170/month or $1,900/year. Tiers are cumulative — each includes everything below it. You can cancel anytime. Dealer Positioning Daily is an optional upgrade: $300/year on Alpha, $200/year on Delta, and included free with Gamma.',
   },
   {
     qn: 'Q12',

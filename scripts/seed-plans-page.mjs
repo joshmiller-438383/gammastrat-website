@@ -172,7 +172,7 @@ async function main() {
   }
   
   console.log('✅ plansPage document created/updated successfully!')
-  console.log('Now go to https://www.gammastrat.com/studio and open "Plans Page" to edit.')
+  console.log(`Now go to ${process.env.NEXT_PUBLIC_SITE_URL || 'https://gammastrat.com'}/studio and open "Plans Page" to edit.`)
 }
 
 main().catch(err => {

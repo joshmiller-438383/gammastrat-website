@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
+import { getSiteUrl } from '../../../../lib/site'
 
 // Price IDs (test mode — swap for live IDs when going live)
 const STRIPE_PRICES: Record<string, string> = {
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
     }
 
-    const origin = req.headers.get('origin') || 'https://www.gammastrat.com'
+    const origin = req.headers.get('origin') || getSiteUrl()
 
     const sessionParams: Stripe.Checkout.SessionCreateParams = {
       mode: 'subscription',

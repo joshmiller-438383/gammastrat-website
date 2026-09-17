@@ -217,7 +217,7 @@ const homepageDoc = {
 
   // ─── NAVBAR ─────────────────────────────────────────────────────────────
   navLoginText: 'Member Portal',
-  navLoginUrl: 'https://members.gammastrat.com',
+  navLoginUrl: process.env.NEXT_PUBLIC_MEMBERS_URL || 'https://members.gammastrat.com',
   navCtaText: 'Start Your Edge →',
   navCtaUrl: '/plans',
   navLinks: keyed([
@@ -252,7 +252,7 @@ const homepageDoc = {
       links: [
         { label: 'Home', href: '/' },
         { label: 'Pricing', href: '/plans' },
-        { label: 'Member Portal', href: 'https://members.gammastrat.com' },
+        { label: 'Member Portal', href: process.env.NEXT_PUBLIC_MEMBERS_URL || 'https://members.gammastrat.com' },
       ],
     },
     {

@@ -2137,12 +2137,62 @@ h1 em {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
+.billing-toggle-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+  margin-bottom: 4px;
+}
+.billing-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--line2);
+  border-radius: 999px;
+  background: var(--panel);
+}
+.billing-toggle__btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.billing-toggle__btn.is-active {
+  background: var(--blue);
+  color: #fff;
+}
+.billing-toggle__btn:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
 .pgrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
-  margin-top: 40px;
+  margin-top: 28px;
   align-items: stretch;
+}
+.pgrid--three {
+  grid-template-columns: repeat(3, 1fr);
+}
+.billing-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.4px;
+  margin-top: 14px;
+  max-width: 520px;
+  text-align: center;
 }
 .pcard {
   display: flex;
