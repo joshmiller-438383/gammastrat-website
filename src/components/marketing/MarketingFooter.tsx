@@ -1,3 +1,4 @@
+import { MARKETING_HOME } from '@/lib/marketingRoutes'
 import { getMembersUrl } from '../../lib/site'
 
 interface MarketingFooterProps {
@@ -7,7 +8,7 @@ interface MarketingFooterProps {
 
 export default function MarketingFooter({
   membersUrl = getMembersUrl(),
-  homeHref = '/new',
+  homeHref = MARKETING_HOME,
 }: MarketingFooterProps) {
   const year = new Date().getFullYear()
 
@@ -30,17 +31,17 @@ export default function MarketingFooter({
             <div className="fcol">
               <div className="fh">PRODUCT</div>
               <a href={homeHref}>Home</a>
-              <a href="/new" data-mkt-section="pricing">Pricing</a>
+              <a href={MARKETING_HOME} data-mkt-section="pricing">Pricing</a>
               <a href={membersUrl}>Member Portal</a>
             </div>
             <div className="fcol">
               <div className="fh">COMPANY</div>
-              <a href="/new" data-mkt-section="team">About</a>
+              <a href={MARKETING_HOME} data-mkt-section="team">About</a>
               <a href="mailto:david@gammastrat.us">Contact</a>
             </div>
             <div className="fcol">
               <div className="fh">RESOURCES</div>
-              <a href="/new" data-mkt-section="reports">Reports</a>
+              <a href={MARKETING_HOME} data-mkt-section="reports">Reports</a>
             </div>
             <div className="fcol">
               <div className="fh">LEGAL</div>

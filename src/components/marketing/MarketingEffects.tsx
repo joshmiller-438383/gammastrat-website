@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { isMarketingHome, MARKETING_HOME } from '@/lib/marketingRoutes'
 import {
   consumeMarketingSectionScroll,
   parseMarketingSectionHref,
@@ -20,13 +21,13 @@ export default function MarketingEffects() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const goToSection = (id: string) => {
-      if (window.location.pathname === '/new') {
+      if (isMarketingHome(window.location.pathname)) {
         scrollToMarketingSection(id)
-        window.history.replaceState(null, '', '/new')
+        window.history.replaceState(null, '', MARKETING_HOME)
         return
       }
       queueMarketingSectionScroll(id)
-      router.push('/new')
+      router.push(MARKETING_HOME)
     }
 
     const runPendingScroll = () => {
@@ -34,7 +35,7 @@ export default function MarketingEffects() {
       if (!pending) return
       const attempt = (tries: number) => {
         if (scrollToMarketingSection(pending) || tries <= 0) {
-          window.history.replaceState(null, '', '/new')
+          window.history.replaceState(null, '', MARKETING_HOME)
           return
         }
         requestAnimationFrame(() => attempt(tries - 1))
@@ -54,19 +55,19 @@ export default function MarketingEffects() {
 
       if (!sectionId) return
 
-      // Same-page # links on /new
+      // Same-page # links on marketing homepage
       if (
-        window.location.pathname === '/new' &&
+        isMarketingHome(window.location.pathname) &&
         anchor.getAttribute('href')?.startsWith('#') &&
         document.getElementById(sectionId)
       ) {
         e.preventDefault()
         scrollToMarketingSection(sectionId)
-        window.history.replaceState(null, '', '/new')
+        window.history.replaceState(null, '', MARKETING_HOME)
         return
       }
 
-      // /new#section or data-mkt-section from any marketing page
+      // /#section or data-mkt-section from any marketing page
       if (anchor.dataset.mktSection || parseMarketingSectionHref(anchor.getAttribute('href') || '')) {
         e.preventDefault()
         goToSection(sectionId)
@@ -74,12 +75,12 @@ export default function MarketingEffects() {
     }
     document.addEventListener('click', onSectionLinkClick)
 
-    // Legacy: bookmarked /new#section — scroll then strip hash immediately
-    if (window.location.pathname === '/new' && window.location.hash.length > 1) {
+    // Legacy: bookmarked /#section — scroll then strip hash immediately
+    if (isMarketingHome(window.location.pathname) && window.location.hash.length > 1) {
       const id = decodeURIComponent(window.location.hash.slice(1))
       requestAnimationFrame(() => {
         scrollToMarketingSection(id)
-        window.history.replaceState(null, '', '/new')
+        window.history.replaceState(null, '', MARKETING_HOME)
       })
     }
 

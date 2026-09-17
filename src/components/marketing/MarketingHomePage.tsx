@@ -14,13 +14,7 @@ import MarketingFinalCTA from '@/components/marketing/MarketingFinalCTA'
 import MarketingFooter from '@/components/marketing/MarketingFooter'
 import { getMembersUrl } from '../../lib/site'
 
-/**
- * Preview route for the new homepage UI.
- * Old `/` homepage is untouched — same Sanity, same features.
- *
- * Full homepage shell live on `/new`.
- */
-export default function NewMarketingPage() {
+export default function MarketingHomePage() {
   const membersUrl = getMembersUrl()
   const ctaUrl = '/plans'
 

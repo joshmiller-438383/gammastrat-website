@@ -1,32 +1,22 @@
 'use client'
 
 import { useState } from 'react'
+import {
+  type BillingInterval,
+  MARKETING_PLAN_IDS,
+  type MarketingPlanKey,
+  resolveCheckoutPlanId,
+} from '@/lib/marketingBilling'
 
-/** Map marketing tier names → members checkout planIds. */
-export const MARKETING_PLAN_IDS = {
-  free_trial: 'free_trial',
-  trial: 'free_trial',
-  free: 'free_trial',
-  alpha: 'alpha',
-  delta: 'delta',
-  gamma: 'gamma',
-  /** Legacy /plans page only */
-  basic: 'basic',
-  dpt: 'gamma',
-} as const
-
-export type MarketingPlanKey = keyof typeof MARKETING_PLAN_IDS
-
-function resolvePlanId(plan: string): string {
-  const key = plan.toLowerCase().replace(/-/g, '_') as MarketingPlanKey
-  return MARKETING_PLAN_IDS[key] || plan
-}
+export { MARKETING_PLAN_IDS, type MarketingPlanKey }
 
 /** Same-origin proxy — never call members host from the browser (CORS / wrong env). */
 const CHECKOUT_API = '/api/checkout/public'
 
 interface MarketingCheckoutButtonProps {
   plan: string
+  /** Monthly by default; pricing section passes toggle state for paid tiers. */
+  billing?: BillingInterval
   className?: string
   style?: React.CSSProperties
   children: React.ReactNode
@@ -38,6 +28,7 @@ interface MarketingCheckoutButtonProps {
  */
 export default function MarketingCheckoutButton({
   plan,
+  billing = 'month',
   className,
   style,
   children,
@@ -49,7 +40,7 @@ export default function MarketingCheckoutButton({
   const handleClick = async () => {
     setLoading(true)
     setError(null)
-    const planId = resolvePlanId(plan)
+    const planId = resolveCheckoutPlanId(plan, billing)
 
     try {
       const res = await fetch(CHECKOUT_API, {

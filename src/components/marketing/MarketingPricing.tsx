@@ -1,4 +1,14 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
+import { type BillingInterval, formatUsd } from '@/lib/marketingBilling'
+
+interface PaidPricing {
+  monthly: number
+  yearly: number
+  yearlySave: number
+}
 
 interface PricingCard {
   className: string
@@ -6,9 +16,9 @@ interface PricingCard {
   ribbon?: string
   title: string
   subtitle: string
-  amount: React.ReactNode
+  paid?: PaidPricing
+  amount?: React.ReactNode
   alt?: React.ReactNode
-  yearLine?: React.ReactNode
   vals: React.ReactNode[]
   features: { text: React.ReactNode; plus?: boolean }[]
   ctaLabel: string
@@ -65,8 +75,7 @@ const CARDS: PricingCard[] = [
     plan: 'alpha',
     title: 'ALPHA',
     subtitle: 'THE BASE DESK',
-    amount: <>$79<span> / MONTH</span></>,
-    yearLine: <>or <b>$900 / year</b> · <span className="sv">save $48</span></>,
+    paid: { monthly: 79, yearly: 900, yearlySave: 48 },
     vals: ['7 REPORTS · ALPHA TERMINAL INCLUDED'],
     features: [
       { text: 'Strategy Consensus' },
@@ -76,6 +85,7 @@ const CARDS: PricingCard[] = [
       { text: 'Daily Comprehensive Summary' },
       { text: 'Options Probability Dashboard' },
       { text: <><b>Alpha Terminal</b> (interactive desk view)</> },
+      { text: <>Daily &ldquo;State of the Markets&rdquo; Newsletter (delivered via email)</> },
     ],
     ctaLabel: 'Go Alpha',
     ctaClass: 'btn ghost',
@@ -92,8 +102,7 @@ const CARDS: PricingCard[] = [
     plan: 'delta',
     title: 'DELTA',
     subtitle: 'THE VOLATILITY DESK',
-    amount: <>$135<span> / MONTH</span></>,
-    yearLine: <>or <b>$1,500 / year</b> · <span className="sv">save $120</span></>,
+    paid: { monthly: 135, yearly: 1500, yearlySave: 120 },
     vals: [
       '13 REPORTS · DELTA TERMINAL INCLUDED',
       <span key="td" style={{ color: 'var(--purple)' }}>★ INCLUDES TRADEABLE DISLOCATION SIGNALS</span>,
@@ -106,6 +115,7 @@ const CARDS: PricingCard[] = [
       { text: 'Strategy Scoreboard with ★ TD Signals', plus: true },
       { text: 'Delta Summary', plus: true },
       { text: <b>Delta Terminal</b>, plus: true },
+      { text: <>Daily &ldquo;State of the Markets&rdquo; Newsletter (delivered via email)</> },
     ],
     ctaLabel: 'Go Delta',
     ctaClass: 'btn ghost',
@@ -123,8 +133,7 @@ const CARDS: PricingCard[] = [
     ribbon: '★ FULL ACCESS',
     title: 'GAMMA',
     subtitle: 'THE FULL DESK',
-    amount: <>$180<span> / MONTH</span></>,
-    yearLine: <>or <b>$2,000 / year</b> · <span className="sv">save $160</span></>,
+    paid: { monthly: 170, yearly: 1900, yearlySave: 140 },
     vals: ['24 REPORTS + ALL FUTURE · GAMMA TERMINAL INCLUDED'],
     features: [
       { text: 'Everything in Alpha and Delta' },
@@ -135,6 +144,7 @@ const CARDS: PricingCard[] = [
       { text: <><b>Gamma Terminal</b> (full 80-ticker desk)</>, plus: true },
       { text: <><b>Dealer Positioning Daily</b> — included free</>, plus: true },
       { text: 'Every future report, at no added cost', plus: true },
+      { text: <>Daily &ldquo;State of the Markets&rdquo; Newsletter (delivered via email)</> },
     ],
     ctaLabel: 'Go Gamma',
     ctaClass: 'btn gold',
@@ -148,12 +158,47 @@ const CARDS: PricingCard[] = [
   },
 ]
 
+function cardAmount(card: PricingCard, billing: BillingInterval): React.ReactNode {
+  if (!card.paid) return card.amount
+  if (billing === 'year') {
+    return (
+      <>
+        ${formatUsd(card.paid.yearly)}
+        <span> / YEAR</span>
+      </>
+    )
+  }
+  return (
+    <>
+      ${card.paid.monthly}
+      <span> / MONTH</span>
+    </>
+  )
+}
+
+function cardSaveLine(card: PricingCard, billing: BillingInterval): React.ReactNode | null {
+  if (!card.paid || billing !== 'year') return null
+  return (
+    <>
+      Billed annually · <span className="sv">save ${card.paid.yearlySave}</span>
+    </>
+  )
+}
+
 interface MarketingPricingProps {
   /** @deprecated Checkout uses members Stripe API; kept for call-site compat */
   ctaUrl?: string
 }
 
 export default function MarketingPricing(_props: MarketingPricingProps = {}) {
+  const [billing, setBilling] = useState<BillingInterval>('month')
+  const visibleCards = billing === 'year' ? CARDS.filter((card) => card.paid) : CARDS
+
+  // Pricing cards mount/toggle after scroll animations init — ensure they stay visible.
+  useEffect(() => {
+    document.querySelectorAll('#pricing .pcard.rise').forEach((el) => el.classList.add('in'))
+  }, [billing, visibleCards.length])
+
   return (
     <>
       <section id="pricing" className="pricing">
@@ -177,15 +222,43 @@ export default function MarketingPricing(_props: MarketingPricingProps = {}) {
             ))}
           </div>
 
-          <div className="pgrid">
-            {CARDS.map((card) => (
-              <div className={`pcard ${card.className} rise`} key={card.title}>
+          <div className="billing-toggle-wrap rise in">
+            <div className="billing-toggle" role="group" aria-label="Billing interval">
+              <button
+                type="button"
+                className={`billing-toggle__btn${billing === 'month' ? ' is-active' : ''}`}
+                aria-pressed={billing === 'month'}
+                onClick={() => setBilling('month')}
+              >
+                Monthly
+              </button>
+              <button
+                type="button"
+                className={`billing-toggle__btn${billing === 'year' ? ' is-active' : ''}`}
+                aria-pressed={billing === 'year'}
+                onClick={() => setBilling('year')}
+              >
+                Yearly
+              </button>
+            </div>
+            {billing === 'year' && (
+              <p className="billing-note">
+                Free trial is available on monthly billing — switch to Monthly to start a trial.
+              </p>
+            )}
+          </div>
+
+          <div className={`pgrid${billing === 'year' ? ' pgrid--three' : ''}`}>
+            {visibleCards.map((card) => (
+              <div className={`pcard ${card.className} rise in`} key={card.title}>
                 {card.ribbon && <div className="ribbon">{card.ribbon}</div>}
                 <div className="pt">{card.title}</div>
                 <div className="ps">{card.subtitle}</div>
-                <div className="amt">{card.amount}</div>
+                <div className="amt">{cardAmount(card, billing)}</div>
                 {card.alt && <div className="alt">{card.alt}</div>}
-                {card.yearLine && <div className="yrline">{card.yearLine}</div>}
+                {cardSaveLine(card, billing) && (
+                  <div className="yrline">{cardSaveLine(card, billing)}</div>
+                )}
                 {card.vals.map((val, i) => (
                   <div className="val" key={i}>
                     {val}
@@ -200,7 +273,11 @@ export default function MarketingPricing(_props: MarketingPricingProps = {}) {
                   ))}
                 </ul>
                 <div className="pcard-cta">
-                  <MarketingCheckoutButton plan={card.plan} className={card.ctaClass}>
+                  <MarketingCheckoutButton
+                    plan={card.plan}
+                    billing={card.paid ? billing : 'month'}
+                    className={card.ctaClass}
+                  >
                     {card.ctaLabel}
                     {card.ctaClass === 'btn' && <span className="ar">→</span>}
                   </MarketingCheckoutButton>
