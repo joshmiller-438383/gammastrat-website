@@ -133,7 +133,7 @@ const CARDS: PricingCard[] = [
     ribbon: '★ FULL ACCESS',
     title: 'GAMMA',
     subtitle: 'THE FULL DESK',
-    paid: { monthly: 170, yearly: 1900, yearlySave: 140 },
+    paid: { monthly: 170, yearly: 1800, yearlySave: 240 },
     vals: ['24 REPORTS + ALL FUTURE · GAMMA TERMINAL INCLUDED'],
     features: [
       { text: 'Everything in Alpha and Delta' },
