@@ -11,10 +11,9 @@ import FinalCTAPanel from '@/components/sections/FinalCTAPanel'
 import LogoStrip from '@/components/sections/LogoStrip'
 import Disclaimer from '@/components/sections/Disclaimer'
 import FAQSection from '@/components/sections/FAQSection'
-import { client, queries } from '../../sanity/client'
-import { getMembersUrl } from '../lib/site'
+import { client, queries } from '../../../sanity/client'
+import { getMembersUrl } from '../../lib/site'
 
-// Accent words are stored as comma-separated strings in Sanity
 function parseAccentWords(raw?: string): string[] {
   if (!raw) return []
   return raw.split(',').map(w => w.trim()).filter(Boolean)
@@ -30,7 +29,7 @@ async function getSanityData() {
   }
 }
 
-export default async function HomePage() {
+export default async function LegacyHomePage() {
   const { homepage: hp } = await getSanityData()
 
   return (
@@ -42,9 +41,7 @@ export default async function HomePage() {
         ctaUrl={hp?.navCtaUrl}
       />
 
-      {/* ── Blueprint 7-panel grid ── */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-4">
-        {/* Row 1: Hero (3fr) + Problem (2fr) */}
         <div id="edge" className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4">
           <HeroPanel
             badge={hp?.heroBadge}
@@ -67,46 +64,40 @@ export default async function HomePage() {
           />
         </div>
 
-        {/* Logo strip */}
         <LogoStrip
           label={hp?.logoStripLabel}
           items={hp?.logoStripItems}
         />
 
-        {/* Row 2: Solution dashboard (full width) */}
         <SolutionDashboardPanel
           headline={hp?.solutionHeadline}
           accentWords={parseAccentWords(hp?.solutionAccentWords)}
           body={hp?.solutionBody}
         />
 
-        {/* Row 3: Reports grid */}
         <div id="reports">
-        <ReportsGrid
-          headline={hp?.reportsHeadline}
-          subheadline={hp?.reportsSubheadline}
-          items={hp?.reportItems}
-        />
-
+          <ReportsGrid
+            headline={hp?.reportsHeadline}
+            subheadline={hp?.reportsSubheadline}
+            items={hp?.reportItems}
+          />
         </div>
-        {/* Row 4: Why Different (full width) */}
+
         <div id="method">
-        <WhyDifferentPanel
-          headline={hp?.whyHeadline}
-          accentWords={parseAccentWords(hp?.whyAccentWords)}
-          drivers={hp?.whyDrivers}
-        />
+          <WhyDifferentPanel
+            headline={hp?.whyHeadline}
+            accentWords={parseAccentWords(hp?.whyAccentWords)}
+            drivers={hp?.whyDrivers}
+          />
 
-        <CredibilityPanel
-          headline={hp?.credibilityHeadline}
-          accentWords={parseAccentWords(hp?.credibilityAccentWords)}
-          pillars={hp?.credibilityPillars}
-        />
-
+          <CredibilityPanel
+            headline={hp?.credibilityHeadline}
+            accentWords={parseAccentWords(hp?.credibilityAccentWords)}
+            pillars={hp?.credibilityPillars}
+          />
         </div>
       </div>
 
-      {/* FAQ Section — above Final CTA */}
       <FAQSection
         headline={hp?.faqHeadline}
         subtitle={hp?.faqSubtitle}
@@ -114,18 +105,17 @@ export default async function HomePage() {
       />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        {/* Row 6: Final CTA */}
         <div id="cta">
-        <FinalCTAPanel
-          headline={hp?.ctaHeadline}
-          accentWords={parseAccentWords(hp?.ctaAccentWords)}
-          subheadline={hp?.ctaSubheadline}
-          buttonText={hp?.ctaButtonText}
-          buttonUrl={hp?.ctaButtonUrl}
-        />
-
+          <FinalCTAPanel
+            headline={hp?.ctaHeadline}
+            accentWords={parseAccentWords(hp?.ctaAccentWords)}
+            subheadline={hp?.ctaSubheadline}
+            buttonText={hp?.ctaButtonText}
+            buttonUrl={hp?.ctaButtonUrl}
+          />
         </div>
       </div>
+
       <Disclaimer
         text={hp?.disclaimerText}
         visible={hp?.disclaimerVisible}
