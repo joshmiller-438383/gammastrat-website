@@ -37,13 +37,27 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const res = await fetch(target, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        ...(req.headers.get('origin')
+          ? { Origin: req.headers.get('origin')! }
+          : {}),
+      },
+      body: JSON.stringify({
+        ...body,
+        siteUrl: getSiteUrl(),
+      }),
       cache: 'no-store',
     })
 
     const raw = await res.text()
-    let data: { error?: string; url?: string; checkoutUrl?: string } = {}
+    let data: {
+      error?: string
+      url?: string
+      checkoutUrl?: string
+      type?: string
+      message?: string
+    } = {}
     try {
       data = raw ? JSON.parse(raw) : {}
     } catch {
@@ -52,20 +66,28 @@ export async function POST(req: NextRequest) {
 
     if (!res.ok) {
       return NextResponse.json(
-        { error: data.error || `Members checkout failed (${res.status})` },
+        {
+          error: data.error,
+          type: data.type,
+          message: data.message,
+        },
         { status: res.status },
       )
     }
 
     const url = data.url || data.checkoutUrl
-    if (!url) {
+    if (!url && data.type !== 'same_plan') {
       return NextResponse.json(
         { error: data.error || 'No checkout URL returned from members.' },
         { status: 502 },
       )
     }
 
-    return NextResponse.json({ url })
+    return NextResponse.json({
+      type: data.type ?? (url ? 'checkout' : undefined),
+      message: data.message,
+      url,
+    })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Checkout proxy failed'
     console.error('[checkout/public proxy]', target, message)
