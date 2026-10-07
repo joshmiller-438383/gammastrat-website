@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import '../styles/checkout-email-modal.css'
 import { getSiteUrl } from '../lib/site'
 
 export const metadata: Metadata = {

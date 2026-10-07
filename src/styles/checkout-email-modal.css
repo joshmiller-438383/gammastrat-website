@@ -1,0 +1,125 @@
+.checkout-email-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(5, 7, 11, 0.78);
+  backdrop-filter: blur(4px);
+}
+
+.checkout-email-modal__panel {
+  position: relative;
+  width: min(100%, 420px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #15171b;
+  color: #f4f4f1;
+  padding: 28px 24px 24px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.checkout-email-modal__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: 0;
+  background: transparent;
+  color: #8b8e95;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.checkout-email-modal__title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.checkout-email-modal__lead {
+  margin: 0 0 18px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #c4c4bc;
+}
+
+.checkout-email-modal__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8b8e95;
+}
+
+.checkout-email-modal__input {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #33363d;
+  background: #0f1014;
+  color: #f4f4f1;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+.checkout-email-modal__input:focus {
+  outline: 2px solid rgba(86, 152, 251, 0.45);
+  border-color: #5698fb;
+}
+
+.checkout-email-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkout-email-modal__submit {
+  margin-top: 4px;
+  border: 0;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #5698fb;
+  color: #0d0e11;
+}
+
+.checkout-email-modal__submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.checkout-email-modal__error {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #f87171;
+}
+
+.checkout-email-modal__info {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #c4c4bc;
+}
+
+.checkout-email-modal__link {
+  color: #5698fb;
+  text-decoration: underline;
+}
+
+.checkout-email-modal--legacy .checkout-email-modal__panel {
+  background: #0a0e1a;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.checkout-email-modal--legacy .checkout-email-modal__submit {
+  background: #c9a24a;
+  color: #05070b;
+}
