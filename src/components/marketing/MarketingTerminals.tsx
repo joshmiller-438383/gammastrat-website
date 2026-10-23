@@ -5,13 +5,22 @@ export default function MarketingTerminals() {
   return (
 <section id="terminals">
   <div className="wrap">
-    <div className="slabel rise"><span className="n">03</span>THE TERMINALS</div>
-    <h2 className="rise">The Trading Terminals.</h2>
-    <p className="lede rise">Each subscription tier culminates in an interactive terminal, built to give you
-      everything you need to make an educated, professional-level decision without opening another
-      platform. Every figure on it is pulled from that day&apos;s reports, every interpretation is based on the
-      same consistent framework across the entire suite, and every output traces back to the model that
-      produced it. It&apos;s the single screen you&apos;ll return to every morning before the market opens.</p>
+    <div className="slabel rise"><span className="n">03</span>THE TERMINAL DASHBOARDS</div>
+    <h2 className="rise">
+      Get a comprehensive daily options-market overview in less than a few minutes.
+    </h2>
+    <p className="lede rise">
+      Each subscription tier includes an interactive terminal dashboard designed to help traders make
+      informed, professional-level decisions. Metrics are refreshed daily using a consistent process;
+      interpretations follow a common analytical framework; and outputs trace back to the proprietary models
+      that produced them.
+    </p>
+    <p className="lede rise" style={{ marginTop: 14 }}>
+      Dashboards built for clarity, consistency and repeatable review.
+    </p>
+    <p className="lede rise" style={{ marginTop: 14 }}>
+      Straightforward, simple and repeatable.
+    </p>
 
     
     <div className="feat" id="feat-gamma">
@@ -98,27 +107,43 @@ export default function MarketingTerminals() {
         </div>
       </div>
       <div className="fcopy rise">
-        <span className="fbadge">GAMMA TIER · THE FLAGSHIP DESK</span>
+        <span className="fbadge">
+          GAMMA TIER · THE FLAGSHIP DESK – WE PROVIDE THE RESEARCH. YOU DECIDE.
+        </span>
         <h3>The Gamma <b>Terminal</b></h3>
-        <p className="fl">The Gamma Terminal is the full desk, built from eleven reports and eighty tickers
-          synthesized onto a single screen. You&apos;ll find universe-wide sentiment, cross-report conviction
-          grids, market demand gauges, probability surfaces, and a sector wall, all drawn from that
-          morning&apos;s research. It&apos;s also the only terminal that reads every individual ticker across
-          76 of the most tradeable individual names, not just the benchmark index and ETF anchors
-          (i.e., SPX, QQQ, GLD and TLT).</p>
-        <p className="fl" style={{marginTop: '12px'}}>Models don&apos;t always agree, and the Gamma Terminal is built
-          around that fact rather than around hiding it. When the flow lens reads a ticker as bullish and
-          the value lens reads the same ticker as bearish, the terminal doesn&apos;t average the two into a
-          single, tidier number. It shows both verdicts side by side, because the disagreement itself is
-          information. You&apos;re the one who weighs it and makes the call.</p>
+        <p className="fl">
+          The Gamma Terminal is the full desk. You get universe-wide sentiment, cross-report conviction grids,
+          market demand gauges, probability surfaces, and a sector wall, all drawn from that morning&apos;s
+          research. It&apos;s also the only terminal that reports on every ticker in the universe across the
+          entire proprietary analytical spectrum. The terminal contains every research report and a dashboard
+          containing the following reporting modules:
+        </p>
         <ul>
-          <li>Full access to daily market positioning, plus the Alpha and Delta terminals.</li>
-          <li>Universe sentiment across all 80 names, one square per ticker, colored by that day&apos;s put/call shift.</li>
-          <li>A cross-report conviction grid showing every ticker that fired in two or more independent frameworks, with each framework&apos;s verdict displayed side by side.</li>
-          <li>Market demand gauges showing how hard the universe leans toward puts, and how much conviction is behind that lean.</li>
-          <li>Signal confidence, showing how many of the 80 names generate a qualifying volatility-surface signal each day, and where the leaders sit.</li>
-          <li>Every future report GammaStrat publishes joins this screen automatically, at no added cost.</li>
-          <li>Moving averages, short squeeze indicators, earnings dates and movement probabilities, key events, and relative volume rankings for each ticker.</li>
+          <li>
+            Full access to the daily Gamma Terminal Dashboard, the Alpha Terminal Dashboard and the Delta
+            Terminal Dashboard;
+          </li>
+          <li>A simple report that summarizes the results of the entire GammaStrat research engine;</li>
+          <li>Universe-wide gamma sentiment and regimes across all 80 names;</li>
+          <li>The highest conviction bullish and bearish names based on prior trading day flows;</li>
+          <li>Market put/call demand and conviction indices across the ticker universe;</li>
+          <li>Market breadth measurements for puts and calls across the ticker universe;</li>
+          <li>Probability surfaces for the benchmark tickers and key sector ETFs;</li>
+          <li>Tickers showing bullish and bearish probability extremes;</li>
+          <li>Model-implied volatility analytics, aggregated across the ticker universe;</li>
+          <li>Put/call ratio and flow sentiment gauges;</li>
+          <li>Bearish and bullish tickers based on prior trading day flows;</li>
+          <li>Volatility curve surface rankings across the ticker universe;</li>
+          <li>Flow rotation ladders identifying how money migrated during the prior trading day;</li>
+          <li>Filtered list of bullish and bearish tickers that survived several GammaStrat screens;</li>
+          <li>
+            The tickers with the highest and lowest &ldquo;gamma pin&rdquo; potential based on prior trading day
+            flows;
+          </li>
+          <li>
+            Which options structures are most prevalent in the market based on prior trading day flows; and
+          </li>
+          <li>A calendar showing upcoming market moving earnings and economic events</li>
         </ul>
         <div className="ctarow">
           <MarketingCheckoutButton plan="gamma" className="btn gold">
@@ -134,25 +159,54 @@ export default function MarketingTerminals() {
       <div className="fcopy deltac rise">
         <span className="fbadge purp">DELTA TIER · THE VOLATILITY DESK</span>
         <h3>The Delta <b>Terminal</b></h3>
-        <p className="fl">Sizing a position without understanding the volatility regime is where most avoidable
-          losses start. The Delta Terminal is built to close that gap: six additional reports, including
-          the VIX and VVIX term structure, the daily volatility regime state, market risk-reward
-          migrations, and a three-model strategy scoreboard, synthesized into a single, coherent view
-          you&apos;ll check before you size anything.</p>
+        <p className="fl">
+          Sizing a position without understanding the volatility regime is where most avoidable losses start.
+          The Delta Terminal is built to close that gap: six additional reports, including the VIX and VVIX
+          term structure, the daily volatility regime state, market risk-reward migrations, and a three-model
+          strategy scoreboard, synthesized into a single, coherent view you&apos;ll check before you size
+          anything.
+        </p>
         <div className="tdbox rise">
           <div className="tdh">★ TRADEABLE DISLOCATION (TD) SIGNAL — THE CONTRARIAN FLAG</div>
-          <p>Sometimes a trade clears every one of our quality checks, and the rest of the market is still
-            avoiding it anyway. That gap between what the math says and what the crowd is doing is what
-            Delta calls a Tradeable Dislocation. Every time one appears, the underlying data and the
-            exact math behind it are printed right beside the signal, so you can evaluate the case
-            yourself. Think of it as the ultimate contrarian play.</p>
-          <div className="tdnow">ON TODAY&apos;S SAMPLE DESK: <b>★ 2</b> — PUT DEBIT SPREAD · LONG STRADDLE</div>
+          <p>
+            Sometimes a trade clears every one of our quality checks, and the rest of the market is still
+            avoiding it anyway. The gap between what the math says and what the crowd is doing is what the
+            Delta Terminal calls a &ldquo;Tradeable Dislocation&rdquo;, or contrarian signal. Every time a
+            Tradeable Dislocation is identified, the underlying data and the exact math behind it are printed
+            right beside the signal, so you can evaluate the case yourself. Think of it as the ultimate
+            contrarian play.
+          </p>
         </div>
+        <p className="fl" style={{ marginTop: 12 }}>
+          The terminal dashboard contains all relevant volatility research reports and a dashboard containing
+          the following modules:
+        </p>
         <ul>
-          <li>The VIX and VVIX term structure, drawn daily with a plain-language read on the current curve shape.</li>
-          <li>A three-model strategy scoreboard, where flow, value, and regime each vote on eight option structures, with every conflict displayed and never averaged away.</li>
-          <li>A market risk-reward analysis that re-ranks 1,460 opportunities overnight for structural inefficiency.</li>
-          <li>A regime position map showing where today&apos;s tape sits in the volatility cycle, plotted on the VIX by VVIX classification grid.</li>
+          <li>
+            Full access to the daily Alpha Terminal Dashboard as well as the Delta Terminal Dashboard;
+          </li>
+          <li>
+            A simple report that summarizes the results of the Alpha and Delta phases of the GammaStrat
+            research engine;
+          </li>
+          <li>
+            A trading roadmap based on the shape of the volatility curve, market stability, reward to risk
+            inefficiencies based on options positioning, and options structures having the best reward to
+            risk score based on prior trading day data;
+          </li>
+          <li>
+            Options positioning scoreboard ranking various options structures (spreads, straddles, calls,
+            puts, etc.) based on prior trading day data;
+          </li>
+          <li>Options structure reward to risk rankings based on prior trading day data;</li>
+          <li>Market efficiency gauges;</li>
+          <li>Forward volatility skew curves;</li>
+          <li>VIX and VVIX term structures and cross asset hedging cost analytics;</li>
+          <li>
+            Contango carry curve (how much will you pay or get paid for rolling options positions forward);
+            and
+          </li>
+          <li>Volatility regime positioning maps.</li>
         </ul>
         <div className="ctarow">
           <MarketingCheckoutButton plan="delta" className="btn purp">

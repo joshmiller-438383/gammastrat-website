@@ -755,6 +755,12 @@ h1 em {
   max-width: 540px;
   margin-bottom: 30px;
 }
+.hero .subs .sub {
+  margin-bottom: 16px;
+}
+.hero .subs .sub:last-child {
+  margin-bottom: 30px;
+}
 .hero .ctas {
   display: flex;
   gap: 14px;
