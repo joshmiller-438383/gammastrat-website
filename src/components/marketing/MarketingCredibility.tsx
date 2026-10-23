@@ -61,7 +61,7 @@ const PEOPLE: Person[] = [
     now: 'Head of Product · GammaStrat · BYU Marriott School of Business',
     bios: [
       "Robbie Glenn is the architect of the GammaStrat platform. He built every terminal and the visual system behind the report suite, the screens subscribers use every morning. He is studying finance at BYU's Marriott School of Business.",
-      'Newer to options himself, Robbie designed the terminals for exactly that vantage point: keep all of the high-level quantitative data the research produces, but present it so a trader still learning the options market can absorb it quickly, rigorous underneath, digestible on the surface. He trades options actively himself, on the same terminals subscribers use.',
+      'Newer to options trading himself, Robbie designed the platform with that perspective in mind. GammaStrat consolidates important research and quantitative data into terminal dashboards that can be quickly and intuitively understood by traders still learning how to read and trade the options market. He trades options actively himself, using the same terminals subscribers use.',
     ],
     chips: ['GAMMASTRAT', 'BYU · FINANCE', 'BUILT EVERY TERMINAL'],
   },

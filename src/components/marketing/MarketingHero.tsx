@@ -10,13 +10,27 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
       <div className="wrap grid">
         <div>
           <div className="pill-ann"><span className="pdot" aria-hidden="true"></span>OPTIONS-MARKET RESEARCH · PUBLISHED EVERY TRADING DAY BEFORE THE OPEN</div>
-          <h1>Stop Trading Price. <em>Start Trading Structure.</em></h1>
-          <p className="sub">GammaStrat&apos;s founder is a 30-year Wall Street veteran who partnered with his son and
-            the preeminent finance professor in the field of options theory whose options-pricing research has
-            been published in the Journal of Finance. This expertise is translated into a daily read on dealer
-            positioning, volatility regime and structural mispricing across the most liquid benchmarks (SPX,
-            QQQ, GLD and TLT) as well as 76 of the most liquid individual names, all on your screen before
-            every open.</p>
+          <h1>
+            Understand the options market. <em>Trade with greater insight.</em>
+          </h1>
+          <div className="subs">
+            <p className="sub">
+              GammaStrat&apos;s founder is a 30-year Wall Street capital markets and hedge fund veteran who
+              partnered with his son and a leading academic expert in options theory. Together, they provide
+              subscribers access to the same data and terminal dashboards they use to analyze and trade options
+              markets each day.
+            </p>
+            <p className="sub">
+              Their analytical experience and trading philosophy inform a daily assessment of market
+              positioning, volatility regimes, and potential options-pricing dislocations across a selected
+              universe of 80 benchmarks, ETFs, and individual securities—all available before the market opens.
+            </p>
+            <p className="sub">
+              The GammaStrat philosophy embraces rigorous options theory and presents its practical implications
+              in an intuitive, accessible way. Understand what the options market is signaling and how to apply
+              that information to your trading decisions.
+            </p>
+          </div>
           <div className="ctas">
             <MarketingCheckoutButton plan="free_trial" className="btn">
               Begin Your Free Trial<span className="ar">→</span>

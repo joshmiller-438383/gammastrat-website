@@ -49,21 +49,22 @@ export default function MarketingMethod() {
           <div className="slabel rise">
             <span className="n">02</span>THE METHOD
           </div>
-          <h2 className="rise">There&apos;s Math Behind Every Move. We Make It Legible.</h2>
+          <h2 className="rise">
+            Options theory is highly mathematical. Understanding it doesn&apos;t have to be.
+          </h2>
           <p className="lede rise">
-            Raw options data and published pricing research point toward what&apos;s coming, but neither
-            is built to be read in the five minutes before the market opens. GammaStrat makes that research
-            approachable and actionable by translating it into a daily suite of reports, each one built
-            around the same underlying models but written in plain language. You&apos;ll find them just as
-            useful whether you&apos;re learning options for the first time or running a full volatility
-            book.
+            GammaStrat&apos;s proprietary reports and dashboard terminals consolidate and present the math
+            and algorithms that are the essential building blocks for successful options trading into a
+            simple, intuitive format that takes less than a minute to review before the market opens.
           </p>
           <p className="lede rise" style={{ marginTop: 14 }}>
-            What you won&apos;t find in any of those reports is just as deliberate as what you will. No
-            win-rate claims. No countdown timers or fake urgency. No paid testimonials. Nothing built to
-            get you trading more often than the data warrants. If a reading isn&apos;t exciting that
-            morning, it still gets printed exactly as the model found it. The reports provide a consistent
-            market read day after day.
+            GammaStrat&apos;s reports and terminals are written in plain language and displayed with
+            powerful but readable graphics, demystifying the options market and providing a supportive
+            daily trading roadmap.
+          </p>
+          <p className="lede rise" style={{ marginTop: 14 }}>
+            Users report that they are highly satisfied with the portal, and that they engage regularly
+            with the data because it is easy to use and digest.
           </p>
         </div>
 
