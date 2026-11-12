@@ -1,15 +1,11 @@
-import { MARKETING_HOME } from '@/lib/marketingRoutes'
-import { getMembersUrl } from '../../lib/site'
+import { MARKETING_HOME, MARKETING_ROUTES } from '@/lib/marketingRoutes'
+import { getMembersUrl } from '@/lib/site'
 
 interface MarketingFooterProps {
   membersUrl?: string
-  homeHref?: string
 }
 
-export default function MarketingFooter({
-  membersUrl = getMembersUrl(),
-  homeHref = MARKETING_HOME,
-}: MarketingFooterProps) {
+export default function MarketingFooter({ membersUrl = getMembersUrl() }: MarketingFooterProps) {
   const year = new Date().getFullYear()
 
   return (
@@ -30,18 +26,18 @@ export default function MarketingFooter({
             </div>
             <div className="fcol">
               <div className="fh">PRODUCT</div>
-              <a href={homeHref}>Home</a>
-              <a href={MARKETING_HOME} data-mkt-section="pricing">Pricing</a>
+              <a href={MARKETING_HOME}>Home</a>
+              <a href={MARKETING_ROUTES.pricing}>Pricing</a>
               <a href={membersUrl}>Member Portal</a>
             </div>
             <div className="fcol">
               <div className="fh">COMPANY</div>
-              <a href={MARKETING_HOME} data-mkt-section="team">About</a>
+              <a href={MARKETING_ROUTES.about}>About</a>
               <a href="mailto:david@gammastrat.us">Contact</a>
             </div>
             <div className="fcol">
               <div className="fh">RESOURCES</div>
-              <a href={MARKETING_HOME} data-mkt-section="reports">Reports</a>
+              <a href={MARKETING_ROUTES.dailySamples}>Daily Samples</a>
             </div>
             <div className="fcol">
               <div className="fh">LEGAL</div>
@@ -58,19 +54,15 @@ export default function MarketingFooter({
               recommendation, or an offer or solicitation to buy or sell any security or derivative.
               GammaStrat is not an investment adviser, broker-dealer, or fiduciary. Investing and
               trading involve significant risk, including the potential loss of principal; options
-              involve substantial risk and are not suitable for all investors. An investor may lose
-              all or more than their initial investment. Model assumptions, priors, and known
-              limitations are disclosed within the reports themselves. All figures shown on this page
-              are illustrative samples of report output.
+              trading is not suitable for all investors. Past performance or backtested results are
+              not indicative of future results. See our{' '}
+              <a href="/disclaimer">Disclaimer</a>, <a href="/terms">Terms of Service</a>, and{' '}
+              <a href="/privacy">Privacy Policy</a> for full disclosures.
             </p>
-            <div className="copy">© {year} GAMMASTRAT, LLC · ALL RIGHTS RESERVED</div>
           </div>
+          <div className="fbot">© {year} GammaStrat, LLC. All rights reserved.</div>
         </div>
       </footer>
-
-      <button id="toTop" className="totop" aria-label="Back to top" title="Back to top" type="button">
-        ↑
-      </button>
     </>
   )
 }

@@ -31,7 +31,7 @@ export default function MarketingEdge() {
     <section id="edge">
       <div className="wrap">
         <div className="slabel rise">
-          <span className="n">01</span>THE PROBLEM
+          <span className="n">01</span>THE CHALLENGE
         </div>
         <h2 className="rise">Understanding market positioning—and using it to make informed trading decisions.</h2>
         <p className="lede rise">

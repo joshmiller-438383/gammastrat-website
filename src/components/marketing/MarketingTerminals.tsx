@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
+import { MARKETING_ROUTES } from '@/lib/marketingRoutes'
 
 export default function MarketingTerminals() {
   return (
 <section id="terminals">
   <div className="wrap">
-    <div className="slabel rise"><span className="n">03</span>THE TERMINAL DASHBOARDS</div>
+    <div className="slabel rise"><span className="n">04</span>THE DASHBOARD SUITE</div>
     <h2 className="rise">
       Get a comprehensive daily options-market overview in less than a few minutes.
     </h2>
@@ -435,7 +436,7 @@ export default function MarketingTerminals() {
           <li>A gamma regime framework on every single page, showing whether expected dealer hedging flows are dampening the tape or amplifying it.</li>
         </ul>
         <div className="ctarow">
-          <a className="btn dpt" href="#pricing" aria-label="View pricing for Dealer Positioning Daily add-on">
+          <a className="btn dpt" href={MARKETING_ROUTES.pricing} aria-label="View pricing for Dealer Positioning Daily add-on">
             Add Estimated Dealer Positioning Daily<span className="ar">→</span>
           </a>
           <span className="microline">ALPHA +$300/YEAR · DELTA +$200/YEAR · INCLUDED WITH GAMMA</span>

@@ -73,7 +73,7 @@ export default function MarketingCredibility() {
       <section id="credibility">
         <div className="wrap">
           <div className="slabel rise" id="team" style={{ scrollMarginTop: 92 }}>
-            <span className="n">05</span>THE TEAM
+            <span className="n">07</span>ABOUT US
           </div>
           <h2 className="rise">Built by Experts in Options.</h2>
           <p className="lede rise">
@@ -119,68 +119,6 @@ export default function MarketingCredibility() {
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="ppl-label rise" style={{ marginTop: 44 }}>
-            THE PRINCIPLES
-          </div>
-          <div className="cgrid two" style={{ marginTop: 16 }}>
-            <div className="cred rise">
-              <div className="ck">THE MODELS</div>
-              <h3>Quantitative, Disclosed, and Adversarially Tested</h3>
-              <p>
-                Every signal comes from a disclosed quantitative model. The assumptions, priors, and known
-                limits are printed on the reports themselves. Not opinion. Not folklore. Method.
-              </p>
-            </div>
-            <div className="cred rise">
-              <div className="ck">THE LIMITS</div>
-              <h3>Known Limits, Printed on the Page</h3>
-              <p>
-                We publish what the models can&apos;t do as clearly as we publish what they can. You can
-                interrogate the research — that&apos;s the point of it.
-              </p>
-            </div>
-          </div>
-
-          <div className="ledger rise">
-            <div className="ledcol yes">
-              <div className="lh">✓ EVERY REPORT CARRIES</div>
-              <ul>
-                <li>
-                  The models&apos; <b>assumptions and priors</b>, printed on the page
-                </li>
-                <li>
-                  <b>Known limits</b> and failure modes, disclosed up front
-                </li>
-                <li>
-                  <b>Probability, expected value, and confidence interval</b> on every read
-                </li>
-                <li>
-                  <b>Plain-language interpretation</b> beside every number
-                </li>
-              </ul>
-            </div>
-            <div className="ledcol no">
-              <div className="lh">✕ YOU WILL NEVER SEE</div>
-              <ul>
-                <li>
-                  <b>Win rates or performance promises</b> — honest research can&apos;t offer them
-                </li>
-                <li>
-                  <b>Guaranteed returns</b>, in any form
-                </li>
-                <li>
-                  <b>Countdown timers or fake scarcity</b> — the research is the pitch
-                </li>
-                <li>
-                  <b>Paid testimonials</b> or hired endorsements
-                </li>
-              </ul>
-            </div>
-            <div className="ledfoot">
-              RESEARCH STANDS ON METHOD, NOT HYPE · GAMMASTRAT PUBLISHES RESEARCH — NOT INVESTMENT ADVICE
-            </div>
           </div>
         </div>
       </section>
