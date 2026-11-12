@@ -1,4 +1,5 @@
 import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
+import { MARKETING_ROUTES } from '@/lib/marketingRoutes'
 
 interface MarketingHeroProps {
   ctaUrl?: string
@@ -35,10 +36,12 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
             <MarketingCheckoutButton plan="free_trial" className="btn">
               Begin Your Free Trial<span className="ar">→</span>
             </MarketingCheckoutButton>
-            <a className="btn ghost" href="#reports">View Sample Reports</a>
+            <a className="btn ghost" href={MARKETING_ROUTES.dailySamples}>
+              View Daily Samples
+            </a>
           </div>
           <div className="microline">FREE FOR 14 DAYS · INCLUDES THE ALPHA TERMINAL · CANCEL ANYTIME</div>
-          <a className="expstrip rise" href="#team" aria-label="Meet the GammaStrat team">
+          <a className="expstrip rise" href={MARKETING_ROUTES.about} aria-label="Meet the GammaStrat team">
             <span className="exavs">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/marketing/headshot-tyler-shumway.jpg" alt="Tyler Shumway" width="34" height="34" />
@@ -58,7 +61,11 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
         <div className="herocards">
         {/* hero terminal trio */}
         <div className="trio rise" aria-label="The three GammaStrat terminals: Alpha, Delta, and Gamma">
-          <a className="mini ma" href="#feat-alpha" aria-label="Jump to the Alpha Terminal explanation">
+          <a
+            className="mini ma"
+            href={`${MARKETING_ROUTES.dashboardSuite}#feat-alpha`}
+            aria-label="Jump to the Alpha Terminal explanation"
+          >
             <div className="mm"><span className="mt">ALPHA <b>TERMINAL</b></span><span className="chip">ALPHA</span></div>
             <div className="ph"><span className="t">SPX MARKET MOOD</span></div>
             <div className="mrow">
@@ -72,7 +79,11 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
             </div>
             <div className="cap">5 REPORTS · FREE TRIAL</div>
           </a>
-          <a className="mini md" href="#feat-delta" aria-label="Jump to the Delta Terminal explanation">
+          <a
+            className="mini md"
+            href={`${MARKETING_ROUTES.dashboardSuite}#feat-delta`}
+            aria-label="Jump to the Delta Terminal explanation"
+          >
             <div className="mm"><span className="mt">DELTA <b>TERMINAL</b></span><span className="chip p">DELTA</span></div>
             <div className="ph"><span className="t">VIX &amp; VVIX TERM STRUCTURE</span></div>
             <svg width="100%" height="44" viewBox="0 0 180 44" preserveAspectRatio="none" aria-hidden="true" style={{background: 'var(--cell)', display: 'block'}}>
@@ -87,7 +98,11 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
             </div>
             <div className="cap">13 REPORTS · VOL DESK</div>
           </a>
-          <a className="mini mg" href="#feat-gamma" aria-label="Jump to the Gamma Terminal explanation">
+          <a
+            className="mini mg"
+            href={`${MARKETING_ROUTES.dashboardSuite}#feat-gamma`}
+            aria-label="Jump to the Gamma Terminal explanation"
+          >
             <div className="goldbar"></div>
             <div className="mm"><span className="mt">GAMMA <b>TERMINAL</b></span><span className="chip g">GAMMA</span></div>
             <div className="ph"><span className="t" style={{color: 'var(--gold)'}}>TICKER WATCHLIST + PIN RISK</span></div>
@@ -108,7 +123,11 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
 
         {/* DPT add-on card — its own row, same card style as the three above */}
         <div className="addonrow rise">
-          <a className="mini mo" href="#feat-dpt" aria-label="Jump to the Dealer Positioning Daily explanation">
+          <a
+            className="mini mo"
+            href={`${MARKETING_ROUTES.dashboardSuite}#feat-dpt`}
+            aria-label="Jump to the Dealer Positioning Daily explanation"
+          >
             <div className="mm"><span className="mt">DEALER POSITIONING <b>DAILY</b></span><span className="chip o">DEALER MAP</span></div>
             <div className="ph"><span className="t" style={{color: 'var(--dptl)'}}>NET GEX BY STRIKE</span></div>
             <div className="gexmini">

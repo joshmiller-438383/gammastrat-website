@@ -12,7 +12,7 @@ export default function MarketingFinalCTA({
     <section className="ctaband" id="cta">
       <div className="wrap">
         <div className="ctapanel gridbg">
-          <div className="slabel rise" style={{ textAlign: 'center' }}>
+          <div className="slabel rise">
             <span className="n">08</span>START
           </div>
           <h2 className="rise">Trade the Structure. Not the Noise.</h2>

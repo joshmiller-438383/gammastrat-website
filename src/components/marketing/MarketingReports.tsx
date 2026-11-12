@@ -1,4 +1,5 @@
 import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
+import { MARKETING_ROUTES } from '@/lib/marketingRoutes'
 
 interface ReportTier {
   groupClass: string
@@ -108,13 +109,13 @@ interface MarketingReportsProps {
 }
 
 export default function MarketingReports({
-  samplesUrl = '#terminals',
+  samplesUrl = MARKETING_ROUTES.dailySamples,
 }: MarketingReportsProps) {
   return (
     <section id="reports">
       <div className="wrap">
         <div className="slabel rise">
-          <span className="n">04</span>THE REPORT SUITE
+          <span className="n">03</span>THE REPORT SUITE
         </div>
         <h2 className="rise">Published Every Trading Day, Before the Open.</h2>
         <p className="lede rise">

@@ -1,28 +1,70 @@
 'use client'
 
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
-import { MARKETING_HOME } from '@/lib/marketingRoutes'
-import { getMembersUrl } from '../../lib/site'
+import { MARKETING_HOME, MARKETING_ROUTES } from '@/lib/marketingRoutes'
+import { getMembersUrl } from '@/lib/site'
 
 interface MarketingNavProps {
   membersUrl?: string
-  ctaUrl?: string
 }
 
 export default function MarketingNav({ membersUrl = getMembersUrl() }: MarketingNavProps) {
+  const pathname = usePathname()
+
+  const navLinks: { href: string; label: string }[] = [
+    { href: MARKETING_ROUTES.challenge, label: 'The Challenge' },
+    { href: MARKETING_ROUTES.philosophy, label: 'Our Philosophy' },
+    { href: MARKETING_ROUTES.reportSuite, label: 'The Report Suite' },
+    { href: MARKETING_ROUTES.dashboardSuite, label: 'The Dashboard Suite' },
+    { href: MARKETING_ROUTES.dailySamples, label: 'Daily Samples' },
+    { href: MARKETING_ROUTES.pricing, label: 'Pricing' },
+    { href: MARKETING_ROUTES.about, label: 'About Us' },
+    { href: MARKETING_ROUTES.faq, label: 'FAQ' },
+  ]
+
   return (
     <nav className="nav" aria-label="Main">
       <div className="row">
-        <a className="brand" href={MARKETING_HOME} aria-label="GammaStrat home">
+        <Link className="brand" href={MARKETING_HOME} aria-label="GammaStrat home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
+            className="nav-brand-img"
             src="/marketing/logo.png"
             alt="GammaStrat logo"
             width={164}
             height={73}
-            style={{ display: 'block' }}
           />
-        </a>
+        </Link>
+        <div className="nav-cluster" id="navLinks">
+          <div className="nav-primary">
+            {navLinks.map(({ href, label }) => {
+              if (!href) return null
+              const active = pathname === href
+              return (
+                <Link
+                  key={label}
+                  className="nl"
+                  href={href}
+                  aria-current={active ? 'page' : undefined}
+                  aria-label={label === 'FAQ' ? 'Frequently Asked Questions' : undefined}
+                  title={label === 'FAQ' ? 'Frequently Asked Questions' : undefined}
+                >
+                  {label}
+                </Link>
+              )
+            })}
+          </div>
+          <div className="nav-actions">
+            <a className="nl nav-portal" href={membersUrl}>
+              Member Portal<span className="nav-ext" aria-hidden="true">↗</span>
+            </a>
+            <MarketingCheckoutButton plan="free_trial" className="btn">
+              Begin Your Free Trial<span className="ar">→</span>
+            </MarketingCheckoutButton>
+          </div>
+        </div>
         <button
           className="navtoggle"
           id="navToggle"
@@ -35,18 +77,6 @@ export default function MarketingNav({ membersUrl = getMembersUrl() }: Marketing
             <path d="M1 1h18M1 7h18M1 13h18" />
           </svg>
         </button>
-        <div className="links" id="navLinks">
-          <a className="nl" href={MARKETING_HOME} data-mkt-section="edge">HOW IT WORKS</a>
-          <a className="nl" href={MARKETING_HOME} data-mkt-section="terminals">TERMINALS</a>
-          <a className="nl" href={MARKETING_HOME} data-mkt-section="reports">REPORTS</a>
-          <a className="nl" href={MARKETING_HOME} data-mkt-section="team">THE TEAM</a>
-          <a className="nl" href={MARKETING_HOME} data-mkt-section="pricing">PRICING</a>
-          <a className="nl" href={MARKETING_HOME} data-mkt-section="faq">FAQ</a>
-          <a className="nl" href={membersUrl}>MEMBER PORTAL</a>
-          <MarketingCheckoutButton plan="free_trial" className="btn">
-            Begin Your Free Trial<span className="ar">→</span>
-          </MarketingCheckoutButton>
-        </div>
       </div>
     </nav>
   )
