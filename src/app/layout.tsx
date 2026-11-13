@@ -1,7 +1,12 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import '../styles/checkout-email-modal.css'
 import { getSiteUrl } from '../lib/site'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
 
 export const metadata: Metadata = {
   title: 'GammaStrat — Data-Driven Options Trading',

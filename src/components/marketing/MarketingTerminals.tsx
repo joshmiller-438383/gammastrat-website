@@ -7,9 +7,9 @@ export default function MarketingTerminals() {
 <section id="terminals">
   <div className="wrap">
     <div className="slabel rise"><span className="n">04</span>THE DASHBOARD SUITE</div>
-    <h2 className="rise">
-      Get a comprehensive daily options-market overview in less than a few minutes.
-    </h2>
+    <h1 className="rise">
+      Get a comprehensive daily options-market overview <em>in less than a few minutes.</em>
+    </h1>
     <p className="lede rise">
       Each subscription tier includes an interactive terminal dashboard designed to help traders make
       informed, professional-level decisions. Metrics are refreshed daily using a consistent process;
