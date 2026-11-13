@@ -9,7 +9,33 @@ interface MarketingLegalShellProps {
   children: React.ReactNode
 }
 
-/** Shared shell for /terms, /privacy — matches /new marketing design. */
+/** Same serif + white/blue split as marketing landing page h1 titles. */
+function legalPageHeading(title: string) {
+  switch (title) {
+    case 'Terms of Service':
+      return (
+        <>
+          Terms of <em>Service.</em>
+        </>
+      )
+    case 'Privacy Policy':
+      return (
+        <>
+          Privacy <em>Policy.</em>
+        </>
+      )
+    case 'Disclaimer':
+      return (
+        <>
+          Legal <em>Disclaimer.</em>
+        </>
+      )
+    default:
+      return title
+  }
+}
+
+/** Shared shell for /terms, /privacy, /disclaimer — matches marketing design. */
 export default function MarketingLegalShell({ title, updated, children }: MarketingLegalShellProps) {
   const membersUrl = getMembersUrl()
 
@@ -21,7 +47,7 @@ export default function MarketingLegalShell({ title, updated, children }: Market
       <main className="legal-page">
         <div className="wrap">
           <div className="slabel rise">LEGAL</div>
-          <h1 className="rise">{title}</h1>
+          <h1 className="rise">{legalPageHeading(title)}</h1>
           <p className="legal-updated rise">Last updated: {updated}</p>
           <div className="legal-body rise">{children}</div>
         </div>
