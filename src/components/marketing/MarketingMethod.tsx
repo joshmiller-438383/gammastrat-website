@@ -5,9 +5,9 @@ export default function MarketingMethod() {
         <div className="slabel rise">
           <span className="n">02</span>OUR PHILOSOPHY
         </div>
-        <h2 className="rise">
-          Options theory is highly mathematical. Understanding it doesn&apos;t have to be.
-        </h2>
+        <h1 className="rise">
+          Options theory is highly mathematical. <em>Understanding it doesn&apos;t have to be.</em>
+        </h1>
         <p className="lede rise">
           GammaStrat&apos;s proprietary reports and dashboard terminals consolidate and present the math
           and algorithms that are the essential building blocks for successful options trading into a
@@ -31,18 +31,20 @@ export default function MarketingMethod() {
         <div className="cgrid two" style={{ marginTop: 16 }}>
           <div className="cred rise">
             <div className="ck">THE MODELS</div>
-            <h3>Quantitative, Disclosed, and Adversarially Tested</h3>
+            <h3>Quantitatively driven, theoretically sound and rigorously tested</h3>
             <p>
-              Every signal comes from a disclosed quantitative model. The assumptions, priors, and known
-              limits are printed on the reports themselves. Not opinion. Not folklore. Method.
+              Every generated trading signal comes from a proprietary quantitative model whose assumptions are
+              disclosed in plain English in the reports themselves. The signals are not opinions or hype. They
+              are quantitatively driven, theoretically sound and rigorously tested.
             </p>
           </div>
           <div className="cred rise">
             <div className="ck">THE LIMITS</div>
-            <h3>Known Limits, Printed on the Page</h3>
+            <h3>Mathematical outputs. Simplified.</h3>
             <p>
-              We publish what the models can&apos;t do as clearly as we publish what they can. You can
-              interrogate the research — that&apos;s the point of it.
+              We organize the math and theory so you don&apos;t have to. The reports tell you the daily trading
+              landscape in a highly intuitive, straightforward manner, allowing you to focus on how to trade the
+              signals. That&apos;s the point of it.
             </p>
           </div>
         </div>

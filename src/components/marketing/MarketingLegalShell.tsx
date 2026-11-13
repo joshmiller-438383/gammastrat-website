@@ -14,7 +14,7 @@ export default function MarketingLegalShell({ title, updated, children }: Market
   const membersUrl = getMembersUrl()
 
   return (
-    <>
+    <div className="marketing-site">
       <MarketingEffects />
       <div className="scrollprog" id="scrollprog" aria-hidden="true" />
       <MarketingNav membersUrl={membersUrl} />
@@ -27,6 +27,6 @@ export default function MarketingLegalShell({ title, updated, children }: Market
         </div>
       </main>
       <MarketingFooter membersUrl={membersUrl} />
-    </>
+    </div>
   )
 }

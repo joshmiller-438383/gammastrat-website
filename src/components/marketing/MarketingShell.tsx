@@ -12,12 +12,12 @@ export default function MarketingShell({ children }: MarketingShellProps) {
   const membersUrl = getMembersUrl()
 
   return (
-    <>
+    <div className="marketing-site">
       <MarketingEffects />
       <div className="scrollprog" id="scrollprog" aria-hidden="true" />
       <MarketingNav membersUrl={membersUrl} />
       {children}
       <MarketingFooter membersUrl={membersUrl} />
-    </>
+    </div>
   )
 }

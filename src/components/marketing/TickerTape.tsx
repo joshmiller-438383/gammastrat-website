@@ -1,6 +1,7 @@
 export default function TickerTape() {
   return (
-    <div className="strip" aria-hidden="true"><div className="tape" id="tape">
+    <div className="strip" aria-hidden="true">
+      <div className="tape" id="tape">
       <div className="cell"><span className="k">SPX SPOT</span><span className="v">7,543.64</span></div>
       <div className="cell"><span className="k">VIX</span><span className="v">15.84</span></div>
       <div className="cell"><span className="k">SPX GAMMA IDX</span><span className="v up">+0.89 POS</span></div>

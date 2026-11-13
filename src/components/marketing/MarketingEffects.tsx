@@ -1,17 +1,33 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { scrollToMarketingSection } from './marketingScroll'
 
+const MOBILE_OVERFLOW_MQ = '(max-width: 860px)'
+
 function initTapeLoop() {
   const tape = document.getElementById('tape')
-  if (!tape || tape.dataset.loopReady === '1') return
-  const base = tape.innerHTML
-  while (tape.scrollWidth < Math.max(window.innerWidth, 1400)) {
+  const strip = tape?.parentElement
+  if (!tape || !strip) return
+
+  const base = tape.dataset.baseHtml ?? tape.innerHTML
+  tape.dataset.baseHtml = base
+  tape.innerHTML = base
+
+  const viewport = Math.max(window.innerWidth, 320)
+  if (viewport < 640) {
+    /* One duplicate — enough for -50% seamless loop; stays inside `.strip` */
     tape.innerHTML += base
+  } else {
+    const loopTarget = Math.min(Math.max(viewport * 2, viewport + 400), 1400)
+    let guard = 0
+    while (tape.scrollWidth < loopTarget && guard < 16) {
+      tape.innerHTML += base
+      guard += 1
+    }
+    tape.innerHTML += tape.innerHTML
   }
-  tape.innerHTML += tape.innerHTML
   tape.dataset.loopReady = '1'
 }
 
@@ -147,6 +163,69 @@ function setupPageMotion() {
 export default function MarketingEffects() {
   const pathname = usePathname()
 
+  useLayoutEffect(() => {
+    const root = document.documentElement
+    const body = document.body
+    root.classList.add('marketing-html')
+    body.classList.add('marketing-body')
+    root.style.overflowX = 'hidden'
+    root.style.maxWidth = '100%'
+    body.style.overflowX = 'hidden'
+    body.style.maxWidth = '100%'
+
+    const clampHorizontalScroll = () => {
+      if (window.scrollX !== 0 || document.documentElement.scrollLeft !== 0) {
+        window.scrollTo(0, window.scrollY)
+      }
+    }
+    clampHorizontalScroll()
+    window.addEventListener('scroll', clampHorizontalScroll, { passive: true })
+    window.addEventListener('resize', clampHorizontalScroll, { passive: true })
+    window.addEventListener('orientationchange', clampHorizontalScroll)
+
+    let touchStartX = 0
+    let touchStartY = 0
+    const onTouchStart = (e: TouchEvent) => {
+      if (!window.matchMedia(MOBILE_OVERFLOW_MQ).matches) return
+      touchStartX = e.touches[0]?.clientX ?? 0
+      touchStartY = e.touches[0]?.clientY ?? 0
+    }
+    const onTouchMove = (e: TouchEvent) => {
+      if (!window.matchMedia(MOBILE_OVERFLOW_MQ).matches) return
+      const touch = e.touches[0]
+      if (!touch) return
+      const dx = Math.abs(touch.clientX - touchStartX)
+      const dy = Math.abs(touch.clientY - touchStartY)
+      if (dx > dy && dx > 8) {
+        e.preventDefault()
+      }
+    }
+    const onWheel = (e: WheelEvent) => {
+      if (!window.matchMedia(MOBILE_OVERFLOW_MQ).matches) return
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 2) {
+        e.preventDefault()
+      }
+    }
+    document.addEventListener('touchstart', onTouchStart, { passive: true })
+    document.addEventListener('touchmove', onTouchMove, { passive: false })
+    window.addEventListener('wheel', onWheel, { passive: false })
+
+    return () => {
+      root.classList.remove('marketing-html')
+      body.classList.remove('marketing-body')
+      root.style.overflowX = ''
+      root.style.maxWidth = ''
+      body.style.overflowX = ''
+      body.style.maxWidth = ''
+      window.removeEventListener('scroll', clampHorizontalScroll)
+      window.removeEventListener('resize', clampHorizontalScroll)
+      window.removeEventListener('orientationchange', clampHorizontalScroll)
+      document.removeEventListener('touchstart', onTouchStart)
+      document.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('wheel', onWheel)
+    }
+  }, [])
+
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -225,9 +304,19 @@ export default function MarketingEffects() {
 
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
 
-    if (pathname === '/' || pathname === '/new') {
-      initTapeLoop()
+    const syncTape = () => {
+      if (pathname === '/' || pathname === '/new') {
+        const el = document.getElementById('tape')
+        if (el) delete el.dataset.loopReady
+        initTapeLoop()
+      }
     }
+    syncTape()
+
+    const onResize = () => {
+      window.requestAnimationFrame(syncTape)
+    }
+    window.addEventListener('resize', onResize, { passive: true })
 
     if (window.location.hash.length > 1) {
       const id = decodeURIComponent(window.location.hash.slice(1))
@@ -241,6 +330,7 @@ export default function MarketingEffects() {
     })
 
     return () => {
+      window.removeEventListener('resize', onResize)
       cancelAnimationFrame(frame)
       teardown?.()
     }

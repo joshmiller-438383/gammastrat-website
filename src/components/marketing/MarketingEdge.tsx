@@ -33,7 +33,9 @@ export default function MarketingEdge() {
         <div className="slabel rise">
           <span className="n">01</span>THE CHALLENGE
         </div>
-        <h2 className="rise">Understanding market positioning—and using it to make informed trading decisions.</h2>
+        <h1 className="rise">
+          Understanding market positioning—<em>and using it to make informed trading decisions.</em>
+        </h1>
         <p className="lede rise">
         Many traders struggle to identify and interpret options-market positioning, understand how it influences volatility and pricing, and select structures suited to prevailing conditions. GammaStrat’s proprietary models and tools help make these relationships clearer. The platform examines how positioning may influence volatility, how volatility affects markets, and which options strategies warrant further evaluation. Its volatility-regime analysis provides a practical roadmap for more informed trading decisions.
         </p>

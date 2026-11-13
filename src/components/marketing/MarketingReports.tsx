@@ -117,10 +117,21 @@ export default function MarketingReports({
         <div className="slabel rise">
           <span className="n">03</span>THE REPORT SUITE
         </div>
-        <h2 className="rise">Published Every Trading Day, Before the Open.</h2>
+        <h1 className="rise">
+          Published every trading day, <em>Before the open.</em>
+        </h1>
         <p className="lede rise">
-          Every tier is cumulative, so each one includes everything below it. The board reads the same way
-          the ladder does: start free, then climb to the full desk.
+          Alpha is the basic GammaStrat subscription tier and is designed to get you trading immediately. Delta
+          takes your trading knowledge to the next level, adding detailed volatility analytics to the Alpha
+          reporting suite. Gamma is the all-inclusive, comprehensive trading suite. It includes everything in
+          Alpha and Delta, plus next level analytics, ticker classifications and trading signals. Learn to trade
+          the markets the way we trade them.
+        </p>
+        <p className="lede rise" style={{ marginTop: 14 }}>
+          Each subscription tier provides you with institutional quality research reports, convenient reporting
+          summaries, and a sophisticated, easy-to-interpret dashboard terminal. The reports and dashboard terminal
+          suites are designed so that busy people can develop an informed trading view in just a few minutes each
+          morning.
         </p>
 
         <div className="board rise">

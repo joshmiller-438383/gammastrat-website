@@ -75,7 +75,9 @@ export default function MarketingCredibility() {
           <div className="slabel rise" id="team" style={{ scrollMarginTop: 92 }}>
             <span className="n">07</span>ABOUT US
           </div>
-          <h2 className="rise">Built by Experts in Options.</h2>
+          <h1 className="rise">
+            A platform built and used <em>by experts in options.</em>
+          </h1>
           <p className="lede rise">
             GammaStrat was created by a 30-year Wall Street hedge fund and private equity veteran, his son
             and a finance professor whose options-pricing research has been published in the Journal of

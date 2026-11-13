@@ -101,7 +101,9 @@ export default function MarketingFAQ() {
         <div className="slabel rise">
           <span className="n">08</span>QUESTIONS
         </div>
-        <h2 className="rise">Frequently Asked</h2>
+        <h1 className="rise">
+          Frequently <em>Asked.</em>
+        </h1>
         <div className="faqwrap rise">
           <FaqColumn items={FAQ_LEFT} />
           <FaqColumn items={FAQ_RIGHT} />

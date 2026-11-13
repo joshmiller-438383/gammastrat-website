@@ -206,7 +206,9 @@ export default function MarketingPricing(_props: MarketingPricingProps = {}) {
           <div className="slabel rise">
             <span className="n">06</span>PRICING
           </div>
-          <h2 className="rise">Start Free. Scale When You&apos;re Ready.</h2>
+          <h1 className="rise">
+            Start free. <em>Scale when you&apos;re ready.</em>
+          </h1>
           <p className="lede rise">
             Every tier is cumulative and includes its terminal. Gamma holds everything — all reports,
             all tickers, and every report we publish in the future, at no added cost.
