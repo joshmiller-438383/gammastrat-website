@@ -3597,23 +3597,8 @@ h1 em {
     text-align: center;
   }
 }
-@media (max-width: 860px) {
-  .statsband .row {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 22px;
-    column-gap: 12px;
-  }
-  .stat .sv {
-    font-size: clamp(22px, 6vw, 30px);
-  }
-  .stat .sk {
-    font-size: 8px;
-    letter-spacing: 1.2px;
-  }
-  .faqwrap {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
+/* Phone + tablet: hamburger nav with readable type (inline bar is illegible below ~1024px) */
+@media (max-width: 1024px) {
   .nav .row {
     display: flex;
     position: relative;
@@ -3631,7 +3616,7 @@ h1 em {
     gap: 0;
     background: var(--mast);
     border-bottom: 1px solid var(--line2);
-    padding: 6px 20px 16px;
+    padding: 8px var(--mkt-gutter) 18px;
     display: none;
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
   }
@@ -3644,6 +3629,7 @@ h1 em {
     justify-content: center;
     margin-left: auto;
     flex-shrink: 0;
+    padding: 10px 12px;
   }
   .nav-primary {
     flex-direction: column;
@@ -3657,19 +3643,37 @@ h1 em {
     align-items: stretch;
     gap: 0;
     margin-top: 4px;
+    width: 100%;
   }
   .nav-primary a.nl,
   .nav-actions a.nl {
     display: block;
-    padding: 13px 2px;
+    padding: 15px 4px;
     border-bottom: 1px solid var(--line);
-    letter-spacing: 1.6px;
+    font-size: 15px;
+    line-height: 1.35;
+    letter-spacing: 1px;
     white-space: normal;
+    text-align: left;
+    color: var(--ink);
+  }
+  .nav-primary a.nl:hover,
+  .nav-actions a.nl:hover {
+    color: var(--bluel);
+  }
+  .nav-actions .nav-portal .nav-ext {
+    font-size: 13px;
   }
   .nav-actions .btn {
-    margin: 14px 0 2px;
-    text-align: center;
+    display: block;
+    margin: 16px 0 4px;
+    padding: 14px 16px;
+    font-size: 14px;
+    letter-spacing: 1.1px;
+    text-align: left;
     width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
   }
   .nav .links {
     position: absolute;
@@ -3682,7 +3686,7 @@ h1 em {
     margin-left: 0;
     background: var(--mast);
     border-bottom: 1px solid var(--line2);
-    padding: 6px 20px 16px;
+    padding: 8px var(--mkt-gutter) 18px;
     display: none;
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
   }
@@ -3691,13 +3695,55 @@ h1 em {
   }
   .nav .links a.nl {
     display: block;
-    padding: 13px 2px;
+    padding: 15px 4px;
     border-bottom: 1px solid var(--line);
-    letter-spacing: 1.6px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-align: left;
+    color: var(--ink);
   }
   .nav .links .btn {
-    margin: 14px 0 2px;
-    text-align: center;
+    display: block;
+    margin: 16px 0 4px;
+    padding: 14px 16px;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+  }
+}
+@media (min-width: 641px) and (max-width: 1024px) {
+  .nav-primary a.nl,
+  .nav-actions a.nl,
+  .nav .links a.nl {
+    font-size: 16px;
+    padding: 16px 6px;
+    letter-spacing: 0.95px;
+  }
+  .nav-actions .btn,
+  .nav .links .btn {
+    font-size: 15px;
+    padding: 15px 18px;
+  }
+  .nav-actions .nav-portal .nav-ext {
+    font-size: 14px;
+  }
+}
+@media (max-width: 860px) {
+  .statsband .row {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 22px;
+    column-gap: 12px;
+  }
+  .stat .sv {
+    font-size: clamp(22px, 6vw, 30px);
+  }
+  .stat .sk {
+    font-size: 8px;
+    letter-spacing: 1.2px;
+  }
+  .faqwrap {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
   section {
     padding: 64px 0;
