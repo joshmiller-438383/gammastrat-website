@@ -18,7 +18,6 @@ export default function MarketingNav({ membersUrl = getMembersUrl() }: Marketing
     { href: MARKETING_ROUTES.philosophy, label: 'Our Philosophy' },
     { href: MARKETING_ROUTES.reportSuite, label: 'The Report Suite' },
     { href: MARKETING_ROUTES.dashboardSuite, label: 'The Dashboard Suite' },
-    { href: MARKETING_ROUTES.dailySamples, label: 'Daily Samples' },
     { href: MARKETING_ROUTES.pricing, label: 'Pricing' },
     { href: MARKETING_ROUTES.about, label: 'About Us' },
     { href: MARKETING_ROUTES.faq, label: 'FAQ' },

@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async redirects() {
-    return [{ source: '/new', destination: '/', permanent: true }]
+    return [
+      { source: '/new', destination: '/', permanent: true },
+      { source: '/daily-samples', destination: '/', permanent: false },
+    ]
   },
   images: {
     remotePatterns: [

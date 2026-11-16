@@ -36,9 +36,6 @@ export default function MarketingHero(_props: MarketingHeroProps = {}) {
             <MarketingCheckoutButton plan="free_trial" className="btn">
               Begin Your Free Trial<span className="ar">→</span>
             </MarketingCheckoutButton>
-            <a className="btn ghost" href={MARKETING_ROUTES.dailySamples}>
-              View Daily Samples
-            </a>
           </div>
           <div className="microline">FREE FOR 14 DAYS · INCLUDES THE ALPHA TERMINAL · CANCEL ANYTIME</div>
           <a className="expstrip rise" href={MARKETING_ROUTES.about} aria-label="Meet the GammaStrat team">
