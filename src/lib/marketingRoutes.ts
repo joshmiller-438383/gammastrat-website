@@ -10,6 +10,7 @@ export const MARKETING_ROUTES = {
   philosophy: '/the-method',
   reportSuite: '/the-report-suite',
   dashboardSuite: '/the-terminal-reports',
+  /** @deprecated Page removed from site — redirects to home */
   dailySamples: '/daily-samples',
   pricing: '/pricing',
   about: '/about',
@@ -32,7 +33,6 @@ export const MARKETING_PAGE_PATHS: readonly string[] = [
   MARKETING_ROUTES.philosophy,
   MARKETING_ROUTES.reportSuite,
   MARKETING_ROUTES.dashboardSuite,
-  MARKETING_ROUTES.dailySamples,
   MARKETING_ROUTES.pricing,
   MARKETING_ROUTES.about,
   MARKETING_ROUTES.faq,

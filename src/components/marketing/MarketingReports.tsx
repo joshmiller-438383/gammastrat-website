@@ -105,12 +105,9 @@ const TIERS: ReportTier[] = [
 
 interface MarketingReportsProps {
   ctaUrl?: string
-  samplesUrl?: string
 }
 
-export default function MarketingReports({
-  samplesUrl = MARKETING_ROUTES.dailySamples,
-}: MarketingReportsProps) {
+export default function MarketingReports(_props: MarketingReportsProps = {}) {
   return (
     <section id="reports">
       <div className="wrap">
@@ -118,7 +115,7 @@ export default function MarketingReports({
           <span className="n">03</span>THE REPORT SUITE
         </div>
         <h1 className="rise">
-          Published every trading day, <em>Before the open.</em>
+          Published every trading day, <em>before the open.</em>
         </h1>
         <p className="lede rise">
           Alpha is the basic GammaStrat subscription tier and is designed to get you trading immediately. Delta
@@ -174,16 +171,6 @@ export default function MarketingReports({
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="samplebar rise">
-          <p>
-            <b>Judge the research before you subscribe.</b> Recent sample reports are open to read: see
-            exactly what lands on the desk each morning.
-          </p>
-          <a className="btn ghost" href={samplesUrl}>
-            VIEW SAMPLE REPORTS<span className="ar">→</span>
-          </a>
         </div>
       </div>
     </section>

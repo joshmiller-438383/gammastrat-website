@@ -1,5 +1,3 @@
-import { MARKETING_ROUTES } from '@/lib/marketingRoutes'
-
 interface FaqItem {
   question: string
   answer: React.ReactNode
@@ -48,9 +46,8 @@ const FAQ_RIGHT: FaqItem[] = [
     question: 'Can I see samples before subscribing?',
     answer: (
       <>
-        Yes. View the{' '}
-        <a href={MARKETING_ROUTES.dailySamples}>daily samples</a> or begin a 14-day free trial with 5
-        reports and the Alpha Terminal. Sample analytics are illustrative, not live data.
+        Yes. Begin a 14-day free trial with five reports and the Alpha Terminal—you get the same
+        product subscribers see each morning before the open.
       </>
     ),
   },

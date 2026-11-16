@@ -36,10 +36,6 @@ export default function MarketingFooter({ membersUrl = getMembersUrl() }: Market
               <a href="mailto:david@gammastrat.us">Contact</a>
             </div>
             <div className="fcol">
-              <div className="fh">RESOURCES</div>
-              <a href={MARKETING_ROUTES.dailySamples}>Daily Samples</a>
-            </div>
-            <div className="fcol">
               <div className="fh">LEGAL</div>
               <a href="/terms">Terms</a>
               <a href="/privacy">Privacy</a>
