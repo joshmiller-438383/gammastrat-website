@@ -29,6 +29,7 @@ export default function CheckoutEmailModal({
 }: CheckoutEmailModalProps) {
   const titleId = useId()
   const inputRef = useRef<HTMLInputElement>(null)
+  const overlayRef = useRef<HTMLDivElement>(null)
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -50,6 +51,56 @@ export default function CheckoutEmailModal({
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open, onClose])
+
+  /** Keep page behind modal from scrolling (especially iOS / tablet). */
+  useEffect(() => {
+    if (!open) return
+    const html = document.documentElement
+    const body = document.body
+    const scrollY = window.scrollY
+
+    const prev = {
+      htmlOverflow: html.style.overflow,
+      bodyOverflow: body.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyLeft: body.style.left,
+      bodyRight: body.style.right,
+      bodyWidth: body.style.width,
+    }
+
+    html.classList.add('checkout-modal-open')
+    html.style.overflow = 'hidden'
+    body.style.overflow = 'hidden'
+    body.style.position = 'fixed'
+    body.style.top = `-${scrollY}px`
+    body.style.left = '0'
+    body.style.right = '0'
+    body.style.width = '100%'
+
+    return () => {
+      html.classList.remove('checkout-modal-open')
+      html.style.overflow = prev.htmlOverflow
+      body.style.overflow = prev.bodyOverflow
+      body.style.position = prev.bodyPosition
+      body.style.top = prev.bodyTop
+      body.style.left = prev.bodyLeft
+      body.style.right = prev.bodyRight
+      body.style.width = prev.bodyWidth
+      window.scrollTo(0, scrollY)
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const overlay = overlayRef.current
+    if (!overlay) return
+    const blockBackdropScroll = (e: TouchEvent) => {
+      if (e.target === overlay) e.preventDefault()
+    }
+    overlay.addEventListener('touchmove', blockBackdropScroll, { passive: false })
+    return () => overlay.removeEventListener('touchmove', blockBackdropScroll)
+  }, [open])
 
   if (!open || typeof document === 'undefined') return null
 
@@ -91,7 +142,7 @@ export default function CheckoutEmailModal({
   }
 
   return createPortal(
-    <div className={shellClass} role="presentation" onClick={onClose}>
+    <div ref={overlayRef} className={shellClass} role="presentation" onClick={onClose}>
       <div
         className="checkout-email-modal__panel"
         role="dialog"

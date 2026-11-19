@@ -1,3 +1,9 @@
+html.checkout-modal-open,
+html.checkout-modal-open body {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+
 .checkout-email-modal {
   position: fixed;
   inset: 0;
@@ -8,11 +14,18 @@
   padding: 24px;
   background: rgba(5, 7, 11, 0.78);
   backdrop-filter: blur(4px);
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: manipulation;
 }
 
 .checkout-email-modal__panel {
   position: relative;
   width: min(100%, 420px);
+  max-height: min(92vh, 520px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: auto;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: #15171b;
