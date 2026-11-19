@@ -9,6 +9,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: 'GammaStrat — Data-Driven Options Trading',
   description: 'Powering confident decisions with AI analytics for active options traders and investors.',
   openGraph: {
