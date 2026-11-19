@@ -22,7 +22,7 @@ const FAQ_LEFT: FaqItem[] = [
   {
     question: 'What research do I receive?',
     answer:
-      'Depending on your tier, 5 to 24 daily reports, terminal access and cumulative research coverage. Paid tiers also receive the State of the Markets email newsletter.',
+      'Depending on your tier, 7 to 20 daily reports, terminal access and cumulative research coverage. Paid tiers also receive the State of the Markets email newsletter.',
   },
   {
     question: 'Do I need to be an options expert?',

@@ -1,4 +1,10 @@
 import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
+import {
+  DELTA_TIER_REPORTS,
+  GAMMA_TIER_REPORTS,
+  REPORT_COUNTS,
+  TRIAL_AND_ALPHA_REPORTS,
+} from '@/lib/marketingReportCatalog'
 import { MARKETING_ROUTES } from '@/lib/marketingRoutes'
 
 interface ReportTier {
@@ -8,6 +14,7 @@ interface ReportTier {
   plan: string
   nameStyle?: React.CSSProperties
   sub: string
+  tierNote?: string
   cta: string
   ctaStyle?: React.CSSProperties
   reports: { label: string; terminal?: boolean; style?: React.CSSProperties }[]
@@ -19,71 +26,40 @@ const TIERS: ReportTier[] = [
     headClass: 'trial',
     name: 'FREE TRIAL',
     plan: 'free_trial',
-    sub: '5 REPORTS · 2-WEEK EXPIRY · A DELIBERATE TASTE OF PAID CONTENT',
+    sub: `${REPORT_COUNTS.trialAndAlpha} REPORTS · 2-WEEK EXPIRY · A DELIBERATE TASTE OF PAID CONTENT`,
     cta: 'START FREE →',
-    reports: [
-      { label: 'Strategy Consensus' },
-      { label: 'Sentiment Gauge' },
-      { label: 'Daily Options Activity' },
-      { label: 'Alpha Terminal', terminal: true },
-      { label: 'Alpha Summary' },
-    ],
+    reports: [...TRIAL_AND_ALPHA_REPORTS],
   },
   {
     groupClass: 'alpha',
     headClass: 'alpha',
     name: 'ALPHA',
     plan: 'alpha',
-    sub: 'ADDS 2 · 7 REPORTS TOTAL',
+    sub: `${REPORT_COUNTS.trialAndAlpha} REPORTS TOTAL`,
     cta: 'GO ALPHA →',
-    reports: [
-      { label: 'Strategy Consensus' },
-      { label: 'Sentiment Gauge' },
-      { label: 'Daily Options Activity' },
-      { label: 'Alpha Terminal', terminal: true },
-      { label: 'Alpha Summary' },
-      { label: 'Daily Comprehensive Summary' },
-      { label: 'Options Probability Dashboard' },
-    ],
+    reports: [...TRIAL_AND_ALPHA_REPORTS],
   },
   {
     groupClass: 'delta',
     headClass: 'delta',
     name: 'DELTA',
     plan: 'delta',
-    sub: 'ADDS 6 · 13 REPORTS TOTAL',
+    sub: `ADDS ${DELTA_TIER_REPORTS.length} · ${REPORT_COUNTS.deltaTotal} REPORTS TOTAL`,
+    tierNote: 'ALL ALPHA MATERIALS ARE INCLUDED IN THE DELTA SUBSCRIPTION TIER',
     cta: 'GO DELTA →',
     ctaStyle: { color: 'var(--delta)' },
-    reports: [
-      { label: 'Market Risk Reward Analysis' },
-      { label: 'Volatility Curve' },
-      { label: 'Daily Volatility State' },
-      { label: 'Strategy Scoreboard' },
-      { label: 'Delta Summary' },
-      { label: 'Delta Terminal', terminal: true },
-    ],
+    reports: [...DELTA_TIER_REPORTS],
   },
   {
     groupClass: 'gamma',
     headClass: 'gamma',
     name: 'GAMMA',
     plan: 'gamma',
-    sub: 'ADDS 11 · 24 REPORTS TOTAL + ALL FUTURE REPORTS',
+    sub: `ADDS ${GAMMA_TIER_REPORTS.length} · ${REPORT_COUNTS.gammaTotal} REPORTS TOTAL + ALL FUTURE REPORTS`,
+    tierNote: 'ALL ALPHA MATERIALS ARE INCLUDED IN THE GAMMA SUBSCRIPTION TIER',
     cta: 'GO GAMMA →',
     ctaStyle: { color: 'var(--gold)' },
-    reports: [
-      { label: 'Volatility Risk Premium' },
-      { label: 'Signal Confidence' },
-      { label: 'Ticker Watchlist' },
-      { label: 'Bullish Bearish Momentum' },
-      { label: 'Calls Vs Puts Index' },
-      { label: 'Ticker Sentiment' },
-      { label: 'Directional Conviction' },
-      { label: 'Strategy Ticker Combo' },
-      { label: 'Demand Heatmap' },
-      { label: 'Gamma Summary' },
-      { label: 'Gamma Terminal', terminal: true },
-    ],
+    reports: [...GAMMA_TIER_REPORTS],
   },
   {
     groupClass: 'dpt',
@@ -158,6 +134,7 @@ export default function MarketingReports(_props: MarketingReportsProps = {}) {
                   {tier.cta}
                 </MarketingCheckoutButton>
               </div>
+              {tier.tierNote ? <p className="tier-note">{tier.tierNote}</p> : null}
               <div className="rgrid">
                 {tier.reports.map((report) => (
                   <div

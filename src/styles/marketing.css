@@ -2296,6 +2296,21 @@ section .wrap > h1.rise {
 .tg-head.gamma .tn {
   color: var(--gold);
 }
+.tier-note {
+  margin: 0;
+  padding: 2px 18px 10px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.tiergroup.delta .tier-note {
+  color: rgba(196, 160, 255, 0.85);
+}
+.tiergroup.gamma .tier-note {
+  color: rgba(245, 197, 66, 0.85);
+}
 .rgrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));

@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react'
 import MarketingCheckoutButton from '@/components/marketing/MarketingCheckoutButton'
 import { type BillingInterval, formatUsd } from '@/lib/marketingBilling'
+import {
+  DELTA_TIER_REPORTS,
+  GAMMA_TIER_REPORTS,
+  type MarketingReportItem,
+  REPORT_COUNTS,
+  TRIAL_AND_ALPHA_REPORTS,
+} from '@/lib/marketingReportCatalog'
 
 interface PaidPricing {
   monthly: number
@@ -33,11 +40,25 @@ interface PricingCard {
   }
 }
 
+const STATE_OF_MARKETS = (
+  <>Daily &ldquo;State of the Markets&rdquo; Newsletter (delivered via email)</>
+)
+
+function tierReportFeatures(
+  items: readonly MarketingReportItem[],
+  plus?: boolean
+): PricingCard['features'] {
+  return items.map((item) => ({
+    text: item.terminal ? <b>{item.label}</b> : item.label,
+    plus,
+  }))
+}
+
 const STEPS = [
   {
     n: 'STEP 01',
     title: 'Start Your Trial',
-    body: "Create your account and today's five trial reports — including the Alpha Terminal — are on your screen immediately.",
+    body: "Create your account and today's seven trial reports — including the Alpha daily terminal dashboard — are on your screen immediately.",
   },
   {
     n: 'STEP 02',
@@ -60,13 +81,7 @@ const CARDS: PricingCard[] = [
     amount: 'FREE',
     alt: 'Two weeks. Full daily cadence.',
     vals: ['\u00a0'],
-    features: [
-      { text: 'Strategy Consensus' },
-      { text: 'Sentiment Gauge' },
-      { text: 'Daily Options Activity' },
-      { text: <><b>Alpha Terminal</b> — the real product, not a demo</> },
-      { text: 'Alpha Summary' },
-    ],
+    features: tierReportFeatures(TRIAL_AND_ALPHA_REPORTS),
     ctaLabel: 'Start Free Trial',
     ctaClass: 'btn',
   },
@@ -76,17 +91,8 @@ const CARDS: PricingCard[] = [
     title: 'ALPHA',
     subtitle: 'THE BASE DESK',
     paid: { monthly: 79, yearly: 900, yearlySave: 48 },
-    vals: ['7 REPORTS · ALPHA TERMINAL INCLUDED'],
-    features: [
-      { text: 'Strategy Consensus' },
-      { text: 'Sentiment Gauge' },
-      { text: 'Daily Options Activity' },
-      { text: 'Alpha Summary' },
-      { text: 'Daily Comprehensive Summary' },
-      { text: 'Options Probability Dashboard' },
-      { text: <><b>Alpha Terminal</b> (interactive desk view)</> },
-      { text: <>Daily &ldquo;State of the Markets&rdquo; Newsletter (delivered via email)</> },
-    ],
+    vals: [`${REPORT_COUNTS.trialAndAlpha} REPORTS · ALPHA DAILY TERMINAL DASHBOARD INCLUDED`],
+    features: [...tierReportFeatures(TRIAL_AND_ALPHA_REPORTS), { text: STATE_OF_MARKETS }],
     ctaLabel: 'Go Alpha',
     ctaClass: 'btn ghost',
     addon: {
@@ -104,18 +110,13 @@ const CARDS: PricingCard[] = [
     subtitle: 'THE VOLATILITY DESK',
     paid: { monthly: 135, yearly: 1500, yearlySave: 120 },
     vals: [
-      '13 REPORTS · DELTA TERMINAL INCLUDED',
+      `${REPORT_COUNTS.deltaTotal} REPORTS · DELTA DAILY TERMINAL DASHBOARD INCLUDED`,
       <span key="td" style={{ color: 'var(--purple)' }}>★ INCLUDES TRADEABLE DISLOCATION SIGNALS</span>,
     ],
     features: [
-      { text: 'Everything in Alpha' },
-      { text: 'Market Risk Reward Analysis', plus: true },
-      { text: 'Volatility Curve', plus: true },
-      { text: 'Daily Volatility State', plus: true },
-      { text: 'Strategy Scoreboard with ★ TD Signals', plus: true },
-      { text: 'Delta Summary', plus: true },
-      { text: <b>Delta Terminal</b>, plus: true },
-      { text: <>Daily &ldquo;State of the Markets&rdquo; Newsletter (delivered via email)</> },
+      { text: 'All Alpha materials included' },
+      ...tierReportFeatures(DELTA_TIER_REPORTS, true),
+      { text: STATE_OF_MARKETS },
     ],
     ctaLabel: 'Go Delta',
     ctaClass: 'btn ghost',
@@ -134,17 +135,15 @@ const CARDS: PricingCard[] = [
     title: 'GAMMA',
     subtitle: 'THE FULL DESK',
     paid: { monthly: 170, yearly: 1800, yearlySave: 240 },
-    vals: ['24 REPORTS + ALL FUTURE · GAMMA TERMINAL INCLUDED'],
+    vals: [
+      `${REPORT_COUNTS.gammaTotal} REPORTS + ALL FUTURE · GAMMA DAILY TERMINAL DASHBOARD INCLUDED`,
+    ],
     features: [
       { text: 'Everything in Alpha and Delta' },
-      { text: <>Volatility Risk Premium &amp; Signal Confidence</>, plus: true },
-      { text: 'Ticker Watchlist, Sentiment, Momentum', plus: true },
-      { text: <>Demand Heatmap &amp; Probability Surface</>, plus: true },
-      { text: <>Sector Wall &amp; Directional Conviction</>, plus: true },
-      { text: <><b>Gamma Terminal</b> (full 80-ticker desk)</>, plus: true },
+      ...tierReportFeatures(GAMMA_TIER_REPORTS, true),
       { text: <><b>Dealer Positioning Daily</b> — included free</>, plus: true },
       { text: 'Every future report, at no added cost', plus: true },
-      { text: <>Daily &ldquo;State of the Markets&rdquo; Newsletter (delivered via email)</> },
+      { text: STATE_OF_MARKETS },
     ],
     ctaLabel: 'Go Gamma',
     ctaClass: 'btn gold',
