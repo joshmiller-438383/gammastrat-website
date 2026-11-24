@@ -108,7 +108,7 @@ export default function MarketingTerminals() {
         </div>
       </div>
       <div className="fcopy rise">
-        <span className="fbadge">
+        <span className="fbadge tier-gamma">
           GAMMA TIER · THE FLAGSHIP DESK – WE PROVIDE THE RESEARCH. YOU DECIDE.
         </span>
         <h3>The Gamma <b>Terminal</b></h3>
@@ -158,7 +158,7 @@ export default function MarketingTerminals() {
     
     <div className="feat rev" id="feat-delta">
       <div className="fcopy deltac rise">
-        <span className="fbadge purp">DELTA TIER · THE VOLATILITY DESK</span>
+        <span className="fbadge tier-delta">DELTA TIER · THE VOLATILITY DESK</span>
         <h3>The Delta <b>Terminal</b></h3>
         <p className="fl">
           Sizing a position without understanding the volatility regime is where most avoidable losses start.
@@ -568,15 +568,15 @@ export default function MarketingTerminals() {
         <div className="sd">5 REPORTS · ALPHA TERMINAL · 2 WEEKS</div>
       </div>
       <div className="step">
-        <div className="snrow"><span className="sn" style={{color: 'var(--bluel)'}}>ALPHA</span><span className="arr">→</span></div>
+        <div className="snrow"><span className="sn sn--alpha">ALPHA</span><span className="arr">→</span></div>
         <div className="sd">7 REPORTS · KEEP THE DESK</div>
       </div>
       <div className="step">
-        <div className="snrow"><span className="sn" style={{color: 'var(--delta)'}}>DELTA</span><span className="arr">→</span></div>
+        <div className="snrow"><span className="sn sn--delta">DELTA</span><span className="arr">→</span></div>
         <div className="sd">13 REPORTS · VOL DESK + ★ TD SIGNALS</div>
       </div>
       <div className="step g">
-        <div className="snrow"><span className="sn" style={{color: 'var(--gold)'}}>GAMMA</span><span className="arr" style={{color: 'var(--gold)'}}>★</span></div>
+        <div className="snrow snrow--gamma"><span className="sn sn--gamma">GAMMA</span><span className="arr">★</span></div>
         <div className="sd">24 REPORTS · ALL TICKERS · DEALER POSITIONING DAILY INCLUDED · ALL FUTURE REPORTS</div>
       </div>
     </div>

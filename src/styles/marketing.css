@@ -47,6 +47,10 @@
   --goldd: #b08a2e;
   --purple: #d24bff;
   --delta: #5698fb;
+  /** Tier name labels (Report Suite, Pricing titles, Terminals badges) */
+  --tier-alpha: #7df9ff;
+  --tier-delta: #4169e1;
+  --tier-gamma: #ffd700;
   --dpt: #ff6a00;
   --dptl: #ff9a4d;
   --dptd: #e01506;
@@ -2051,6 +2055,41 @@ section .wrap > h1.rise {
   color: var(--bluel);
   background: rgba(86, 152, 251, 0.06);
 }
+#terminals .fbadge.blub {
+  border-color: color-mix(in srgb, var(--tier-alpha) 55%, transparent);
+  color: var(--tier-alpha);
+  background: color-mix(in srgb, var(--tier-alpha) 6%, transparent);
+}
+#terminals .fbadge.tier-delta {
+  border-color: color-mix(in srgb, var(--tier-delta) 55%, transparent);
+  color: var(--tier-delta);
+  background: color-mix(in srgb, var(--tier-delta) 6%, transparent);
+}
+#terminals .fbadge.tier-gamma {
+  border-color: color-mix(in srgb, var(--tier-gamma) 55%, transparent);
+  color: var(--tier-gamma);
+  background: color-mix(in srgb, var(--tier-gamma) 8%, transparent);
+}
+#terminals .sn--alpha {
+  color: var(--tier-alpha);
+}
+#terminals .sn--delta {
+  color: var(--tier-delta);
+}
+#terminals .sn--gamma {
+  color: var(--tier-gamma);
+}
+#terminals .snrow--gamma .arr {
+  color: var(--tier-gamma);
+}
+#terminals .chip.g {
+  border-color: var(--tier-gamma);
+  color: var(--tier-gamma);
+}
+#terminals .chip.p {
+  border-color: var(--tier-delta);
+  color: var(--tier-delta);
+}
 .fcopy.alphac h3 b {
   color: var(--bluel);
 }
@@ -2295,6 +2334,15 @@ section .wrap > h1.rise {
 }
 .tg-head.gamma .tn {
   color: var(--gold);
+}
+#reports .tg-head.alpha .tn {
+  color: var(--tier-alpha);
+}
+#reports .tg-head.delta .tn {
+  color: var(--tier-delta);
+}
+#reports .tg-head.gamma .tn {
+  color: var(--tier-gamma);
 }
 .tier-note {
   margin: 0;
@@ -2633,8 +2681,14 @@ a.addon-box:focus-visible {
 .pcard.alpha .pt {
   color: var(--bluel);
 }
+#pricing .pcard.alpha .pt {
+  color: var(--tier-alpha);
+}
 .pcard.delta .pt {
   color: var(--delta);
+}
+#pricing .pcard.delta .pt {
+  color: var(--tier-delta);
 }
 .pcard.delta li.plus::before {
   color: var(--delta);
@@ -2647,6 +2701,9 @@ a.addon-box:focus-visible {
 }
 .pcard.gamma .pt {
   color: var(--gold);
+}
+#pricing .pcard.gamma .pt {
+  color: var(--tier-gamma);
 }
 .pcard.gamma li.plus::before {
   color: var(--gold);

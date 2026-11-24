@@ -47,7 +47,6 @@ const TIERS: ReportTier[] = [
     sub: `ADDS ${DELTA_TIER_REPORTS.length} · ${REPORT_COUNTS.deltaTotal} REPORTS TOTAL`,
     tierNote: 'ALL ALPHA MATERIALS ARE INCLUDED IN THE DELTA SUBSCRIPTION TIER',
     cta: 'GO DELTA →',
-    ctaStyle: { color: 'var(--delta)' },
     reports: [...DELTA_TIER_REPORTS],
   },
   {
@@ -58,7 +57,6 @@ const TIERS: ReportTier[] = [
     sub: `ADDS ${GAMMA_TIER_REPORTS.length} · ${REPORT_COUNTS.gammaTotal} REPORTS TOTAL + ALL FUTURE REPORTS`,
     tierNote: 'ALL ALPHA MATERIALS ARE INCLUDED IN THE GAMMA SUBSCRIPTION TIER',
     cta: 'GO GAMMA →',
-    ctaStyle: { color: 'var(--gold)' },
     reports: [...GAMMA_TIER_REPORTS],
   },
   {
